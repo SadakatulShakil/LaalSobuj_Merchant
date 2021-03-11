@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bottom_border"
+    android:visibility="visible">
+
+    <RelativeLayout
+        android:id="@+id/shipPriceMainLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/countryFinalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:padding="@dimen/common_padding"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_medium"
+            app:typeface="font_regular.ttf" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/countryName"
+            app:typeface="font_regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:padding="@dimen/common_padding"
+            android:text="Demo"
+            android:singleLine="true"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_medium" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/shipPriceLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <com.futureskyltd.app.external.CustomEditText
+            android:id="@+id/countryPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:hint="@string/shipping_cost_hint"
+            android:inputType="number"
+            android:background="@drawable/edittext_bottom_border"
+            android:paddingBottom="@dimen/common_padding"
+            android:paddingRight="@dimen/common_padding"
+            android:paddingTop="@dimen/common_padding"
+            android:textSize="@dimen/text_size_small"
+            android:theme="@style/CusEditTextTheme" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/countryPriceSaveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/countryPrice"
+            android:padding="@dimen/common_padding"
+            android:text="@string/save_btn_lbl"
+            android:textSize="@dimen/text_size_small" />
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,39 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/addLay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:visibility="visible">
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/resetProduct"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/textPrimary"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="@string/reset_btn_lbl"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_medium"
+        app:typeface="font_bold.ttf" />
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/addProduct"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="@string/add_btn_lbl"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_medium"
+        app:typeface="font_bold.ttf" />
+</LinearLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/section1"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/addProduct_menu"
+            android:icon="@drawable/add_product"
+            android:title="@string/add_product" />
+        <item
+            android:id="@+id/products_menu"
+            android:icon="@drawable/products"
+            android:title="@string/products" />
+        <item
+            android:id="@+id/newOrders_menu"
+            android:icon="@drawable/orders"
+            android:title="@string/new_orders" />
+        <item
+            android:id="@+id/message_menu"
+            android:icon="@drawable/message"
+            android:title="@string/message" />
+        <item
+            android:id="@+id/news_menu"
+            android:icon="@drawable/news"
+            android:title="@string/news" />
+    </group>
+
+    <group
+        android:id="@+id/section2"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/help_menu"
+            android:icon="@drawable/help"
+            android:title="@string/help" />
+        <item
+            android:id="@+id/rateApp_menu"
+            android:icon="@drawable/rating"
+            android:title="@string/rate_app"/>
+    </group>
+</menu>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:padding="@dimen/common_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/newOrderImage"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/orderStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="New"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_small"
+            app:typeface="font_bold.ttf" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/newOrderName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_medium"
+            app:typeface="font_regular.ttf" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/newOrderDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/text_size_very_small"
+            app:typeface="font_regular.ttf" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/newOrderImage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:adjustViewBounds="true"
+        />
+
+</RelativeLayout>

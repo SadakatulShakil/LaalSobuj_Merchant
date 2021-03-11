@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/addClose"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/common_padding"
+            android:clickable="true"
+            android:padding="3dp"
+            android:src="@drawable/close"
+            android:tint="@color/black"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/addPropertyItem"
+                android:layout_width="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/common_padding"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_bold.ttf" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/addUnitsItem"
+                android:layout_marginStart="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/common_padding"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_bold.ttf" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/addPriceItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:padding="@dimen/common_padding"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_bold.ttf" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/sellingPriceItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:padding="@dimen/common_padding"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_bold.ttf" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    tools:context="com.futureskyltd.app.fantacyseller.CreateNews">
+
+    <include layout="@layout/actionbar_layout"
+    android:id="@+id/tool"/>
+
+    <com.futureskyltd.app.external.CustomEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool"
+        android:id="@+id/add_news"
+        android:hint="@string/type_your_news"
+        android:background="@color/white"
+        android:gravity="top"
+        android:minHeight="180dp"
+        app:typeface="font_bold.ttf"
+        android:textSize="@dimen/text_size_large"
+        android:textColor="@color/textPrimary"
+        android:padding="@dimen/activity_horizontal_margin"
+        />
+</RelativeLayout>

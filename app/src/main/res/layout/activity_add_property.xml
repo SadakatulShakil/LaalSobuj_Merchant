@@ -1,0 +1,149 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="46dp"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/actionbar_layout" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/varientPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="@color/bg"
+            android:paddingTop="@dimen/common_padding"
+            android:paddingBottom="@dimen/common_padding"
+            android:paddingEnd="@dimen/common_padding"
+            android:text="@string/varients_price"
+            android:textColor="@color/textLight"
+            android:textSize="@dimen/text_size_small"
+            app:typeface="font_bold.ttf" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <com.futureskyltd.app.external.CustomEditText
+                android:id="@+id/addProperty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bottom_border"
+                android:hint="@string/property"
+                android:digits="@string/fullnamefilter"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:paddingTop="@dimen/common_padding"
+                android:paddingBottom="@dimen/common_padding"
+                android:paddingEnd="@dimen/common_padding"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecondary"
+                android:textSize="@dimen/text_size_medium"
+                app:typeface="font_bold.ttf" />
+
+            <com.futureskyltd.app.external.CustomEditText
+                android:id="@+id/addUnits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bottom_border"
+                android:hint="@string/unit"
+                android:inputType="number"
+                android:maxLength="3"
+                android:paddingTop="@dimen/common_padding"
+                android:paddingBottom="@dimen/common_padding"
+                android:paddingEnd="@dimen/common_padding"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecondary"
+                android:textSize="@dimen/text_size_medium"
+                app:typeface="font_bold.ttf" />
+
+            <com.futureskyltd.app.external.CustomEditText
+                android:id="@+id/addPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bottom_border"
+                android:hint="@string/size_option_price"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:paddingTop="@dimen/common_padding"
+                android:paddingBottom="@dimen/common_padding"
+                android:paddingEnd="@dimen/common_padding"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecondary"
+                android:textSize="@dimen/text_size_medium"
+                app:typeface="font_bold.ttf" />
+
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/sellPercentage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bottom_border"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:text="Sell_Percentage:      7.5%"
+                android:paddingTop="@dimen/common_padding"
+                android:paddingBottom="@dimen/common_padding"
+                android:paddingEnd="@dimen/common_padding"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecondary"
+                android:textSize="@dimen/text_size_medium"
+                app:typeface="font_bold.ttf" />
+
+        </LinearLayout>
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/addVarientPrice"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="@string/add_property"
+            android:layout_gravity="right"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/text_size_medium"
+            app:typeface="font_bold.ttf"
+            tools:ignore="RtlCompat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/defPrice"
+            android:padding="@dimen/common_padding"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/add_prod_btn_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom" />
+</RelativeLayout>

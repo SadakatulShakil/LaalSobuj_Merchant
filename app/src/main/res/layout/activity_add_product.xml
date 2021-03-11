@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <include
+        android:id="@+id/actionbar"
+        layout="@layout/actionbar_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <ScrollView
+        android:id="@+id/initialAddProdScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/addLay"
+        android:layout_below="@+id/actionbar"
+        android:clipToPadding="false"
+        android:isScrollContainer="true"
+        android:paddingBottom="15dp">
+
+        <LinearLayout
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/categoryLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="@dimen/common_padding"
+                    android:text="@string/pick_category_lbl"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/bg" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/categorySelect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:padding="@dimen/common_padding"
+                        android:singleLine="true"
+                        android:text="Shoes"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <ImageView
+                        android:id="@+id/categoryMark"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="10dp"
+                        android:padding="5dp"
+                        android:visibility="gone"
+                        android:src="@drawable/tick_color" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/bg" />
+
+            <LinearLayout
+                android:id="@+id/imgLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/common_padding"
+                    android:text="@string/img_upload_lbl"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/divider" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/prodImgList"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:clipToPadding="false"
+                    android:padding="@dimen/common_padding" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/bg" />
+
+            <LinearLayout
+                android:id="@+id/prodTitleLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="text"
+                    android:padding="@dimen/common_padding"
+                    android:text="@string/product_title"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/divider" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/productTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:hint="@string/type_product_title"
+                    android:inputType="text"
+                    android:maxLength="80"
+                    android:padding="@dimen/common_padding"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_bold.ttf" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/bg" />
+
+            <LinearLayout
+                android:id="@+id/proddetailLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="@dimen/common_padding"
+                    android:text="@string/product_desc_lbl"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/bg" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/productDes"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:hint="@string/prod_details_hint"
+                    android:inputType="textMultiLine|text|textVisiblePassword"
+                    android:maxLength="2500"
+                    android:maxLines="5"
+                    android:padding="@dimen/common_padding"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/bg" />
+
+            <LinearLayout
+                android:id="@+id/youtubeLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="@dimen/common_padding"
+                    android:text="@string/video_link_lay_lbl"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/bg" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/productVideoUrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:maxLines="1"
+                    android:hint="@string/video_link_hint"
+                    android:inputType="textEmailAddress"
+                    android:padding="@dimen/common_padding"
+                    android:textSize="@dimen/text_size_medium" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/bg" />
+
+
+            <LinearLayout
+                android:id="@+id/barcodeLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="@dimen/common_padding"
+                    android:text="@string/barcode_lay_lbl"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/bg" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/barcodeNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:hint="@string/barcode_hint"
+                    android:inputType="number"
+                    android:padding="@dimen/common_padding"
+                    android:textSize="@dimen/text_size_medium" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/bg" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include
+        layout="@layout/add_prod_btn_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>
