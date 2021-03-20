@@ -23,7 +23,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/temp"
+            android:background="@mipmap/appicon_round"
             android:scaleType="centerCrop"
             app:corner_radius="100dip"
             app:round_background="true" />

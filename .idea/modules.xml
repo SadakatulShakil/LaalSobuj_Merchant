@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FantacySeller.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FantacySeller.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Fantacy_4.1_new.FantacySeller.iml" filepath="$PROJECT_DIR$/.idea/modules/Fantacy_4.1_new.FantacySeller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LaalSobuj_Merchant.iml" filepath="$PROJECT_DIR$/.idea/modules/LaalSobuj_Merchant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LaalSobuj_Merchant.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LaalSobuj_Merchant.app.iml" />
     </modules>
   </component>
 </project>

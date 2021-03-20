@@ -104,7 +104,7 @@
                 android:background="@drawable/bottom_border"
                 android:inputType="numberDecimal"
                 android:maxLines="1"
-                android:text="Sell_Percentage:      7.5%"
+                android:text="বিক্রয় কমিশন:      ৭.৫%"
                 android:paddingTop="@dimen/common_padding"
                 android:paddingBottom="@dimen/common_padding"
                 android:paddingEnd="@dimen/common_padding"

@@ -85,7 +85,7 @@ public class Help extends AppCompatActivity implements View.OnClickListener {
             public void onResponse(String res) {
                 try {
                     JSONObject json = new JSONObject(res);
-                    Log.i(TAG, "getHelpDataRes: " + json);
+                    Log.d(TAG, "getHelpDataRes: " + json);
                     String status = DefensiveClass.optString(json, Constants.TAG_STATUS);
                     if (status.equalsIgnoreCase("true")) {
 

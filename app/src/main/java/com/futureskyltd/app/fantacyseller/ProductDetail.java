@@ -326,31 +326,31 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
         likedBtn.setVisibility(View.VISIBLE);
         editProdfab.setVisibility(View.VISIBLE);
         switch (productMap.get(Constants.TAG_SHIPPING_TIME)) {
-            case "1 business day":
+            case "১ দিন":
                 shippingTime = getString(R.string.one_business_day);
                 break;
-            case "1-2 business days":
+            case "১-২ দিন":
                 shippingTime = getString(R.string.one_two_business);
                 break;
-            case "1-3 business days":
+            case "১-৩ দিন":
                 shippingTime = getString(R.string.one_three_business);
                 break;
-            case "3-5 business days":
+            case "১-৪ দিন":
                 shippingTime = getString(R.string.three_five_business);
                 break;
-            case "1-2 weeks":
+            case "১-২ সপ্তাহ":
                 shippingTime = getString(R.string.one_two_week_business);
                 break;
-            case "2-3 weeks":
+            case "২-৩ সপ্তাহ":
                 shippingTime = getString(R.string.two_three_week_business);
                 break;
-            case "3-4 weeks":
+            case "৩-৪ সপ্তাহ":
                 shippingTime = getString(R.string.three_four_week_business);
                 break;
-            case "4-6 weeks":
+            case "৪-৬ সপ্তাহ":
                 shippingTime = getString(R.string.four_six_week_business);
                 break;
-            case "6-8 weeks":
+            case "৬-৮ সপ্তাহ":
                 shippingTime = getString(R.string.six_eight_week_business);
                 break;
             default:

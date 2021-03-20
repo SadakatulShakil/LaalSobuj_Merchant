@@ -108,9 +108,9 @@ public class AddSizeProperty extends AppCompatActivity implements View.OnClickLi
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.addPropertyItem.setText("Size: "+sizeList.get(position).get(Constants.TAG_SIZE).toString());
-            viewHolder.addUnitsItem.setText("Units: "+sizeList.get(position).get(Constants.TAG_UNIT).toString());
-            viewHolder.addPriceItem.setText("Buying price: "+sizeList.get(position).get(Constants.TAG_PRICE).toString());
+            viewHolder.addPropertyItem.setText("সাইজ: "+sizeList.get(position).get(Constants.TAG_SIZE).toString());
+            viewHolder.addUnitsItem.setText("পরিমান: "+sizeList.get(position).get(Constants.TAG_UNIT).toString());
+            viewHolder.addPriceItem.setText("বিক্রয় মূল্য: ৳ "+sizeList.get(position).get(Constants.TAG_PRICE).toString());
             String buy_price = sizeList.get(position).get(Constants.TAG_PRICE).toString();
             double bPrice = Integer.parseInt(buy_price);
             double result = Math.floor(bPrice+((7.5*650)/100));
@@ -119,7 +119,7 @@ public class AddSizeProperty extends AppCompatActivity implements View.OnClickLi
 
             }
             String sellPrice = String.valueOf(result);
-            viewHolder.sellPrice.setText("Selling price: "+sellPrice);
+            viewHolder.sellPrice.setText("কমিশন সহ বিক্রয় মূল্য: ৳ "+sellPrice);
             viewHolder.addClose.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

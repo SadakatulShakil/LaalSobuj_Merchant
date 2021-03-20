@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -230,6 +231,40 @@
                     android:background="@color/bg" />
 
                 <LinearLayout
+                    android:id="@+id/discountOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:visibility="gone"
+                    android:orientation="horizontal">
+
+
+                    <RadioButton
+                        android:id="@+id/dailyDeal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:layout_marginLeft="8dp"
+                        android:text="নির্দিষ্ট সময়ের ছাড়" />
+
+                    <RadioButton
+                        android:id="@+id/regularDeal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="নিয়মিত ছাড়"
+                        android:layout_weight="1"
+                        android:layout_marginRight="8dp"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/bg" />
+
+                <LinearLayout
                     android:id="@+id/dailyDealsOptionLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -392,7 +427,7 @@
                             android:textSize="@dimen/text_size_small"
                             android:theme="@style/CusEditTextTheme" />
 
-                        <com.futureskyltd.app.external.CustomTextView
+                        <!--<com.futureskyltd.app.external.CustomTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -402,7 +437,7 @@
                             android:text="@string/coupon_percentage_msg"
                             android:textColor="@color/textPrimary"
                             android:textSize="@dimen/text_size_tiny"
-                            app:typeface="font_regular.ttf" />
+                            app:typeface="font_regular.ttf" />-->
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -445,7 +480,7 @@
                         android:layout_alignParentEnd="true"
                         android:background="@color/white"
                         android:padding="@dimen/common_padding"
-                        android:text="@string/sample_time"
+                        android:text="বাছাই করুন"
                         android:textColor="@color/textSecondary"
                         android:textSize="@dimen/text_size_small" />
 
@@ -490,6 +525,75 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="যে অঞ্চলে পণ্য বিক্রয়ের জন্য অধিক আগ্রহী"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginBottom="8dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/textPrimary" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/bg" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="জেলা"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="15dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/black" />
+
+                    <Spinner
+                        android:id="@+id/userDistrictSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/demoUp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:overlapAnchor="false"
+                        android:spinnerMode="dropdown"
+                        tools:ignore="HardcodedText"
+                        tools:targetApi="LOLLIPOP" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="উপজেলা"
+                        android:layout_marginLeft="15dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/black" />
+
+                    <Spinner
+                        android:id="@+id/userUpazilaSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/demoUp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:overlapAnchor="false"
+                        android:spinnerMode="dropdown"
+                        tools:ignore="HardcodedText"
+                        tools:targetApi="LOLLIPOP" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:background="@color/white">
 
@@ -499,7 +603,7 @@
                         android:gravity="center_vertical"
                         android:padding="@dimen/common_padding"
                         android:singleLine="true"
-                        android:text= "Minimum Order Quantity"
+                        android:text= "ন্যূনতম অর্ডার পরিমান"
                         android:textColor="@color/textPrimary"
                         android:textSize="@dimen/text_size_medium"
                         app:typeface="font_regular.ttf" />
@@ -511,7 +615,7 @@
                         android:layout_marginEnd="15dp"
                         android:layout_marginStart="15dp"
                         android:layout_marginBottom="8dp"
-                        android:hint="Enter Minimum order Quantity"
+                        android:hint="ন্যূনতম অর্ডার পরিমান দিন"
                         android:inputType="numberDecimal"
                         android:paddingBottom="@dimen/common_padding"
                         android:paddingRight="@dimen/common_padding"

@@ -8,17 +8,24 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,9 +34,17 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.futureskyltd.app.utils.Adapter.DistrictAdapter;
+import com.futureskyltd.app.utils.Adapter.UpazilaAdapter;
+import com.futureskyltd.app.utils.ApiInterface;
 import com.futureskyltd.app.utils.Constants;
 import com.futureskyltd.app.utils.DefensiveClass;
+import com.futureskyltd.app.utils.District.District;
+import com.futureskyltd.app.utils.District.DistrictList;
 import com.futureskyltd.app.utils.GetSet;
+import com.futureskyltd.app.utils.RetrofitClient;
+import com.futureskyltd.app.utils.Upazila.Upazila;
+import com.futureskyltd.app.utils.Upazila.UpazilatList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +69,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
     EditText fbdiscountPercentage, dailyDealLayDiscPercent, sizeOptQuantity, sizeOptPrice, dailyDealDate, minOrderQuantity;
     Toolbar toolbar;
     String sdate, item_id = "";
-    long shippingTimeStamp;
+    long shippingTimeStamp = 1616241081;
     int previousPosition;
     String item_image = "", color = "", shipsTo = "", sizes = "", colorNames, colorMethod = "auto", min_quantity;
     boolean iseElseAmount, isShipsToAmount;
@@ -65,6 +80,16 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
     ArrayList<HashMap<String, Object>> selectedColorLists = new ArrayList<>();
     ArrayList<HashMap<String, Object>> sizeList = new ArrayList<>();
     ArrayList<HashMap<String, Object>> shipsToList = new ArrayList<>();
+    private Spinner districtSpinner, upazilaSpinner;
+    private String districtName, upazilaName;
+    private int district_id, upazila_id;
+    private ArrayList<District> mDistrictList = new ArrayList<>();
+    private ArrayList<Upazila> mUpazilaList = new ArrayList<>();
+    private DistrictAdapter mDistrictAdapter;
+    private UpazilaAdapter mUpazilaAdapter;
+    private LinearLayout discountOptionLay;
+    private RadioButton dailyDealRb, regularDealRb;
+    private String pro_discount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +126,13 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         minOrderQuantity = (EditText) findViewById(R.id.minOrderQuantity);
         shippingTime = (TextView) findViewById(R.id.shippingTime);
         colorSelect = (TextView) findViewById(R.id.colorSelect);
+        districtSpinner = findViewById(R.id.userDistrictSpinner);
+        upazilaSpinner = findViewById(R.id.userUpazilaSpinner);
+        discountOptionLay = findViewById(R.id.discountOption);
+        dailyDealRb = findViewById(R.id.dailyDeal);
+        regularDealRb = findViewById(R.id.regularDeal);
 
+        getDistrictList();
        // min_quantity = minOrderQuantity.getText().toString().trim();
         if (!AllProduct.isEditMode) {
             screenTitle.setText(getString(R.string.add_product));
@@ -144,6 +175,91 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         shippingTimeLayout.setOnClickListener(this);
         dailyDealDate.setOnClickListener(this);
         shipsToLay.setOnClickListener(this);
+    }
+
+    private void getDistrictList() {
+
+        Retrofit retrofit = RetrofitClient.getRetrofitClient();
+        ApiInterface api = retrofit.create(ApiInterface.class);
+
+        Call<DistrictList> districtCall = api.getByDistrict();
+
+        districtCall.enqueue(new Callback<DistrictList>() {
+            @Override
+            public void onResponse(Call<DistrictList> call, retrofit2.Response<DistrictList> response) {
+                Log.d(TAG, "onResponse: " + response.code());
+                DistrictList districtList = response.body();
+                mDistrictList = (ArrayList<District>) districtList.getDistricts();
+                Log.d(TAG, "onResponse: " + districtList.toString());
+                Log.d(TAG, "onResponse: "+mDistrictList.size());
+                mDistrictAdapter = new DistrictAdapter(PostProduct.this, mDistrictList);
+                districtSpinner.setAdapter(mDistrictAdapter);
+
+                districtSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        District clickedDistrict = (District) parent.getItemAtPosition(position);
+
+                        districtName = clickedDistrict.getDistrict();
+                        district_id = clickedDistrict.getId();
+
+                        getUpazilaList(district_id);
+
+                        Toast.makeText(PostProduct.this, districtName +" is selected !"+" id: "+ district_id, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<DistrictList> call, Throwable t) {
+                Log.d(TAG, "onFailure: "+t.getMessage());
+            }
+        });
+    }
+
+    private void getUpazilaList(int district_id) {
+        Retrofit retrofit = RetrofitClient.getRetrofitClient();
+        ApiInterface api = retrofit.create(ApiInterface.class);
+
+        Call<UpazilatList> upazilaCall = api.postByUpazila(district_id);
+
+        upazilaCall.enqueue(new Callback<UpazilatList>() {
+            @Override
+            public void onResponse(Call<UpazilatList> call, retrofit2.Response<UpazilatList> response) {
+                Log.d(TAG, "onResponse: " + response.code());
+                UpazilatList upazilatList = response.body();
+                mUpazilaList = (ArrayList<Upazila>) upazilatList.getUpazila();
+                Log.d(TAG, "onResponse: " + upazilatList.toString());
+                mUpazilaAdapter = new UpazilaAdapter(PostProduct.this, mUpazilaList);
+                upazilaSpinner.setAdapter(mUpazilaAdapter);
+
+                upazilaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        Upazila clickedUpazila = (Upazila) parent.getItemAtPosition(position);
+
+                        upazilaName = clickedUpazila.getUpazila();
+                        upazila_id = clickedUpazila.getId();
+                        Toast.makeText(PostProduct.this, upazilaName +" is selected !"+" id: "+ upazila_id, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<UpazilatList> call, Throwable t) {
+                Log.d(TAG, "onFailure: " +t.getMessage());
+            }
+        });
     }
 
     private ArrayList<HashMap<String, Object>> getImgNameFromList(ArrayList<HashMap<String, Object>> prodImgsList) {
@@ -215,13 +331,20 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
             sizeOptionLay.setVisibility(View.VISIBLE);
         }
         if (dailyDealsSwitch.isChecked()) {
+            discountOptionLay.setVisibility(View.VISIBLE);
             dailyDealsOptionLay.setVisibility(View.VISIBLE);
-            if (productDatas.get(Constants.TAG_DEAL_DATE) != "" || productDatas.get(Constants.TAG_DEAL_DATE) != "0")
-                dailyDealDate.setText(FantacySellerApplication.getDate(productDatas.get(Constants.TAG_DEAL_DATE)));
+            if(dailyDealRb.isChecked()){
+                if (productDatas.get(Constants.TAG_DEAL_DATE) != "" || productDatas.get(Constants.TAG_DEAL_DATE) != "0")
+                    dailyDealDate.setText(FantacySellerApplication.getDate(productDatas.get(Constants.TAG_DEAL_DATE)));
+            }else{
+                dailyDealDate.setVisibility(View.GONE);
+                dailyDealDate.setText("");
+            }
         } else {
             dailyDealLayDiscPercent.setText("");
             dailyDealDate.setText("");
             dailyDealsOptionLay.setVisibility(View.GONE);
+            discountOptionLay.setVisibility(View.GONE);
         }
         if (fbdiscountSwitch.isChecked()) {
             fbOptionLay.setVisibility(View.VISIBLE);
@@ -236,9 +359,31 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 if (isChecked) {
                     productDatas.put(Constants.TAG_DEAL_ENABLED, "true");
                     dailyDealsOptionLay.setVisibility(View.VISIBLE);
+                    discountOptionLay.setVisibility(View.VISIBLE);
+                    dailyDealRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if(isChecked){
+                                regularDealRb.setChecked(false);
+                                pro_discount = "dailydeal";
+                                dailyDealDate.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    });
+                    regularDealRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if(isChecked){
+                                dailyDealRb.setChecked(false);
+                                pro_discount = "regulardeal";
+                                dailyDealDate.setVisibility(View.GONE);
+                            }
+                        }
+                    });
                 } else {
                     productDatas.put(Constants.TAG_DEAL_ENABLED, "false");
                     dailyDealsOptionLay.setVisibility(View.GONE);
+                    discountOptionLay.setVisibility(View.GONE);
                 }
             }
         });
@@ -501,6 +646,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 hashMap.put(Constants.TAG_PRICE, productDatas.get(Constants.TAG_PRICE));
                 hashMap.put(Constants.TAG_QUANTITY, productDatas.get(Constants.TAG_QUANTITY));
                 hashMap.put(Constants.TAG_MIN_QUANTITY, productDatas.get(Constants.TAG_MIN_QUANTITY));
+                hashMap.put(Constants.TAG_DEAL_TYPE, pro_discount);
                 Log.d(TAG, "addProductParams=" + hashMap);
                 return hashMap;
             }
@@ -597,7 +743,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                     FantacySellerApplication.showToast(PostProduct.this, getString(R.string.reqd_item_quantity), Toast.LENGTH_LONG);
                 else if (isStringNull(productDatas.get(Constants.TAG_DEAL_ENABLED), dailyDealLayDiscPercent.getText().toString()))
                     FantacySellerApplication.showToast(PostProduct.this, getString(R.string.reqd_deals_discount), Toast.LENGTH_LONG);
-                else if (isStringNull(productDatas.get(Constants.TAG_DEAL_ENABLED), shippingTimeStamp + ""))
+                else if (isStringNull(productDatas.get(Constants.TAG_DEAL_ENABLED), shippingTimeStamp + "") && pro_discount.equals("dailydeal"))
                     FantacySellerApplication.showToast(PostProduct.this, getString(R.string.reqd_deals_date), Toast.LENGTH_LONG);
                 else if (isStringNull(productDatas.get(Constants.TAG_FB_DISC_ENABLE), fbdiscountPercentage.getText().toString()))
                     FantacySellerApplication.showToast(PostProduct.this, getString(R.string.reqd_fbdiscount_percentage), Toast.LENGTH_LONG);

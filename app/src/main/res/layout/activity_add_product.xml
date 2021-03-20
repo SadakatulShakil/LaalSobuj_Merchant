@@ -78,6 +78,15 @@
                         android:padding="5dp"
                         android:visibility="gone"
                         android:src="@drawable/tick_color" />
+
+                    <ImageView
+                        android:id="@+id/addCategoryMark"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="10dp"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_add" />
                 </RelativeLayout>
 
             </LinearLayout>

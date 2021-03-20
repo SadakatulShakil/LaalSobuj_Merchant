@@ -76,6 +76,7 @@ public class Constants {
     public static final String TAG_ITEM_TITLE = "item_title";
     public static final String TAG_SHIPPING_TIME = "shipping_time";
     public static final String TAG_DEAL_ENABLED = "dailydeal";
+    public static final String TAG_REGULAR_DEAL = "regulardeal";
     public static final String TAG_DISCOUNT_PERCENTAGE = "deal_discount";
     public static final String TAG_DEAL_DATE = "deal_date";
     public static final String TAG_PRICE = "price";
@@ -83,6 +84,7 @@ public class Constants {
     public static final String TAG_MIN_QUANTITY = "min_order_quantity";
     public static final String TAG_PRODUCT_SELFIES = "product_selfies";
     public static final String TAG_ID = "id";
+    public static final String TAG_DEAL_TYPE = "pro_discount";
     public static final String TAG_MAIN_PRICE = "mainprice";
     public static final String TAG_PRODUCT_URL = "product_url";
     public static final String TAG_ORDERS = "orders";

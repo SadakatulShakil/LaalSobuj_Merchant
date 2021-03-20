@@ -73,7 +73,7 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
     public final String TAG = this.getClass().getSimpleName();
     static final int ACTION_CATEGORY = 500, ACTION_POST_PRODUCT = 600;
     TextView addBtn, resetBtn, processBtn, categorySelect, screenTitle;
-    ImageView backBtn, appName, categoryMark;
+    ImageView backBtn, appName, categoryMark, addCategoryMark;
     RecyclerView prodImgList;
     String categoryId = "", subcategoryId = "", supercategoryId = "", selectedCategory = "", itemId = "", imageName = "", categoryName = "";
     ProductImgListAdapter imagesAdapter;
@@ -104,6 +104,7 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
         productTitle = (EditText) findViewById(R.id.productTitle);
         productDes = (EditText) findViewById(R.id.productDes);
         categoryMark = (ImageView) findViewById(R.id.categoryMark);
+        addCategoryMark = (ImageView) findViewById(R.id.addCategoryMark);
         productVideoUrl = (EditText) findViewById(R.id.productVideoUrl);
         barcodeNo = (EditText) findViewById(R.id.barcodeNo);
 
@@ -711,8 +712,10 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
 
             if (categoryName.equals(getResources().getString(R.string.select_category))) {
                 categoryMark.setVisibility(GONE);
+                addCategoryMark.setVisibility(View.VISIBLE);
             } else {
                 categoryMark.setVisibility(View.VISIBLE);
+                addCategoryMark.setVisibility(GONE);
             }
 
             categoryId = data.getStringExtra(Constants.TAG_CATEGORY_ID);
@@ -919,6 +922,7 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
             case R.id.categorySelect:
                 Intent intent = new Intent(CreateProduct.this, ChooseCategory.class);
                 if (categorySelect.getText().toString().equals(getResources().getString(R.string.select_category))) {
+
                     intent.putExtra(Constants.TAG_CATEGORY_ID, "");
                 } else {
                     intent.putExtra(Constants.TAG_CATEGORY_ID, categoryId);
