@@ -72,6 +72,7 @@ public class Constants {
     public static final String TAG_HEIGHT = "height";
     public static final String TAG_WIDTH = "width";
     public static final String TAG_NAME = "name";
+    public static final String TAG_BD_NAME = "name_bangla";
     public static final String TAG_IMAGE = "image";
     public static final String TAG_ITEM_TITLE = "item_title";
     public static final String TAG_SHIPPING_TIME = "shipping_time";
@@ -85,6 +86,8 @@ public class Constants {
     public static final String TAG_PRODUCT_SELFIES = "product_selfies";
     public static final String TAG_ID = "id";
     public static final String TAG_DEAL_TYPE = "pro_discount";
+    public static final String TAG_DISTRICT = "district";
+    public static final String TAG_UPAZILA = "upazila";
     public static final String TAG_MAIN_PRICE = "mainprice";
     public static final String TAG_PRODUCT_URL = "product_url";
     public static final String TAG_ORDERS = "orders";

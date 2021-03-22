@@ -192,11 +192,11 @@ public class LoginActivity extends AppCompatActivity implements NetworkReceiver.
 //                    FantacySellerApplication.showToast(LoginActivity.this, getString(R.string.please_type_mail), Toast.LENGTH_SHORT);
                     email.setError(getString(R.string.please_type_mail));
                     email.requestFocus();
-                } else if (!email.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
+                } /*else if (!email.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
 //                    FantacySellerApplication.showToast(LoginActivity.this, getString(R.string.email_error), Toast.LENGTH_SHORT);
                     email.setError(getString(R.string.email_error));
                     email.requestFocus();
-                } else {
+                }*/ else {
                     dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
                     dialog.dismiss();
                     userForgetPassword(email.getText().toString());
@@ -345,10 +345,10 @@ public class LoginActivity extends AppCompatActivity implements NetworkReceiver.
                     if (email.getText().toString().trim().length() == 0) {
                         email.setError(getString(R.string.please_type_mail));
                         email.requestFocus();
-                    } else if (!email.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
+                    } /*else if (!email.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
                         email.setError(getString(R.string.email_error));
                         email.requestFocus();
-                    } else if (password.getText().toString().length() == 0) {
+                    }*/ else if (password.getText().toString().length() == 0) {
                         password.setError(getString(R.string.please_type_password));
                         password.requestFocus();
                     } else {

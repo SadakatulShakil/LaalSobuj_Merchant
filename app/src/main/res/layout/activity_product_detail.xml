@@ -359,7 +359,7 @@
                                 android:autoLink="all"
                                 android:clickable="true"
                                 android:paddingBottom="20dp"
-                                android:text="But understand that the icon in this case is a png, so it has a color already. I'm overridding that using the graphics library"
+                                android:text="\n "
                                 android:textColor="@color/textSecondary"
                                 android:textSize="@dimen/text_size_medium"
                                 app:typeface="font_regular.ttf" />

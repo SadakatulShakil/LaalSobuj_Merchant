@@ -358,7 +358,8 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
                 break;
         }
         shipping.setText(shippingTime);
-        Spannable spannedText = (Spannable) Html.fromHtml(productMap.get(Constants.TAG_ITEM_DESCRIPTION).trim(), null, new MyTagHandler());
+        String replaceVar = productMap.get(Constants.TAG_ITEM_DESCRIPTION).trim().replace("\n","<br>");
+        Spannable spannedText = (Spannable) Html.fromHtml(replaceVar, null, new MyTagHandler());
         description.setText(spannedText);
         description.setMovementMethod(LinkMovementMethod.getInstance());
         stripUnderlines(description);

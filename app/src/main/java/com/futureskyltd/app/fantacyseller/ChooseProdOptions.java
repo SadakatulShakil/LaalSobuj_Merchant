@@ -48,7 +48,9 @@ public class ChooseProdOptions extends AppCompatActivity {
     ArrayList<HashMap<String, String>> shippingTimeAry = new ArrayList<HashMap<String, String>>();
     LinearLayout addLay;
     ArrayList<String> colorsList = new ArrayList<>();
+    ArrayList<String> sendColorsList = new ArrayList<>();
     ArrayList<HashMap<String, Object>> selectedColorLists = new ArrayList<>();
+    ArrayList<HashMap<String, Object>> engSelectedColorLists = new ArrayList<>();
     ChooseOptionAdapter chooseOptionAdapter;
     String colorMethod = "auto";
     String selectedTimeDuration = "";
@@ -100,7 +102,9 @@ public class ChooseProdOptions extends AppCompatActivity {
 
         } else if (from.equals("colors")) {
             if ((ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra(Constants.COLOR_LIST) != null)
+               /* engSelectedColorLists = (ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra(Constants.COLOR_LIST);*/
                 selectedColorLists = (ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra(Constants.COLOR_LIST);
+            Log.d(TAG, "onListBngRng: "+selectedColorLists);
             listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
             screenTitle.setText(getString(R.string.select_color));
             getColors();
@@ -192,17 +196,21 @@ public class ChooseProdOptions extends AppCompatActivity {
             @Override
             public void onResponse(String res) {
                 try {
-                    Log.v(TAG, "getColorsRes=" + res);
+                    Log.d(TAG, "getColorsRes=" + res);
                     JSONObject json = new JSONObject(res);
                     progressLay.setVisibility(View.GONE);
                     String status = DefensiveClass.optString(json, Constants.TAG_STATUS);
                     if (status.equalsIgnoreCase("true")) {
                         JSONArray color = json.getJSONArray(Constants.TAG_COLOR);
+                        Log.d(TAG, "onResponseArray: " +color.toString());
                         colorsList.add(getString(R.string.auto_detect));
+                        sendColorsList.add(getString(R.string.auto_detect));
                         for (int i = 0; i < color.length(); i++) {
                             JSONObject temp = color.getJSONObject(i);
-                            String colorName = DefensiveClass.optString(temp, Constants.TAG_NAME);
+                            String colorName = DefensiveClass.optString(temp, Constants.TAG_BD_NAME);
+                            String engColorName = DefensiveClass.optString(temp,Constants.TAG_NAME);
                             colorsList.add(colorName);
+                            sendColorsList.add(engColorName);
                             chooseOptionAdapter.notifyDataSetChanged();
                         }
                     } else if (DefensiveClass.optString(json, Constants.TAG_STATUS).equalsIgnoreCase("error")) {
@@ -272,19 +280,26 @@ public class ChooseProdOptions extends AppCompatActivity {
                         colorMethod = "auto";
                         if (selectedColorLists != null)
                             selectedColorLists.clear();
+                            engSelectedColorLists.clear();
                         onBackPressed();
                     } else {
                         colorMethod = "manual";
                         color_mode = "nocolor";
                         HashMap<String, Object> hashMap = new HashMap<>();
+                        HashMap<String, Object> engHashMap = new HashMap<>();
                         hashMap.put(Constants.TAG_COLOR_NAME, colorsList.get(position));
+                        engHashMap.put(Constants.TAG_COLOR_NAME, sendColorsList.get(position));
+
                         if (selectedColorLists.contains(hashMap)) {
                             selectedColorLists.remove(hashMap);
+                            engSelectedColorLists.remove(engHashMap);
                             chooseOptionAdapter.notifyDataSetChanged();
                         } else {
                             selectedColorLists.add(hashMap);
+                            engSelectedColorLists.add(engHashMap);
                             chooseOptionAdapter.notifyDataSetChanged();
                         }
+                        Log.d(TAG, "onItemClick: " + engSelectedColorLists);
                     }
 
                 }
@@ -385,7 +400,7 @@ public class ChooseProdOptions extends AppCompatActivity {
     public void onBackPressed() {
         if (getIntent().getStringExtra(Constants.FROM).equals("colors")) {
             getIntent().putExtra(Constants.FROM, "colors");
-            getIntent().putExtra(Constants.COLOR_LIST, selectedColorLists);
+            getIntent().putExtra(Constants.COLOR_LIST, engSelectedColorLists);
             getIntent().putExtra(Constants.TAG_COLOR_METHOD, colorMethod);
             this.setResult(RESULT_OK, getIntent());
             super.onBackPressed();

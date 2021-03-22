@@ -89,7 +89,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
     private UpazilaAdapter mUpazilaAdapter;
     private LinearLayout discountOptionLay;
     private RadioButton dailyDealRb, regularDealRb;
-    private String pro_discount;
+    private String pro_discount="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,8 +153,8 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
             sizeList = (ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra(Constants.SIZE_LIST);
         if ((ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra(Constants.SHIPSTO_LIST) != null)
             shipsToList = (ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra(Constants.SHIPSTO_LIST);
-        Log.v(TAG, "productDatas=" + productDatas);
-        Log.v(TAG, "selectedColorLists" + selectedColorLists);
+        Log.d(TAG, "productDatas=" + productDatas);
+        Log.d(TAG, "selectedColorLists" + selectedColorLists);
         /*Get Data From Intent*/
         getDataFromIntent(getIntent());
         if (imageNameList != null) {
@@ -205,7 +205,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
 
                         getUpazilaList(district_id);
 
-                        Toast.makeText(PostProduct.this, districtName +" is selected !"+" id: "+ district_id, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(PostProduct.this, districtName +" is selected !"+" id: "+ district_id, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -245,7 +245,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
 
                         upazilaName = clickedUpazila.getUpazila();
                         upazila_id = clickedUpazila.getId();
-                        Toast.makeText(PostProduct.this, upazilaName +" is selected !"+" id: "+ upazila_id, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(PostProduct.this, upazilaName +" is selected !"+" id: "+ upazila_id, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -647,6 +647,8 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 hashMap.put(Constants.TAG_QUANTITY, productDatas.get(Constants.TAG_QUANTITY));
                 hashMap.put(Constants.TAG_MIN_QUANTITY, productDatas.get(Constants.TAG_MIN_QUANTITY));
                 hashMap.put(Constants.TAG_DEAL_TYPE, pro_discount);
+                hashMap.put(Constants.TAG_DISTRICT, String.valueOf(district_id));
+                hashMap.put(Constants.TAG_UPAZILA, String.valueOf(upazila_id));
                 Log.d(TAG, "addProductParams=" + hashMap);
                 return hashMap;
             }

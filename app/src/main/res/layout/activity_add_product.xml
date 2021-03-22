@@ -213,6 +213,7 @@
                     android:maxLines="5"
                     android:padding="@dimen/common_padding"
                     android:textSize="@dimen/text_size_medium"
+                    android:text="\n "
                     app:typeface="font_regular.ttf" />
 
             </LinearLayout>

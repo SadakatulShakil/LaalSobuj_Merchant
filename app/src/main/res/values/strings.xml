@@ -13,55 +13,55 @@
     <string name="Passwordfilter" translatable="false">abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ.$@#%-*:?!_,&amp;</string>
     <string name="Emailfilter" translatable="false">abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ.@-_</string>
     <string name="fullnamefilter" translatable="false">abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ .@-_</string>
-    <string name="email">Email address</string>
-    <string name="password">Password</string>
+        <string name="email">ইমেইল/ফোন নম্বর লিখুন</string>
+    <string name="password">পাসওয়ার্ড লিখুন</string>
     <string name="sign_in">লগ ইন করুন</string>
     <string name="forgot_pass">পাসওয়ার্ড ভুলে গেছেন?</string>
-    <string name="signin_des1">Sign in to access your orders, wishlist and recommendation</string>
-    <string name="signin_des2">To receive instant offers and get alerts from merchants and admin</string>
-    <string name="signin_des3">Can communicate directly with merchant by inbuilt messaging system</string>
+    <string name="signin_des1">পণ্য আপলোড করতে এবং অর্ডার সমূহের তথ্য জানার জন্য লগইন করুন</string>
+    <string name="signin_des2">লালসবুজ থেকে যেকোন অফার এবং নিউজ পেতে</string>
+    <string name="signin_des3">ম্যাসেজিং সিস্টেমের মাধ্যমে যোগাযোগ করতে</string>
     <string name="forgot_password">পাসওয়ার্ড ভুলে গেছেন</string>
     <string name="reset">reset</string>
-    <string name="please_type_mail">Please type your Email</string>
-    <string name="please_type_password">Please type your Password</string>
-    <string name="email_error">Please check your Email ID</string>
-    <string name="username">Email ID</string>
+    <string name="please_type_mail">ইমেইল/ফোন নম্বর লিখুন</string>
+    <string name="please_type_password">পাসওয়ার্ড লিখুন</string>
+    <string name="email_error">আপনার ইমেইল চেক করুন</string>
+    <string name="username">ইমেইল আইডি অথবা  ফোন নাম্বার</string>
     <string name="pleasewait">অনুগ্রহ করে অপেক্ষা করুন..</string>
     <string name="search_products">আপনার পণ্য খুজুন</string>
     <string name="reallySignOut">আপনি কি লগ আউট করতে চান?\u003F</string>
 
     //Errors
-    <string name="user_does_not_exist">User does not Exist</string>
-    <string name="cannot_login_admin">You cannot login as Admin</string>
-    <string name="cannot_login_moderator">You cannot login as Moderator</string>
-    <string name="cannot_login_merchant">You cannot login with merchant account</string>
-    <string name="enter_correct_username_password">Please enter correct email and password</string>
-    <string name="activate_email">Please activate your account by the email sent to you</string>
-    <string name="account_disabled">Your account is disabled by Admin</string>
-    <string name="something_went_wrong">Sorry!! Do not know what is wrong</string>
+    <string name="user_does_not_exist">কোন ব্যবহারকারি নেই</string>
+    <string name="cannot_login_admin">আপনি এডমিন হিসেবে লগইন করতে পারবেন না</string>
+    <string name="cannot_login_moderator">আপনি মডারেটর হিসেবে লগইন করতে পারবেন না</string>
+    <string name="cannot_login_merchant">আপনি বিক্রেতা হিসেবে লগইন করতে পারবেন না</string>
+    <string name="enter_correct_username_password">সঠিকভাবে ইমেইল/ফোন এবং পাসওয়ার্ড লিখুন</string>
+    <string name="activate_email">ইমেইল/ফোন দিয়ে আপনার আইডি চালু করুন</string>
+    <string name="account_disabled">আপনার আইডি বন্ধ করা হয়েছে</string>
+    <string name="something_went_wrong">দুঃখিত! আপনার কোথাও ভুল হচ্ছে</string>
     <string name="new_orders_today">আজকের নতুন অর্ডার</string>
     <string name="add_product">পণ্য যোগ করুন</string>
     <string name="new_orders">নতুন অর্ডার</string>
     <string name="delivered_orders_today">আজকে ডেলিভারি হয়েছে</string>
     <string name="total_revenue">মোট আয়</string>
-    <string name="total_revenue_amount">Total Revenue Amount</string>
+    <string name="total_revenue_amount">মোট আয়ের পরিমান</string>
     <string name="completed_transactions">সফল লেনদেন </string>
     <string name="total_items">মোট পণ্য</string>
-    <string name="total_items_count">Total Items Count</string>
+    <string name="total_items_count">মোট পন্যের পরিমান</string>
     <string name="complete_order_amount">সফল অর্ডারের মূল্য</string>
     <string name="store_name">Puma store</string>
     <string name="products">সকল পণ্য</string>
     <string name="message">ম্যাসেজ</string>
     <string name="news">নোট</string>
     <string name="help">সাহায্য</string>
-    <string name="rate_app">আপনার অ্যাপ্লিকেশনটি আপডেট করুন</string>
+    <string name="rate_app">অ্যাপসটি আপডেট করুন</string>
     <string name="guest">Guest</string>
     <string name="listed_merchandize_value">তালিকাভুক্ত সকল পণ্যের মূল্য</string>
     <string name="incomplete_order_amount">অসম্পূর্ন অর্ডারের মূল্য</string>
-    <string name="cod_available">COD available</string>
+    <string name="cod_available">ক্যাশঅন ডেলিভারি আছে</string>
     <string name="only_qty_available">Only %1$d available</string>
-    <string name="sold_out">SOLD OUT</string>
-    <string name="buy_now">BUY NOW</string>
+    <string name="sold_out">বিক্রয় হয়েছে</string>
+    <string name="buy_now">এখনই কিনুন</string>
 
     <string-array name="languages">
         <item>English</item>
@@ -78,14 +78,14 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="no_product">কোন পণ্য নাই</string>
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
-    <string name="title_activity_product_detail">ProductDetail</string>
-    <string name="share_this_product">Share this product</string>
-    <string name="delete_product">Delete</string>
-    <string name="like">Like</string>
-    <string name="likes">Likes</string>
-    <string name="play_video">Play Video</string>
+    <string name="edit">এডিট করুন</string>
+    <string name="delete">ডিলিট করুন</string>
+    <string name="title_activity_product_detail">পন্যের বর্ণনা</string>
+    <string name="share_this_product">পণ্যটি শেয়ার করুন</string>
+    <string name="delete_product">ডিলিট করুন</string>
+    <string name="like">লাইক</string>
+    <string name="likes">লাইকস</string>
+    <string name="play_video">ভিডিও চালু করুন</string>
     <string name="size">সাইজ</string>
     <string name="description">বিস্তারিত</string>
     <string name="product_selfies">PRODUCT SELFIES</string>
@@ -122,21 +122,21 @@
     <string name="video_link_hint">https://www.youtube.com/watch?v=pVxOVlm_lE8</string>
     <string name="sample_time">বাছাই করুন</string>
     <string name="size_option_price">বিক্রেতা নির্ধারিত মূল্য</string>
-    <string name="size_option_quantity">পরিমান</string>
+    <string name="size_option_quantity">পণ্যের মজুত পরিমান</string>
     <string name="posted_news">আপনার নোট \nসফলভাবে যোগ হয়েছে</string>
     <string name="waiting_for_admin">এডমিনের রিভিউ এর জন্য অপেক্ষা করুন</string>
     <string name="pick_image_intent_text">একটা ছবি বাছাই করুন</string>
-    <string name="publish_status">Publish</string>
-    <string name="pending_status">Pending</string>
-    <string name="new_status">New</string>
-    <string name="delivered_status">Delivered</string>
+    <string name="publish_status">পাবলিশ হয়েছে</string>
+    <string name="pending_status">প্রক্রিয়াধীন আছে</string>
+    <string name="new_status">নতুন</string>
+    <string name="delivered_status">ডেলিভারি হয়েছে</string>
     <string name="shipped_status">Shipped</string>
-    <string name="cancelled_status">Cancelled</string>
-    <string name="refunded_status">Refunded</string>
-    <string name="paid_status">Paid</string>
+    <string name="cancelled_status">বাতিল হয়েছে</string>
+    <string name="refunded_status">ফেরত এসেছে</string>
+    <string name="paid_status">পরিশোধ</string>
     <string name="admin_approval_wait">অনুগ্রহ করে এডমিন এর অনুমোদনের জন্য অপেক্ষা করুন</string>
-    <string name="user_not_found">User Not Registered Yet</string>
-    <string name="merchant_not_valid">Enter the merchant Email ID</string>
+    <string name="user_not_found">ব্যবহারকারি নিবন্ধিত নয়</string>
+    <string name="merchant_not_valid">বিক্রেতার ইমেইল আইডি লিখুন</string>
     <string name="select_category">ক্যাটাগরি নির্বাচন করুন</string>
     <string name="no_item_found">দুঃখিত! কোন পণ্য নেই</string>
     <string name="select_color">রং নির্বাচন করুন</string>
@@ -153,8 +153,8 @@
     <string name="add_property">সাইজ যোগ করুন</string>
     <string name="ok">Ok</string>
     <string name="search_country">Search countries</string>
-    <string name="everywhere_else_lbl">Everywhere Else</string>
-    <string name="shipping_cost_hint">Enter shipping cost(৳)</string>
+    <string name="everywhere_else_lbl">অন্যান্য জেলা</string>
+    <string name="shipping_cost_hint">ডেলিভারি খরচ লিখুন(৳)</string>
     <string name="please_enter_country">Please Enter Country</string>
     <string name="reqd_category">Please Select a Category</string>
     <string name="reqd_image">Please provide atleast one image</string>
@@ -210,8 +210,8 @@
     <string name="size_fields_reqd">Enter the size name</string>
     <string name="unit_fields_reqd">enter the unit value</string>
     <string name="price_fields_reqd">Enter the Price</string>
-    <string name="default_country_lbl">Default Country</string>
-    <string name="default_lbl">(default)</string>
+    <string name="default_country_lbl">নিজ জেলা</string>
+    <string name="default_lbl"></string>
     <string name="default_country_price_reqd">Enter Default Country Price</string>
     <string name="admin_error">The user has been blocked by admin</string>
     <string name="admin_delete_error">Your account is deleted by Admin</string>

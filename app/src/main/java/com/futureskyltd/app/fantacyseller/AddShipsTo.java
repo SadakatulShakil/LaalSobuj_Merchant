@@ -88,6 +88,7 @@ public class AddShipsTo extends AppCompatActivity implements View.OnClickListene
         eelseSave = (TextView) findViewById(R.id.eelseSave);
         everyWherePrice = (TextView) findViewById(R.id.everyWherePrice);
 
+        getCountry();
         resetBtn.setVisibility(GONE);
         appName.setVisibility(View.GONE);
         backBtn.setVisibility(View.VISIBLE);
@@ -96,19 +97,23 @@ public class AddShipsTo extends AppCompatActivity implements View.OnClickListene
         everyWhereelseLay.setVisibility(View.GONE);
         progressLay.setVisibility(View.VISIBLE);
 
-        if (getIntent().getStringExtra(Constants.TAG_EVERYWHERE_ELSE) != null)
+        if (getIntent().getStringExtra(Constants.TAG_EVERYWHERE_ELSE) != null) {
             eelseAmount = getIntent().getStringExtra(Constants.TAG_EVERYWHERE_ELSE);
-        if ((ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra(Constants.SHIPSTO_LIST) != null)
+        }
+        if ((ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra(Constants.SHIPSTO_LIST) != null) {
             shipsToList = (ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra(Constants.SHIPSTO_LIST);
+        }
 
         screenTitle.setText(getString(R.string.ships_to_lbl));
         addBtn.setText(getString(R.string.next_lbl));
         eelsePrice.setText(eelseAmount);
 
-        if (!eelseAmount.equals(""))
+        if (!eelseAmount.equals("")) {
             everyWherePrice.setText(GetSet.getsellerCurrencySymbol() + " " + eelseAmount);
+        }
 
-        defcountrylbl.setText(GetSet.getSellerCountryName() + " " + getString(R.string.default_lbl));
+       // defcountrylbl.setText(GetSet.getSellerCountryName() + " " + getString(R.string.default_lbl));
+        defcountrylbl.setText("নিজ জেলা" + " " + getString(R.string.default_lbl));
 
         eelsePrice.setFilters(new InputFilter[]{new FantacySellerApplication.DecimalDigitsInputFilter(6, 2)});
 
@@ -119,7 +124,6 @@ public class AddShipsTo extends AppCompatActivity implements View.OnClickListene
         countryAdapter = new CountryViewAdapter(this, countryAry);
         countryList.setAdapter(countryAdapter);
 
-        getCountry();
 
         eelseSave.setOnClickListener(this);
         everyWhereelsecomp.setOnClickListener(this);
@@ -140,7 +144,7 @@ public class AddShipsTo extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onResponse(String res) {
                 try {
-                    Log.v(TAG, "getCountryRes=" + res);
+                    Log.d(TAG, "getCountryRes=" + res);
                     JSONObject json = new JSONObject(res);
                     progressLay.setVisibility(View.GONE);
                     everyWhereelseLay.setVisibility(View.VISIBLE);
