@@ -66,6 +66,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
     SwitchCompat sizeSwitch, codSwitch, dailyDealsSwitch, fbdiscountSwitch;
     LinearLayout sizeOptionLay, dailyDealsOptionLay, fbOptionLay;
     RelativeLayout shippingTimeLayout, shipsToLay, colorSelectLay;
+    private ImageView addShippingMark;
     EditText fbdiscountPercentage, dailyDealLayDiscPercent, sizeOptQuantity, sizeOptPrice, dailyDealDate, minOrderQuantity;
     Toolbar toolbar;
     String sdate, item_id = "";
@@ -131,6 +132,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         discountOptionLay = findViewById(R.id.discountOption);
         dailyDealRb = findViewById(R.id.dailyDeal);
         regularDealRb = findViewById(R.id.regularDeal);
+        addShippingMark = findViewById(R.id.addShippingMark);
 
         getDistrictList();
        // min_quantity = minOrderQuantity.getText().toString().trim();
@@ -410,8 +412,13 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        if (productDatas.get(Constants.TAG_SHIPPING_TIME) != "")
+        if (productDatas.get(Constants.TAG_SHIPPING_TIME) != ""){
             shippingTime.setText(productDatas.get(Constants.TAG_SHIPPING_TIME));
+            //addShippingMark.setVisibility(View.GONE);
+        }else{
+            //addShippingMark.setVisibility(View.VISIBLE);
+        }
+
 
         if (!selectedColorLists.isEmpty()) {
             color = listToJSONObject(selectedColorLists, Constants.TAG_COLORS).toString();

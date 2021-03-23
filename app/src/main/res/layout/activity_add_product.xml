@@ -198,7 +198,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
+                    android:layout_height="0.8dp"
                     android:background="@color/bg" />
 
                 <com.futureskyltd.app.external.CustomEditText
@@ -212,8 +212,8 @@
                     android:maxLength="2500"
                     android:maxLines="5"
                     android:padding="@dimen/common_padding"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890\n "
                     android:textSize="@dimen/text_size_medium"
-                    android:text="\n "
                     app:typeface="font_regular.ttf" />
 
             </LinearLayout>

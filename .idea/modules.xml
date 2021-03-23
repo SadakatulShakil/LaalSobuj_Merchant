@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LaalSobuj_Merchant.iml" filepath="$PROJECT_DIR$/.idea/modules/LaalSobuj_Merchant.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LaalSobuj_Merchant.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LaalSobuj_Merchant.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SharkProject.LaalSobuj_Merchant.iml" filepath="$PROJECT_DIR$/.idea/modules/SharkProject.LaalSobuj_Merchant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SharkProject.LaalSobuj_Merchant.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SharkProject.LaalSobuj_Merchant.app.iml" />
     </modules>
   </component>
 </project>

@@ -122,7 +122,7 @@
     <string name="video_link_hint">https://www.youtube.com/watch?v=pVxOVlm_lE8</string>
     <string name="sample_time">বাছাই করুন</string>
     <string name="size_option_price">বিক্রেতা নির্ধারিত মূল্য</string>
-    <string name="size_option_quantity">পণ্যের মজুত পরিমান</string>
+    <string name="size_option_quantity">পণ্যের মজুদ পরিমান</string>
     <string name="posted_news">আপনার নোট \nসফলভাবে যোগ হয়েছে</string>
     <string name="waiting_for_admin">এডমিনের রিভিউ এর জন্য অপেক্ষা করুন</string>
     <string name="pick_image_intent_text">একটা ছবি বাছাই করুন</string>
@@ -147,7 +147,7 @@
     <string name="type_product_title">আপনার পণ্যের শিরোনাম লিখুন</string>
     <string name="save_btn_lbl">সেভ করুন</string>
     <string name="property">সাইজ</string>
-    <string name="unit">পরিমান</string>
+    <string name="unit">পণ্যের মজুদ পরিমান</string>
     <string name="varients_price">সাইজ সমুহ এবং তাদের মূল্য</string>
     <string name="add">যোগ করুন</string>
     <string name="add_property">সাইজ যোগ করুন</string>
