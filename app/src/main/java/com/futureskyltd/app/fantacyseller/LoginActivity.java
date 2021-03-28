@@ -1,11 +1,14 @@
 package com.futureskyltd.app.fantacyseller;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import androidx.viewpager.widget.PagerAdapter;
@@ -39,6 +42,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -54,6 +59,7 @@ public class LoginActivity extends AppCompatActivity implements NetworkReceiver.
     SharedPreferences pref;
     EditText email, password;
     TextView signin, forgetpassword;
+    private ImageView image1, image2, image3, image5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,10 @@ public class LoginActivity extends AppCompatActivity implements NetworkReceiver.
         password = (EditText) findViewById((R.id.password));
         signin = (TextView) findViewById((R.id.signin));
         forgetpassword = (TextView) findViewById((R.id.forgetpassword));
+        image1 = findViewById(R.id.image1);
+        image2 = findViewById(R.id.image2);
+        image3 = findViewById(R.id.image3);
+        image5 = findViewById(R.id.image5);
 
         pref = getApplicationContext().getSharedPreferences("FantacyPref", MODE_PRIVATE);
         editor = pref.edit();
@@ -79,6 +89,64 @@ public class LoginActivity extends AppCompatActivity implements NetworkReceiver.
 
         // register connection status listener
         FantacySellerApplication.getInstance().setConnectivityListener(this);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);
+
+        openUrl();
+    }
+
+    private void openUrl() {
+        image1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent url1 = new Intent(Intent.ACTION_VIEW);
+                url1.setData(Uri.parse("https://totthoapa.gov.bd/"));
+                startActivity(url1);
+            }
+        });
+        image2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent url2 = new Intent(Intent.ACTION_VIEW);
+                url2.setData(Uri.parse("http://www.jms.gov.bd/"));
+                startActivity(url2);
+            }
+        });
+        image3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent url3 = new Intent(Intent.ACTION_VIEW);
+                url3.setData(Uri.parse("https://bfti.org.bd/"));
+                startActivity(url3);
+            }
+        });
+        image5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent url5 = new Intent(Intent.ACTION_VIEW);
+                url5.setData(Uri.parse("https://www.futureskyltd.com/"));
+                startActivity(url5);
+            }
+        });
+    }
+
+    public class MyTimerTask extends TimerTask{
+
+        @Override
+        public void run() {
+            LoginActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(desPager.getCurrentItem() == 0){
+                        desPager.setCurrentItem(1);
+                    } else if(desPager.getCurrentItem() == 1){
+                        desPager.setCurrentItem(2);
+                    }else{
+                        desPager.setCurrentItem(0);
+                    }
+                }
+            });
+        }
     }
 
     private void loginUser(final String usremail, final String usrpassword) {
@@ -360,8 +428,34 @@ public class LoginActivity extends AppCompatActivity implements NetworkReceiver.
 
                 break;
             case R.id.forgetpassword:
-                forgotDialog();
+                //forgotDialog();
+                popUpDialog();
                 break;
         }
+    }
+
+    private void popUpDialog() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginActivity.this);
+        alertDialog.setTitle("পাসওয়ার্ড ভুলে গেছেন?");
+        alertDialog.setMessage("পাসওয়ার্ড ভুলে গিয়ে থাকলে আপনার তথ্য কেন্দ্রে যোগাযোগ করুন অথবা কল করুন   ০৯৬৭৮৮৪৪৪৮৫");
+        alertDialog.setIcon(R.drawable.ic_lock);
+        alertDialog.setPositiveButton("ওকে", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        /*alertDialog.setNegativeButton("আরও যোগ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) { {
+                dialog.dismiss();
+
+            }
+            }
+        });*/
+
+        alertDialog.create();
+        alertDialog.show();
     }
 }

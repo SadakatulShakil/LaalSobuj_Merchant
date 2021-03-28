@@ -24,6 +24,7 @@
                 android:weightSum="2">
 
                 <RelativeLayout
+                    android:id="@+id/todayNewOrderCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
@@ -75,6 +76,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/todayDeliveredOrderCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
@@ -135,6 +137,7 @@
                 android:weightSum="2">
 
                 <RelativeLayout
+                    android:id="@+id/totalRevenueCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
@@ -185,6 +188,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/listedProductAmountCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
@@ -205,14 +209,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="start"
-                            android:text="@string/completed_transactions"
+                            android:text="@string/listed_merchandize_value"
                             android:textColor="@color/textSecondary"
                             android:textSize="@dimen/text_size_small"
                             app:textAllCaps="false"
                             app:typeface="font_regular.ttf" />
 
                         <com.futureskyltd.app.external.CustomTextView
-                            android:id="@+id/completedTransactions"
+                            android:id="@+id/listedMerchandizeValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -229,7 +233,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentEnd="true"
                         android:layout_margin="10dp"
-                        android:src="@drawable/home_transactions" />
+                        android:src="@drawable/home_order_amount" />
 
                 </RelativeLayout>
             </LinearLayout>
@@ -242,6 +246,7 @@
                 android:weightSum="2">
 
                 <RelativeLayout
+                    android:id="@+id/totalProductCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
@@ -292,113 +297,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corner_white">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="start"
-                        android:orientation="vertical"
-                        android:padding="14dp"
-                        android:weightSum="2">
-
-                        <com.futureskyltd.app.external.CustomTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="start"
-                            android:text="@string/listed_merchandize_value"
-                            android:textColor="@color/textSecondary"
-                            android:textSize="@dimen/text_size_small"
-                            app:textAllCaps="false"
-                            app:typeface="font_regular.ttf" />
-
-                        <com.futureskyltd.app.external.CustomTextView
-                            android:id="@+id/listedMerchandizeValue"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="start"
-                            android:textColor="@color/textPrimary"
-                            android:textSize="@dimen/text_size_large"
-                            android:textStyle="bold"
-                            app:typeface="font_regular.ttf" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_margin="10dp"
-                        android:src="@drawable/home_order_amount" />
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:background="@color/colorPrimary"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corner_white">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="start"
-                        android:orientation="vertical"
-                        android:padding="14dp"
-                        android:weightSum="2">
-
-                        <com.futureskyltd.app.external.CustomTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="start"
-                            android:text="@string/complete_order_amount"
-                            android:textColor="@color/textSecondary"
-                            android:textSize="@dimen/text_size_small"
-                            app:textAllCaps="false"
-                            app:typeface="font_regular.ttf" />
-
-                        <com.futureskyltd.app.external.CustomTextView
-                            android:id="@+id/completeOrderAmount"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="start"
-                            android:textColor="@color/textPrimary"
-                            android:textSize="@dimen/text_size_large"
-                            android:textStyle="bold"
-                            app:typeface="font_regular.ttf" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_margin="10dp"
-                        android:src="@drawable/home_complete_order" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
+                    android:id="@+id/incompleteOrderAmountCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
@@ -448,6 +347,116 @@
 
                 </RelativeLayout>
 
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="2">
+
+                <RelativeLayout
+                    android:id="@+id/completeOrderAmountCard"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_corner_white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:orientation="vertical"
+                        android:padding="14dp"
+                        android:weightSum="2">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/complete_order_amount"
+                            android:textColor="@color/textSecondary"
+                            android:textSize="@dimen/text_size_small"
+                            app:textAllCaps="false"
+                            app:typeface="font_regular.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/completeOrderAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="start"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_large"
+                            android:textStyle="bold"
+                            app:typeface="font_regular.ttf" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/home_complete_order" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/completeTransectionCard"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_corner_white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:orientation="vertical"
+                        android:padding="14dp"
+                        android:weightSum="2">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/completed_transactions"
+                            android:textColor="@color/textSecondary"
+                            android:textSize="@dimen/text_size_small"
+                            app:textAllCaps="false"
+                            app:typeface="font_regular.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/completedTransactions"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="start"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_large"
+                            android:textStyle="bold"
+                            app:typeface="font_regular.ttf" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/home_transactions" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 

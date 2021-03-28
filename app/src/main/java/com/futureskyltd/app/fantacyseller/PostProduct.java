@@ -181,7 +181,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
 
     private void getDistrictList() {
 
-        Retrofit retrofit = RetrofitClient.getRetrofitClient();
+        Retrofit retrofit = RetrofitClient.getRetrofitClient1();
         ApiInterface api = retrofit.create(ApiInterface.class);
 
         Call<DistrictList> districtCall = api.getByDistrict();
@@ -225,7 +225,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
     }
 
     private void getUpazilaList(int district_id) {
-        Retrofit retrofit = RetrofitClient.getRetrofitClient();
+        Retrofit retrofit = RetrofitClient.getRetrofitClient1();
         ApiInterface api = retrofit.create(ApiInterface.class);
 
         Call<UpazilatList> upazilaCall = api.postByUpazila(district_id);

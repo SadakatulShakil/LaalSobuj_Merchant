@@ -13,13 +13,13 @@
     <string name="Passwordfilter" translatable="false">abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ.$@#%-*:?!_,&amp;</string>
     <string name="Emailfilter" translatable="false">abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ.@-_</string>
     <string name="fullnamefilter" translatable="false">abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ .@-_</string>
-        <string name="email">ইমেইল/ফোন নম্বর লিখুন</string>
+    <string name="email">ইমেইল/ফোন নম্বর লিখুন</string>
     <string name="password">পাসওয়ার্ড লিখুন</string>
     <string name="sign_in">লগ ইন করুন</string>
     <string name="forgot_pass">পাসওয়ার্ড ভুলে গেছেন?</string>
-    <string name="signin_des1">পণ্য আপলোড করতে এবং অর্ডার সমূহের তথ্য জানার জন্য লগইন করুন</string>
-    <string name="signin_des2">লালসবুজ থেকে যেকোন অফার এবং নিউজ পেতে</string>
-    <string name="signin_des3">ম্যাসেজিং সিস্টেমের মাধ্যমে যোগাযোগ করতে</string>
+    <string name="signin_des1">পণ্য আপলোড ও অর্ডারের তথ্য জানতে বিক্রেতা হিসেবে লগ ইন করুন</string>
+    <string name="signin_des2">বিক্রেতা হিসেবে রেজিস্টার্ড হতে যোগাযোগ করুন ০৯৬৭৮৮৪৪৪৮৫ নাম্বারে</string>
+    <string name="signin_des3">নারীর অর্থনৈতিক মুক্তির প্রয়াসে সাথে আছে লালসবুজ</string>
     <string name="forgot_password">পাসওয়ার্ড ভুলে গেছেন</string>
     <string name="reset">reset</string>
     <string name="please_type_mail">ইমেইল/ফোন নম্বর লিখুন</string>
@@ -41,9 +41,9 @@
     <string name="something_went_wrong">দুঃখিত! আপনার কোথাও ভুল হচ্ছে</string>
     <string name="new_orders_today">আজকের নতুন অর্ডার</string>
     <string name="add_product">পণ্য যোগ করুন</string>
-    <string name="new_orders">নতুন অর্ডার</string>
+    <string name="new_orders">অর্ডার সমূহ</string>
     <string name="delivered_orders_today">আজকে ডেলিভারি হয়েছে</string>
-    <string name="total_revenue">মোট আয়</string>
+    <string name="total_revenue">সফল অর্ডারের মূল্য (কমিশন বাদে)</string>
     <string name="total_revenue_amount">মোট আয়ের পরিমান</string>
     <string name="completed_transactions">সফল লেনদেন </string>
     <string name="total_items">মোট পণ্য</string>
@@ -63,22 +63,10 @@
     <string name="sold_out">বিক্রয় হয়েছে</string>
     <string name="buy_now">এখনই কিনুন</string>
 
-    <string-array name="languages">
-        <item>English</item>
-        <item>French</item>
-        <!--   <item>Arabic</item>-->
-        <item>German</item>
-    </string-array>
-
-    <string-array name="languageCode" translatable="false">
-        <item>en</item>
-        <item>fr</item>
-        <!-- <item>ar</item>-->
-        <item>de</item>
-    </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="no_product">কোন পণ্য নাই</string>
+
     <string name="edit">এডিট করুন</string>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="delete">ডিলিট করুন</string>
     <string name="title_activity_product_detail">পন্যের বর্ণনা</string>
     <string name="share_this_product">পণ্যটি শেয়ার করুন</string>
@@ -130,7 +118,7 @@
     <string name="pending_status">প্রক্রিয়াধীন আছে</string>
     <string name="new_status">নতুন</string>
     <string name="delivered_status">ডেলিভারি হয়েছে</string>
-    <string name="shipped_status">Shipped</string>
+    <string name="shipped_status">শিপড হয়েছে</string>
     <string name="cancelled_status">বাতিল হয়েছে</string>
     <string name="refunded_status">ফেরত এসেছে</string>
     <string name="paid_status">পরিশোধ</string>
@@ -219,5 +207,17 @@
     <string name="admin_block_text">Contact Admin to unblock the account, and Try Sign-In again!</string>
     <string name="to_login">Go to Login</string>
     <string name="enable_camera_and_storage_permissions">Enable Camera and Storage permissions</string>
+    <string-array name="languages">
+        <item>English</item>
+        <item>French</item>
+        <!--   <item>Arabic</item>-->
+        <item>German</item>
+    </string-array>
+    <string-array name="languageCode" translatable="false">
+        <item>en</item>
+        <item>fr</item>
+        <!-- <item>ar</item>-->
+        <item>de</item>
+    </string-array>
 
 </resources>

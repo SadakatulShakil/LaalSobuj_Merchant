@@ -1,6 +1,7 @@
 package com.futureskyltd.app.fantacyseller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -237,7 +239,7 @@ public class NewOrder extends AppCompatActivity implements View.OnClickListener 
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (holder instanceof ViewHolder) {
                 ViewHolder viewHolder = (ViewHolder) holder;
                 viewHolder.newOrderName.setText(orderList.get(position).get(Constants.TAG_ITEM_NAME));
@@ -266,6 +268,9 @@ public class NewOrder extends AppCompatActivity implements View.OnClickListener 
                     case "Paid":
                         ((ViewHolder) holder).orderStatus.setText(getString(R.string.paid_status));
                         break;
+                    case "Processing":
+                        ((ViewHolder) holder).orderStatus.setText("কনফার্ম হয়েছে");
+                        break;
                     default:
                         ((ViewHolder) holder).orderStatus.setText(orderList.get(position).get(Constants.TAG_STATUS));
                         break;
@@ -278,6 +283,15 @@ public class NewOrder extends AppCompatActivity implements View.OnClickListener 
                 LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
                 loadingViewHolder.progressBar.setIndeterminate(true);
             }
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, orderList.get(position).get(Constants.TAG_ORDER_ID)+"  Order clicked !", Toast.LENGTH_SHORT).show();
+                    Intent detailsIntent = new Intent(NewOrder.this, OrderDetailsActivity.class);
+                    detailsIntent.putExtra("orderId", orderList.get(position).get(Constants.TAG_ORDER_ID));
+                    startActivity(detailsIntent);
+                }
+            });
         }
 
         @Override

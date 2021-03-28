@@ -84,6 +84,8 @@ public class FragmentMainActivity extends AppCompatActivity
     View header;
     AppBarLayout.LayoutParams params;
     NetworkReceiver networkReceiver;
+    private RelativeLayout userLay;
+    private RelativeLayout todayNewOrderCard, todayDeliveredOrderCard, totalRevenueCard, completeTransectionCard, totalProductCard, listedProductAmountCard, completeOrderAmountCard, incompleteOrderAmountCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +121,77 @@ public class FragmentMainActivity extends AppCompatActivity
         addProductLay = (RelativeLayout) findViewById(R.id.addProductLay);
         newOrderLay = (RelativeLayout) findViewById(R.id.newOrderLay);
         dashBoardswipeRefresh = (SwipeRefreshLayout) findViewById(R.id.dashBoardswipeRefresh);
+        userLay = header.findViewById(R.id.userLay);
+
+        todayNewOrderCard = findViewById(R.id.todayNewOrderCard);
+        todayDeliveredOrderCard = findViewById(R.id.todayDeliveredOrderCard);
+        totalRevenueCard = findViewById(R.id.totalRevenueCard);
+        completeTransectionCard = findViewById(R.id.completeTransectionCard);
+        totalProductCard = findViewById(R.id.totalProductCard);
+        listedProductAmountCard = findViewById(R.id.listedProductAmountCard);
+        completeOrderAmountCard = findViewById(R.id.completeOrderAmountCard);
+        incompleteOrderAmountCard = findViewById(R.id.incompleteOrderAmountCard);
+
+        userLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(FragmentMainActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
+                //Toast.makeText(FragmentMainActivity.this, "Not Yet done !", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        todayNewOrderCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newOrderIntent = new Intent(FragmentMainActivity.this, TodayNewOrderActivity.class);
+                startActivity(newOrderIntent);
+            }
+        });
+        totalProductCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newOrderIntent = new Intent(FragmentMainActivity.this, AllProduct.class);
+                startActivity(newOrderIntent);
+            }
+        });
+
+        completeOrderAmountCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent completeOrderIntent = new Intent(FragmentMainActivity.this, CompleteOrderAmountActivity.class);
+                startActivity(completeOrderIntent);
+            }
+        });
+        incompleteOrderAmountCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent inCompleteOrderIntent = new Intent(FragmentMainActivity.this, InCompleteOrderAmountActivity.class);
+                startActivity(inCompleteOrderIntent);
+            }
+        });
+
+        completeTransectionCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent completeOrderIntent = new Intent(FragmentMainActivity.this, CompleteTransectionActivity.class);
+                startActivity(completeOrderIntent);
+            }
+        });
+        totalRevenueCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent completeOrderIntent = new Intent(FragmentMainActivity.this, CompleteOrderAmountActivity.class);
+                startActivity(completeOrderIntent);
+            }
+        });
+        listedProductAmountCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent allProductIntent = new Intent(FragmentMainActivity.this, AllProduct.class);
+                startActivity(allProductIntent);
+            }
+        });
 
         /*View Usage*/
         appName.setVisibility(View.VISIBLE);
@@ -428,6 +501,9 @@ public class FragmentMainActivity extends AppCompatActivity
 
     private void switchFragmentByNavigation(int id, MenuItem item) {
         switch (id) {
+            case R.id.profile_menu:
+                switchContent(ProfileActivity.class);
+                break;
             case R.id.addProduct_menu:
                 switchContent(CreateProduct.class);
                 break;
