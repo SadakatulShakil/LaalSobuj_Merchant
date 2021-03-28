@@ -39,13 +39,35 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
         String Id = String.valueOf(iId);
         int qnt = itemInfo.getQuantity();
         String qnty = String.valueOf(qnt);
-        holder.itemId.setText("Item id: "+Id);
+        holder.itemId.setText("Item id: "+getENtoBN(Id));
         holder.itemName.setText("Item name: "+itemInfo.getItemName());
-        holder.quantity.setText("Quantity: "+qnty);
-        holder.size.setText("Size: "+itemInfo.getSize());
-        holder.price.setText("Item Price: "+itemInfo.getPrice());
+        holder.quantity.setText("Quantity: "+getENtoBN(qnty));
+        holder.size.setText("Size: "+getENtoBN(itemInfo.getSize()));
+        holder.price.setText("Item Price: ৳ "+getENtoBN(itemInfo.getPrice()));
 
         Picasso.with(context).load(itemInfo.getItemImage()).into(holder.itemImage);
+    }
+
+    public String getENtoBN(String string)
+    {
+        Character bangla_number[]={'০','১','২','৩','৪','৫','৬','৭','৮','৯'};
+        Character eng_number[]={'0','1','2','3','4','5','6','7','8','9'};
+        String values = "";
+        char[] character = string.toCharArray();
+        for (int i=0; i<character.length ; i++) {
+            Character c = ' ';
+            for (int j = 0; j < eng_number.length; j++) {
+                if(character[i]==eng_number[j])
+                {
+                    c=bangla_number[j];
+                    break;
+                }else {
+                    c=character[i];
+                }
+            }
+            values=values+c;
+        }
+        return values;
     }
 
     @Override

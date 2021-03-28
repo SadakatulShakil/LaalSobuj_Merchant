@@ -47,11 +47,11 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.viewHold
         }else if(orderInfo.getStatus().equals("Delivered")){
             holder.orderStatus.setText(context.getString(R.string.delivered_status));
         }
-        holder.orderDate.setText("Order date: "+getDate(orderInfo.getOrderDate()));
+        holder.orderDate.setText("Order date: "+getENtoBN(getDate(orderInfo.getOrderDate())));
         int oId = orderInfo.getOrderId();
         String orderId = String.valueOf(oId);
-        holder.orderId.setText("Order id: "+orderId);
-        holder.totalCost.setText("Total cost: "+orderInfo.getTotalcost());
+        holder.orderId.setText("Order id: #০০০০০০"+getENtoBN(orderId));
+        holder.totalCost.setText("Total cost: ৳ "+getENtoBN(orderInfo.getTotalcost()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +62,30 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.viewHold
             }
         });
     }
+
+
+    public String getENtoBN(String string)
+    {
+        Character bangla_number[]={'০','১','২','৩','৪','৫','৬','৭','৮','৯'};
+        Character eng_number[]={'0','1','2','3','4','5','6','7','8','9'};
+        String values = "";
+        char[] character = string.toCharArray();
+        for (int i=0; i<character.length ; i++) {
+            Character c = ' ';
+            for (int j = 0; j < eng_number.length; j++) {
+                if(character[i]==eng_number[j])
+                {
+                    c=bangla_number[j];
+                    break;
+                }else {
+                    c=character[i];
+                }
+            }
+            values=values+c;
+        }
+        return values;
+    }
+
 
     private String getDate(Integer orderDate) {
             try {

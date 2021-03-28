@@ -136,6 +136,29 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
             }
         });
     }
+    ///Convert English number to Bnagla number////
+    public String getENtoBN(String string)
+    {
+        Character bangla_number[]={'০','১','২','৩','৪','৫','৬','৭','৮','৯'};
+        Character eng_number[]={'0','1','2','3','4','5','6','7','8','9'};
+        String values = "";
+        char[] character = string.toCharArray();
+        for (int i=0; i<character.length ; i++) {
+            Character c = ' ';
+            for (int j = 0; j < eng_number.length; j++) {
+                if(character[i]==eng_number[j])
+                {
+                    c=bangla_number[j];
+                    break;
+                }else {
+                    c=character[i];
+                }
+            }
+            values=values+c;
+        }
+        return values;
+    }
+    ///Convert English number to Bnagla number////
 
     private void getOrderDetails(String orderId) {
         Retrofit retrofit = RetrofitClient.getRetrofitClient();
@@ -157,14 +180,16 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                     }else if(orderDetails.getResult().getStatus().equals("Delivered")){
                         orderStatus.setText(getString(R.string.delivered_status));
                     }
-                    orderDate.setText("Order Date: "+orderDetails.getResult().getSaleDate());
+                    String oId = String.valueOf(orderDetails.getResult().getOrderId());
+                    String gTotal = String.valueOf(orderDetails.getResult().getGrandTotal());
+                    orderDate.setText("Order Date: "+getENtoBN(orderDetails.getResult().getSaleDate()));
                     paymentMethod.setText("Payment method: "+orderDetails.getResult().getPaymentMode());
                     paymentStatus.setText("Payment status: "+orderDetails.getResult().getPaymentMode());
                     buyerName.setText("Buyer name: "+orderDetails.getResult().getShipping().getFullName());
-                    buyerPhone.setText("Buyer phone: "+orderDetails.getResult().getShipping().getPhone());
-                    buyerAddress.setText("Buyer address: "+orderDetails.getResult().getShipping().getAddress1());
-                    userOrderId.setText("Order Id: "+orderDetails.getResult().getOrderId());
-                    grandTotal.setText("Grand total: "+orderDetails.getResult().getGrandTotal());
+                    buyerPhone.setText("Buyer phone: "+getENtoBN(orderDetails.getResult().getShipping().getPhone()));
+                    buyerAddress.setText("Buyer address: "+getENtoBN(orderDetails.getResult().getShipping().getAddress1()));
+                    userOrderId.setText("Order Id: #০০০০০০"+getENtoBN(oId));
+                    grandTotal.setText("Grand total: ৳ "+getENtoBN(gTotal));
 
                     mItemArrayList.addAll(orderDetails.getResult().getItems());
                     Log.d(TAG, "onResponseList: "+mItemArrayList.size());

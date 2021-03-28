@@ -293,6 +293,29 @@ public class FragmentMainActivity extends AppCompatActivity
         FantacySellerApplication.getInstance().setConnectivityListener(this);
     }
 
+    public String getENtoBN(String string)
+    {
+        Character bangla_number[]={'০','১','২','৩','৪','৫','৬','৭','৮','৯'};
+        Character eng_number[]={'0','1','2','3','4','5','6','7','8','9'};
+        String values = "";
+        char[] character = string.toCharArray();
+        for (int i=0; i<character.length ; i++) {
+            Character c = ' ';
+            for (int j = 0; j < eng_number.length; j++) {
+                if(character[i]==eng_number[j])
+                {
+                    c=bangla_number[j];
+                    break;
+                }else {
+                    c=character[i];
+                }
+            }
+            values=values+c;
+        }
+        return values;
+    }
+
+
     private void updateNavigation() {
         storeName.setText(GetSet.getFullName());
         if (!GetSet.getRating().equals("")) {
@@ -334,15 +357,15 @@ public class FragmentMainActivity extends AppCompatActivity
                         GetSet.setRating(result.getString(Constants.TAG_RATING));
                         GetSet.setImageUrl(result.getString(Constants.TAG_USER_IMAGE));
 
-                        newOrderCount.setText(GetSet.getNewOrderCount() != null ? GetSet.getNewOrderCount() : "0");
-                        deliveredOrdersToday.setText(GetSet.getDeliveredOrderCount() != null ? GetSet.getDeliveredOrderCount() : "0");
+                        newOrderCount.setText(getENtoBN(GetSet.getNewOrderCount() != null ? GetSet.getNewOrderCount() : "0"));
+                        deliveredOrdersToday.setText(getENtoBN(GetSet.getDeliveredOrderCount() != null ? GetSet.getDeliveredOrderCount() : "0"));
 
-                        totalRevenue.setText(GetSet.getsellerCurrencySymbol() + " " + (GetSet.getTotalRevenue() != null ? FantacySellerApplication.formatPrice(GetSet.getTotalRevenue()) : "0"));
-                        completedTransactions.setText(GetSet.getsellerCurrencySymbol() + " " + (GetSet.getCompleteTransaction() != null ? FantacySellerApplication.formatPrice(GetSet.getCompleteTransaction()) : "0"));
-                        totalItems.setText(GetSet.getTotalItems() != null ? GetSet.getTotalItems() : "0");
-                        completeOrderAmount.setText(GetSet.getsellerCurrencySymbol() + " " + (GetSet.getCompletedOrderAmount() != null ? FantacySellerApplication.formatPrice(GetSet.getCompletedOrderAmount()) : "0"));
-                        incompleteOrderAmount.setText(GetSet.getsellerCurrencySymbol() + " " + (GetSet.getIncompleteOrderAmount() != null ? FantacySellerApplication.formatPrice(GetSet.getIncompleteOrderAmount()) : "0"));
-                        listedMerchandizeValue.setText(GetSet.getsellerCurrencySymbol() + " " + (GetSet.getListedMerchandizeValue() != null ? FantacySellerApplication.formatPrice(GetSet.getListedMerchandizeValue()) : "0"));
+                        totalRevenue.setText(getENtoBN(GetSet.getsellerCurrencySymbol() + " " + (GetSet.getTotalRevenue() != null ? FantacySellerApplication.formatPrice(GetSet.getTotalRevenue()) : "0")));
+                        completedTransactions.setText(getENtoBN(GetSet.getsellerCurrencySymbol() + " " + (GetSet.getCompleteTransaction() != null ? FantacySellerApplication.formatPrice(GetSet.getCompleteTransaction()) : "0")));
+                        totalItems.setText(getENtoBN(GetSet.getTotalItems() != null ? GetSet.getTotalItems() : "0"));
+                        completeOrderAmount.setText(getENtoBN(GetSet.getsellerCurrencySymbol() + " " + (GetSet.getCompletedOrderAmount() != null ? FantacySellerApplication.formatPrice(GetSet.getCompletedOrderAmount()) : "0")));
+                        incompleteOrderAmount.setText(getENtoBN(GetSet.getsellerCurrencySymbol() + " " + (GetSet.getIncompleteOrderAmount() != null ? FantacySellerApplication.formatPrice(GetSet.getIncompleteOrderAmount()) : "0")));
+                        listedMerchandizeValue.setText(getENtoBN(GetSet.getsellerCurrencySymbol() + " " + (GetSet.getListedMerchandizeValue() != null ? FantacySellerApplication.formatPrice(GetSet.getListedMerchandizeValue()) : "0")));
                         updateNavigation();
                     } else if (DefensiveClass.optString(json, Constants.TAG_STATUS).equalsIgnoreCase("error")) {
                         String message = DefensiveClass.optString(json, Constants.TAG_MESSAGE);

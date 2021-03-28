@@ -49,9 +49,9 @@ public class TodayOrderAdapter extends RecyclerView.Adapter<TodayOrderAdapter.vi
         int tCost = resultInfo.getTotalcost();
         String orId = String.valueOf(oId);
         String totCost = String.valueOf(tCost);
-        holder.orderId.setText("Order id: "+orId);
-        holder.totalCost.setText("Total cost: "+totCost);
-        holder.orderDate.setText("Order date: "+resultInfo.getOrderdate());
+        holder.orderId.setText("Order id: #০০০০০০"+getENtoBN(orId));
+        holder.totalCost.setText("Total cost: ৳ "+getENtoBN(totCost));
+        holder.orderDate.setText("Order date: "+getENtoBN(resultInfo.getOrderdate()));
         holder.deliveryType.setText("Delivery type: "+resultInfo.getDeliverytype());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +62,27 @@ public class TodayOrderAdapter extends RecyclerView.Adapter<TodayOrderAdapter.vi
                 context.startActivity(intent);
             }
         });
+    }
+    public String getENtoBN(String string)
+    {
+        Character bangla_number[]={'০','১','২','৩','৪','৫','৬','৭','৮','৯'};
+        Character eng_number[]={'0','1','2','3','4','5','6','7','8','9'};
+        String values = "";
+        char[] character = string.toCharArray();
+        for (int i=0; i<character.length ; i++) {
+            Character c = ' ';
+            for (int j = 0; j < eng_number.length; j++) {
+                if(character[i]==eng_number[j])
+                {
+                    c=bangla_number[j];
+                    break;
+                }else {
+                    c=character[i];
+                }
+            }
+            values=values+c;
+        }
+        return values;
     }
 
     @Override
