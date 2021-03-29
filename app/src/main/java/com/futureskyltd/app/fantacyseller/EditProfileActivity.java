@@ -55,7 +55,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         appName.setVisibility(View.INVISIBLE);
         back.setVisibility(View.VISIBLE);
         title.setVisibility(View.VISIBLE);
-        title.setText("তথ্য পরিশোধন");
+        title.setText("তথ্য এডিট");
 
         back.setOnClickListener(this);
         /////set merchant Data///

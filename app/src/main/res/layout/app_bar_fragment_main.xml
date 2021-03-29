@@ -9,7 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp">
 
@@ -92,7 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         layout="@layout/content_main"
-        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginTop="80dp"
         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

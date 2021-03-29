@@ -64,21 +64,23 @@ public class CompleteOrderAmountActivity extends AppCompatActivity implements Vi
             public void onResponse(Call<MyOrder> call, Response<MyOrder> response) {
                 if(response.code() == 200){
                     MyOrder myOrder = response.body();
-                    orderArrayList.addAll(myOrder.getOrders());
-                    for(int i = 0; i<orderArrayList.size();i++){
-                        if(myOrder.getOrders().get(i).getStatus().equals("Processing")){
-                            completeOrderArrayList.add(myOrder.getOrders().get(i));
+                    if(myOrder.getOrders()!= null){
+                        orderArrayList.addAll(myOrder.getOrders());
+                        for(int i = 0; i<orderArrayList.size();i++){
+                            if(myOrder.getOrders().get(i).getStatus().equals("Processing")){
+                                completeOrderArrayList.add(myOrder.getOrders().get(i));
+                            }
                         }
+                        Log.d(TAG, "onRList: "+orderArrayList.size());
+                        myOrderAdapter = new MyOrderAdapter(CompleteOrderAmountActivity.this, completeOrderArrayList);
+                        completeOrderRevView.setLayoutManager(new LinearLayoutManager(CompleteOrderAmountActivity.this));
+                        completeOrderRevView.setAdapter(myOrderAdapter);
+                        myOrderAdapter.notifyDataSetChanged();
                     }
-                    Log.d(TAG, "onRList: "+completeOrderArrayList.size());
-                    myOrderAdapter = new MyOrderAdapter(CompleteOrderAmountActivity.this, completeOrderArrayList);
-                    completeOrderRevView.setLayoutManager(new LinearLayoutManager(CompleteOrderAmountActivity.this));
-                    completeOrderRevView.setAdapter(myOrderAdapter);
-                    myOrderAdapter.notifyDataSetChanged();
 
                     progressBar.setVisibility(View.GONE);
 
-                    if(completeOrderArrayList.size() == 0){
+                    if(orderArrayList.size()==0){
                         completeOrderRevView.setVisibility(View.GONE);
                         nullLay.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);

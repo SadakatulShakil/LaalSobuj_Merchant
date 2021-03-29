@@ -439,7 +439,7 @@ public class LoginActivity extends AppCompatActivity implements NetworkReceiver.
         alertDialog.setTitle("পাসওয়ার্ড ভুলে গেছেন?");
         alertDialog.setMessage("পাসওয়ার্ড ভুলে গিয়ে থাকলে আপনার তথ্য কেন্দ্রে যোগাযোগ করুন অথবা কল করুন   ০৯৬৭৮৮৪৪৪৮৫");
         alertDialog.setIcon(R.drawable.ic_lock);
-        alertDialog.setPositiveButton("ওকে", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("ঠিক আছে", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

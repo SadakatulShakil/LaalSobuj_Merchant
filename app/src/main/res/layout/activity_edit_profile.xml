@@ -205,7 +205,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="এনাইডি নং"
+                android:text="এনআইডি নং"
                 android:layout_marginLeft="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/black" />
@@ -321,7 +321,7 @@
                 android:gravity="center"
                 android:letterSpacing=".1"
                 android:padding="5dp"
-                android:text="পরিশোধন করুন"
+                android:text="সেইভ করুন"
                 android:layout_gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/white"

@@ -64,21 +64,24 @@ public class InCompleteOrderAmountActivity extends AppCompatActivity implements 
             public void onResponse(Call<MyOrder> call, Response<MyOrder> response) {
                 if(response.code() == 200){
                     MyOrder myOrder = response.body();
-                    orderArrayList.addAll(myOrder.getOrders());
-                    for(int i = 0; i<orderArrayList.size();i++){
-                        if(myOrder.getOrders().get(i).getStatus().equals("Pending")){
-                            completeOrderArrayList.add(myOrder.getOrders().get(i));
+                    if(myOrder.getOrders()!=null){
+
+                        orderArrayList.addAll(myOrder.getOrders());
+                        for(int i = 0; i<orderArrayList.size();i++){
+                            if(myOrder.getOrders().get(i).getStatus().equals("Pending")){
+                                completeOrderArrayList.add(myOrder.getOrders().get(i));
+                            }
                         }
+                        Log.d(TAG, "onRList: "+completeOrderArrayList.size());
+                        myOrderAdapter = new MyOrderAdapter(InCompleteOrderAmountActivity.this, completeOrderArrayList);
+                        completeOrderRevView.setLayoutManager(new LinearLayoutManager(InCompleteOrderAmountActivity.this));
+                        completeOrderRevView.setAdapter(myOrderAdapter);
+                        myOrderAdapter.notifyDataSetChanged();
+
+                        progressBar.setVisibility(View.GONE);
                     }
-                    Log.d(TAG, "onRList: "+completeOrderArrayList.size());
-                    myOrderAdapter = new MyOrderAdapter(InCompleteOrderAmountActivity.this, completeOrderArrayList);
-                    completeOrderRevView.setLayoutManager(new LinearLayoutManager(InCompleteOrderAmountActivity.this));
-                    completeOrderRevView.setAdapter(myOrderAdapter);
-                    myOrderAdapter.notifyDataSetChanged();
 
-                    progressBar.setVisibility(View.GONE);
-
-                    if(completeOrderArrayList.size() == 0){
+                    if(orderArrayList.size()==0 ){
                         completeOrderRevView.setVisibility(View.GONE);
                         nullLay.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);

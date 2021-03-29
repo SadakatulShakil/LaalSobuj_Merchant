@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/top"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+    android:layout_height="70dp"
     android:layoutDirection="ltr"
     android:minHeight="?attr/actionBarSize"
     android:background="@color/colorPrimary">
@@ -51,10 +51,10 @@
     <ImageView
         android:id="@+id/appName"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="40dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/app_name"
+        android:src="@drawable/icon_text"
         android:visibility="visible"/>
 
     <com.futureskyltd.app.external.CustomTextView
