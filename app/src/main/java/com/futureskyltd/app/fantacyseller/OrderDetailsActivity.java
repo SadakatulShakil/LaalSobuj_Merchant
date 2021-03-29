@@ -182,14 +182,14 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                     }
                     String oId = String.valueOf(orderDetails.getResult().getOrderId());
                     String gTotal = String.valueOf(orderDetails.getResult().getGrandTotal());
-                    orderDate.setText("Order Date: "+getENtoBN(orderDetails.getResult().getSaleDate()));
-                    paymentMethod.setText("Payment method: "+orderDetails.getResult().getPaymentMode());
-                    paymentStatus.setText("Payment status: "+orderDetails.getResult().getPaymentMode());
-                    buyerName.setText("Buyer name: "+orderDetails.getResult().getShipping().getFullName());
-                    buyerPhone.setText("Buyer phone: "+getENtoBN(orderDetails.getResult().getShipping().getPhone()));
-                    buyerAddress.setText("Buyer address: "+getENtoBN(orderDetails.getResult().getShipping().getAddress1()));
-                    userOrderId.setText("Order Id: #০০০০০০"+getENtoBN(oId));
-                    grandTotal.setText("Grand total: ৳ "+getENtoBN(gTotal));
+                    orderDate.setText("অর্ডারের তারিখ: "+getENtoBN(orderDetails.getResult().getSaleDate()));
+                    paymentMethod.setText("পেমেন্ট পদ্ধতি: "+orderDetails.getResult().getPaymentMode());
+                    paymentStatus.setText("পেমেন্ট অবস্থা: "+orderDetails.getResult().getPaymentMode());
+                    buyerName.setText("ক্রেতার নাম: "+orderDetails.getResult().getShipping().getFullName());
+                    buyerPhone.setText("ক্রেতার ফোন নং: "+getENtoBN(orderDetails.getResult().getShipping().getPhone()));
+                    buyerAddress.setText("ক্রেতার ঠিকানা: "+getENtoBN(orderDetails.getResult().getShipping().getAddress1()));
+                    userOrderId.setText("অর্ডার আইডি: #০০০০"+getENtoBN(oId));
+                    grandTotal.setText("মোট মূল্য: ৳ "+getENtoBN(gTotal));
 
                     mItemArrayList.addAll(orderDetails.getResult().getItems());
                     Log.d(TAG, "onResponseList: "+mItemArrayList.size());

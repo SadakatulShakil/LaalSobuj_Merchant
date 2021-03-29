@@ -39,11 +39,11 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
         String Id = String.valueOf(iId);
         int qnt = itemInfo.getQuantity();
         String qnty = String.valueOf(qnt);
-        holder.itemId.setText("Item id: "+getENtoBN(Id));
-        holder.itemName.setText("Item name: "+itemInfo.getItemName());
-        holder.quantity.setText("Quantity: "+getENtoBN(qnty));
-        holder.size.setText("Size: "+getENtoBN(itemInfo.getSize()));
-        holder.price.setText("Item Price: ৳ "+getENtoBN(itemInfo.getPrice()));
+        holder.itemId.setText("পণ্যের আইডি: "+getENtoBN(Id));
+        holder.itemName.setText("পণ্যের নাম: "+itemInfo.getItemName());
+        holder.quantity.setText("পরিমাণ: "+getENtoBN(qnty));
+        holder.size.setText("সাইজ: "+getENtoBN(itemInfo.getSize()));
+        holder.price.setText("পণ্যের মূল্য: ৳ "+getENtoBN(itemInfo.getPrice()));
 
         Picasso.with(context).load(itemInfo.getItemImage()).into(holder.itemImage);
     }

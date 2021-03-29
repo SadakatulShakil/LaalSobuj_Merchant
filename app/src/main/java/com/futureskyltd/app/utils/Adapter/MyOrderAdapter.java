@@ -47,11 +47,11 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.viewHold
         }else if(orderInfo.getStatus().equals("Delivered")){
             holder.orderStatus.setText(context.getString(R.string.delivered_status));
         }
-        holder.orderDate.setText("Order date: "+getENtoBN(getDate(orderInfo.getOrderDate())));
+        holder.orderDate.setText("অর্ডারের তারিখ: "+getENtoBN(getDate(orderInfo.getOrderDate())));
         int oId = orderInfo.getOrderId();
         String orderId = String.valueOf(oId);
-        holder.orderId.setText("Order id: #০০০০০০"+getENtoBN(orderId));
-        holder.totalCost.setText("Total cost: ৳ "+getENtoBN(orderInfo.getTotalcost()));
+        holder.orderId.setText("অর্ডার আইডি: #০০০০"+getENtoBN(orderId));
+        holder.totalCost.setText("মোট মূল্য: ৳ "+getENtoBN(orderInfo.getTotalcost()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
