@@ -161,21 +161,88 @@
                         android:textSize="@dimen/text_size_small"
                         android:theme="@style/CusEditTextTheme" />
 
-                    <com.futureskyltd.app.external.CustomEditText
-                        android:id="@+id/sizeOptQuantity"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginStart="15dp"
-                        android:background="@drawable/edittext_bottom_border"
-                        android:hint="@string/size_option_quantity"
-                        android:inputType="number"
-                        android:maxLength="3"
-                        android:paddingBottom="@dimen/common_padding"
-                        android:paddingRight="@dimen/common_padding"
-                        android:paddingTop="@dimen/common_padding"
-                        android:textSize="@dimen/text_size_small"
-                        android:theme="@style/CusEditTextTheme" />
+                       android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.futureskyltd.app.external.CustomEditText
+                            android:id="@+id/sizeOptQuantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginStart="15dp"
+                            android:background="@drawable/edittext_bottom_border"
+                            android:hint="@string/size_option_quantity"
+                            android:inputType="number"
+                            android:maxLength="3"
+                            android:layout_weight="1"
+                            android:paddingBottom="@dimen/common_padding"
+                            android:paddingRight="@dimen/common_padding"
+                            android:paddingTop="@dimen/common_padding"
+                            android:textSize="@dimen/text_size_small"
+                            android:theme="@style/CusEditTextTheme" />
+
+                            <Spinner
+                                android:id="@+id/unitSpinner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/demoUp"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                android:layout_weight="1"
+                                android:layout_marginBottom="5dp"
+                                android:overlapAnchor="false"
+                                android:spinnerMode="dropdown"
+                                tools:ignore="HardcodedText"
+                                tools:targetApi="LOLLIPOP" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/sellPercentage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginStart="15dp"
+                            android:background="@drawable/bottom_border"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:text="৭.৫% কমিশন সহ পণ্যের মূল্য "
+                            android:paddingTop="@dimen/common_padding"
+                            android:paddingBottom="@dimen/common_padding"
+                            android:paddingEnd="@dimen/common_padding"
+                            android:textColor="@color/textPrimary"
+                            android:textColorHint="@color/textSecondary"
+                            android:textSize="@dimen/text_size_medium"
+                            app:typeface="font_bold.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/sellPercentagePrice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginStart="15dp"
+                            android:background="@drawable/bottom_border"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:gravity="center"
+                            android:text="দেখুন"
+                            android:paddingTop="@dimen/common_padding"
+                            android:paddingBottom="@dimen/common_padding"
+                            android:paddingEnd="@dimen/common_padding"
+                            android:textColor="@color/textPrimary"
+                            android:textColorHint="@color/textSecondary"
+                            android:textSize="@dimen/text_size_medium"
+                            app:typeface="font_bold.ttf" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -183,6 +250,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:background="@color/bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/common_padding"
+                    android:singleLine="false"
+                    android:text= "ন্যূনতম অর্ডার পরিমান(সর্বনিম্ন কতটি পণ্য \nঅর্ডার করতে পারবে)"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.futureskyltd.app.external.CustomEditText
+                        android:id="@+id/minOrderQuantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="8dp"
+                        android:hint="ন্যূনতম অর্ডার পরিমান দিন"
+                        android:inputType="numberDecimal"
+                        android:layout_weight="1"
+                        android:paddingBottom="@dimen/common_padding"
+                        android:paddingRight="@dimen/common_padding"
+                        android:paddingTop="@dimen/common_padding"
+                        android:textSize="@dimen/text_size_small"
+                        android:theme="@style/CusEditTextTheme" />
+
+                    <TextView
+                        android:id="@+id/minimumUnit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="প্যাকেট / বাক্স"
+                        android:layout_weight="1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/dailyDealLay"
@@ -539,6 +655,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <TextView
@@ -603,40 +720,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
                     android:background="@color/bg" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@color/white">
-
-                    <com.futureskyltd.app.external.CustomTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/common_padding"
-                        android:singleLine="false"
-                        android:text= "ন্যূনতম অর্ডার পরিমান(সর্বনিম্ন কতটি পণ্য \nঅর্ডার করতে পারবে)"
-                        android:textColor="@color/textPrimary"
-                        android:textSize="@dimen/text_size_medium"
-                        app:typeface="font_regular.ttf" />
-
-                    <com.futureskyltd.app.external.CustomEditText
-                        android:id="@+id/minOrderQuantity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginBottom="8dp"
-                        android:hint="ন্যূনতম অর্ডার পরিমান দিন"
-                        android:inputType="numberDecimal"
-                        android:paddingBottom="@dimen/common_padding"
-                        android:paddingRight="@dimen/common_padding"
-                        android:paddingTop="@dimen/common_padding"
-                        android:textSize="@dimen/text_size_small"
-                        android:theme="@style/CusEditTextTheme" />
-
-                </LinearLayout>
 
             </LinearLayout>
 

@@ -88,6 +88,7 @@ public class Constants {
     public static final String TAG_DEAL_TYPE = "pro_discount";
     public static final String TAG_DISTRICT = "district";
     public static final String TAG_UPAZILA = "upazila";
+    public static final String TAG_UNIT_NAME = "unit_type";
     public static final String TAG_MAIN_PRICE = "mainprice";
     public static final String TAG_PRODUCT_URL = "product_url";
     public static final String TAG_ORDERS = "orders";

@@ -95,23 +95,50 @@
                 app:typeface="font_bold.ttf" />
 
 
-            <com.futureskyltd.app.external.CustomTextView
-                android:id="@+id/sellPercentage"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/bottom_border"
-                android:inputType="numberDecimal"
-                android:maxLines="1"
-                android:text="বিক্রয় কমিশন:      ৭.৫%"
-                android:paddingTop="@dimen/common_padding"
-                android:paddingBottom="@dimen/common_padding"
-                android:paddingEnd="@dimen/common_padding"
-                android:textColor="@color/textPrimary"
-                android:textColorHint="@color/textSecondary"
-                android:textSize="@dimen/text_size_medium"
-                app:typeface="font_bold.ttf" />
+                android:orientation="horizontal">
+
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/sellPercentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/bottom_border"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:text="৭.৫% কমিশন সহ পণ্যের মূল্য "
+                    android:paddingTop="@dimen/common_padding"
+                    android:paddingBottom="@dimen/common_padding"
+                    android:paddingEnd="@dimen/common_padding"
+                    android:textColor="@color/textPrimary"
+                    android:textColorHint="@color/textSecondary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_bold.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/sellPercentagePrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/bottom_border"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:gravity="center"
+                    android:text="দেখুন"
+                    android:paddingTop="@dimen/common_padding"
+                    android:paddingBottom="@dimen/common_padding"
+                    android:paddingEnd="@dimen/common_padding"
+                    android:textColor="@color/textPrimary"
+                    android:textColorHint="@color/textSecondary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_bold.ttf" />
+            </LinearLayout>
+
 
         </LinearLayout>
 

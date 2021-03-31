@@ -6,11 +6,11 @@
 
     <TextView
         android:id="@+id/spinnerView"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="RicejkchkjhKCHkkJC"
         android:padding="5dp"
-        android:textSize="15sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/textPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

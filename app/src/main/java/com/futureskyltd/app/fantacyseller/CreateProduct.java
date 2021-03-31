@@ -202,6 +202,7 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
                         productDatas.put(Constants.TAG_DISCOUNT_PERCENTAGE, DefensiveClass.optString(temp, Constants.TAG_DISCOUNT_PERCENTAGE));
                         productDatas.put(Constants.TAG_DEAL_DATE, DefensiveClass.optString(temp, Constants.TAG_DEAL_DATE));
                         productDatas.put(Constants.TAG_QUANTITY, DefensiveClass.optString(temp, Constants.TAG_QUANTITY));
+                        productDatas.put(Constants.TAG_MIN_QUANTITY, DefensiveClass.optString(temp, Constants.TAG_MIN_QUANTITY));
                         productDatas.put(Constants.TAG_COD, DefensiveClass.optString(temp, Constants.TAG_COD));
                         productDatas.put(Constants.TAG_SHIPPING_TIME, DefensiveClass.optString(temp, Constants.TAG_SHIPPING_TIME));
                         productDatas.put(Constants.TAG_PRODUCT_URL, DefensiveClass.optString(temp, Constants.TAG_PRODUCT_URL));

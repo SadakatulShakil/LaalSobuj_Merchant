@@ -28,7 +28,7 @@ import java.util.HashMap;
 public class AddSizeProperty extends AppCompatActivity implements View.OnClickListener {
     EditText addProperty, addUnits, addPrice;
     RecyclerView recyclerView;
-    TextView varientPrice, addVarientPrice, title, addBtn, resetBtn;
+    TextView varientPrice, addVarientPrice, title, addBtn, resetBtn, sellPercentagePrice;
     RecyclerAdapter recyclerAdapter;
     ArrayList<HashMap<String, Object>> propertyList = new ArrayList<>();
     ImageView backBtn, appname;
@@ -50,6 +50,7 @@ public class AddSizeProperty extends AppCompatActivity implements View.OnClickLi
         backBtn = (ImageView) findViewById(R.id.backBtn);
         appname = (ImageView) findViewById(R.id.appName);
         title = (TextView) findViewById(R.id.title);
+        sellPercentagePrice = findViewById(R.id.sellPercentagePrice);
 
         addProperty.setFilters(new InputFilter[]{FantacySellerApplication.EMOJI_FILTER});
         appname.setVisibility(View.INVISIBLE);
@@ -72,6 +73,25 @@ public class AddSizeProperty extends AppCompatActivity implements View.OnClickLi
         addVarientPrice.setOnClickListener(this);
         addBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
+
+        sellPercentagePrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pPrice = addPrice.getText().toString().trim();
+                if (pPrice.isEmpty()) {
+                    Toast.makeText(AddSizeProperty.this, "দয়াকরে পণ্যের বিক্রয় মূল্য দিন", Toast.LENGTH_SHORT).show();
+                }else {
+                    double bPrice = Double.parseDouble(pPrice);
+                    double result = Math.floor(bPrice+((7.5*650)/100));
+                    if(result % 5 != 0){
+                        result= ((Math.floor(result/5)*5)+5);
+
+                    }
+                    String sellPrice = String.valueOf(result);
+                    sellPercentagePrice.setText("৳ "+sellPrice);
+                }
+            }
+        });
     }
 
     private void setAdapter(String size, String unit, String price) {
@@ -112,7 +132,7 @@ public class AddSizeProperty extends AppCompatActivity implements View.OnClickLi
             viewHolder.addUnitsItem.setText("পণ্যের মজুদ পরিমান: "+sizeList.get(position).get(Constants.TAG_UNIT).toString());
             viewHolder.addPriceItem.setText("বিক্রয় মূল্য: ৳ "+sizeList.get(position).get(Constants.TAG_PRICE).toString());
             String buy_price = sizeList.get(position).get(Constants.TAG_PRICE).toString();
-            double bPrice = Integer.parseInt(buy_price);
+            double bPrice = Double.parseDouble(buy_price);
             double result = Math.floor(bPrice+((7.5*650)/100));
             if(result % 5 != 0){
                 result= ((Math.floor(result/5)*5)+5);
