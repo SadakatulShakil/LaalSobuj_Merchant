@@ -73,7 +73,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         actionBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] values = new String[]{"Confirm", "Shipped"};
+                String[] values = new String[]{"কনফার্ম", "শিপড"};
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(OrderDetailsActivity.this,
                         R.layout.option_row_item, android.R.id.text1, values);
                 LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -126,7 +126,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                     finish();
                     Intent intent = new Intent(OrderDetailsActivity.this, NewOrder.class);
                     startActivity(intent);
-                    Toast.makeText(OrderDetailsActivity.this, "Status change successfully !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetailsActivity.this, "অর্ডার অবস্থা পরিবর্তন হয়েছে !", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -180,11 +180,15 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                     }else if(orderDetails.getResult().getStatus().equals("Delivered")){
                         orderStatus.setText(getString(R.string.delivered_status));
                     }
+
                     String oId = String.valueOf(orderDetails.getResult().getOrderId());
                     String gTotal = String.valueOf(orderDetails.getResult().getGrandTotal());
                     orderDate.setText("অর্ডারের তারিখ: "+getENtoBN(orderDetails.getResult().getSaleDate()));
-                    paymentMethod.setText("পেমেন্ট পদ্ধতি: "+orderDetails.getResult().getPaymentMode());
-                    paymentStatus.setText("পেমেন্ট অবস্থা: "+orderDetails.getResult().getPaymentMode());
+                    if(orderDetails.getResult().getPaymentMode().equals("COD")){
+
+                        paymentMethod.setText("পেমেন্ট পদ্ধতি: "+ "ক্যাশ অন ডেলিভারি");
+                        paymentStatus.setText("পেমেন্ট অবস্থা: "+"ক্যাশ অন ডেলিভারি");
+                    }
                     buyerName.setText("ক্রেতার নাম: "+orderDetails.getResult().getShipping().getFullName());
                     buyerPhone.setText("ক্রেতার ফোন নং: "+getENtoBN(orderDetails.getResult().getShipping().getPhone()));
                     buyerAddress.setText("ক্রেতার ঠিকানা: "+getENtoBN(orderDetails.getResult().getShipping().getAddress1()));

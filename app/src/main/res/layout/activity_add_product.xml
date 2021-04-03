@@ -191,6 +191,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:padding="@dimen/common_padding"
+                    android:visibility="gone"
                     android:text="@string/product_desc_lbl"
                     android:textColor="@color/textSecondary"
                     android:textSize="@dimen/text_size_small"
@@ -207,6 +208,7 @@
                     android:layout_height="90dp"
                     android:background="@color/white"
                     android:gravity="top"
+                    android:visibility="gone"
                     android:hint="@string/prod_details_hint"
                     android:inputType="textMultiLine|text|textVisiblePassword"
                     android:maxLength="2500"
@@ -215,6 +217,125 @@
                     android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890\n "
                     android:textSize="@dimen/text_size_medium"
                     app:typeface="font_regular.ttf" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="পণ্য সম্পর্কে আরো বিস্তারিত তথ্য "
+                    android:padding="15dp"
+                    android:textColor="@color/textPrimary"/>
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/productMaterial"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="পণ্যের উপাদান সম্পর্কে তথ্য দিন * (বাধ্যতামূলক)"
+                    android:inputType="text"
+                    android:maxLength="80"
+                    android:background="@drawable/edit_text_border"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:padding="@dimen/common_padding"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_bold.ttf" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/productSizeDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_border"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="পণ্যের সাইজ সংক্রান্ত তথ্য দিন"
+                    android:inputType="text"
+                    android:maxLength="80"
+                    android:padding="@dimen/common_padding"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_bold.ttf" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/productDesign"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_border"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="পণ্যের ডিজাইন সংক্রান্ত তথ্য দিন"
+                    android:inputType="text"
+                    android:maxLength="80"
+                    android:padding="@dimen/common_padding"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_bold.ttf" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/productPackaging"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_border"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="পণ্যের প্যাকেজিং সংক্রান্ত তথ্য দিন"
+                    android:inputType="text"
+                    android:maxLength="80"
+                    android:padding="@dimen/common_padding"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_bold.ttf" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/productColorDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_border"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="পণ্যের রং সংক্রান্ত তথ্য দিন"
+                    android:inputType="text"
+                    android:maxLength="80"
+                    android:padding="@dimen/common_padding"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_bold.ttf" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/productUseDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_border"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="পণ্যের ব্যবহার বিধি, ব্যবহার সময়সীমা, রক্ষণাবেক্ষণ"
+                    android:inputType="text"
+                    android:maxLength="80"
+                    android:padding="@dimen/common_padding"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_bold.ttf" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/productOtherDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_border"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="5dp"
+                    android:hint="পণ্যের অন্যন্য তথ্য দিন"
+                    android:inputType="text"
+                    android:maxLength="80"
+                    android:padding="@dimen/common_padding"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_bold.ttf" />
 
             </LinearLayout>
 
@@ -274,7 +395,7 @@
                 android:background="@color/white"
                 android:focusable="true"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <com.futureskyltd.app.external.CustomTextView
                     android:layout_width="match_parent"

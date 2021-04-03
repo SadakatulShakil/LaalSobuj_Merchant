@@ -84,6 +84,7 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
     HashMap<String, String> productDatas = new HashMap<>();
     ArrayList<HashMap<String, Object>> colorList, sizeList, shipsToList = new ArrayList<>();
     Toolbar toolbar;
+    private EditText productMaterial, productSizeDetail, productDesign, productPackaging, productColorDetail, productUseDetail, productOtherDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +108,13 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
         addCategoryMark = (ImageView) findViewById(R.id.addCategoryMark);
         productVideoUrl = (EditText) findViewById(R.id.productVideoUrl);
         barcodeNo = (EditText) findViewById(R.id.barcodeNo);
+        productMaterial = findViewById(R.id.productMaterial);
+        productSizeDetail = findViewById(R.id.productSizeDetail);
+        productDesign = findViewById(R.id.productDesign);
+        productPackaging = findViewById(R.id.productPackaging);
+        productColorDetail = findViewById(R.id.productColorDetail);
+        productUseDetail = findViewById(R.id.productUseDetail);
+        productOtherDetail = findViewById(R.id.productOtherDetail);
 
         productTitle.setFilters(new InputFilter[]{FantacySellerApplication.EMOJI_FILTER});
         if (!AllProduct.isEditMode) {
@@ -194,6 +202,13 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
                         productDatas.put(Constants.TAG_ITEM_ID, DefensiveClass.optString(temp, Constants.TAG_ID));
                         productDatas.put(Constants.TAG_ITEM_TITLE, DefensiveClass.optString(temp, Constants.TAG_ITEM_TITLE));
                         productDatas.put(Constants.TAG_ITEM_DESCRIPTION, DefensiveClass.optString(temp, Constants.TAG_ITEM_DESCRIPTION));
+                        productDatas.put(Constants.TAG_DESCRIPTION, DefensiveClass.optString(temp, Constants.TAG_DESCRIPTION));
+                        productDatas.put(Constants.TAG_DSIZE, DefensiveClass.optString(temp, Constants.TAG_DSIZE));
+                        productDatas.put(Constants.TAG_DDESIGN, DefensiveClass.optString(temp, Constants.TAG_DDESIGN));
+                        productDatas.put(Constants.TAG_DPACKAGING, DefensiveClass.optString(temp, Constants.TAG_DPACKAGING));
+                        productDatas.put(Constants.TAG_DCOLOR, DefensiveClass.optString(temp, Constants.TAG_DCOLOR));
+                        productDatas.put(Constants.TAG_DUSES, DefensiveClass.optString(temp, Constants.TAG_DUSES));
+                        productDatas.put(Constants.TAG_DOTHERS, DefensiveClass.optString(temp, Constants.TAG_DOTHERS));
                         productDatas.put(Constants.TAG_CURRENCY, DefensiveClass.optString(temp, Constants.TAG_CURRENCY));
                         productDatas.put(Constants.TAG_MAIN_PRICE, DefensiveClass.optString(temp, Constants.TAG_MAIN_PRICE));
                         productDatas.put(Constants.TAG_PRICE, DefensiveClass.optString(temp, Constants.TAG_PRICE));
@@ -203,6 +218,7 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
                         productDatas.put(Constants.TAG_DEAL_DATE, DefensiveClass.optString(temp, Constants.TAG_DEAL_DATE));
                         productDatas.put(Constants.TAG_QUANTITY, DefensiveClass.optString(temp, Constants.TAG_QUANTITY));
                         productDatas.put(Constants.TAG_MIN_QUANTITY, DefensiveClass.optString(temp, Constants.TAG_MIN_QUANTITY));
+                        productDatas.put(Constants.TAG_UNIT_NAME, DefensiveClass.optString(temp, Constants.TAG_UNIT_NAME));
                         productDatas.put(Constants.TAG_COD, DefensiveClass.optString(temp, Constants.TAG_COD));
                         productDatas.put(Constants.TAG_SHIPPING_TIME, DefensiveClass.optString(temp, Constants.TAG_SHIPPING_TIME));
                         productDatas.put(Constants.TAG_PRODUCT_URL, DefensiveClass.optString(temp, Constants.TAG_PRODUCT_URL));
@@ -326,6 +342,20 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
             productTitle.setText(productsList.get(Constants.TAG_ITEM_TITLE));
         if (!productsList.get(Constants.TAG_ITEM_DESCRIPTION).equals(""))
             productDes.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_ITEM_DESCRIPTION)));
+        if (!productsList.get(Constants.TAG_DESCRIPTION).equals(""))
+            productMaterial.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DESCRIPTION)));
+        if (!productsList.get(Constants.TAG_DSIZE).equals(""))
+            productSizeDetail.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DSIZE)));
+        if (!productsList.get(Constants.TAG_DDESIGN).equals(""))
+            productDesign.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DDESIGN)));
+        if (!productsList.get(Constants.TAG_DPACKAGING).equals(""))
+            productPackaging.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DPACKAGING)));
+        if (!productsList.get(Constants.TAG_DUSES).equals(""))
+            productUseDetail.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DUSES)));
+        if (!productsList.get(Constants.TAG_DCOLOR).equals(""))
+            productColorDetail.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DCOLOR)));
+        if (!productsList.get(Constants.TAG_DOTHERS).equals(""))
+            productOtherDetail.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DOTHERS)));
         if (!productsList.get(Constants.TAG_BARCODE).equals(""))
             barcodeNo.setText(productsList.get(Constants.TAG_BARCODE));
         if (productsList.get(Constants.TAG_VIDEO_URL) != "")
@@ -895,15 +925,20 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
                     FantacySellerApplication.showToast(CreateProduct.this, getString(R.string.reqd_image), Toast.LENGTH_LONG);
                 } else if (productTitle.getText().toString().trim().equals("")) {
                     FantacySellerApplication.showToast(CreateProduct.this, getString(R.string.reqd_prod_title), Toast.LENGTH_LONG);
-                } else if (productDes.getText().toString().trim().equals("")) {
+                } else if (productMaterial.getText().toString().trim().equals("")) {
                     FantacySellerApplication.showToast(CreateProduct.this, getString(R.string.reqd_prod_desc), Toast.LENGTH_LONG);
                 } else if (productVideoUrl.getText().toString().trim().length() > 0 && !productVideoUrl.getText().toString().contains("watch?v=")) {
                     FantacySellerApplication.showToast(CreateProduct.this, getString(R.string.enter_valid_video_url), Toast.LENGTH_LONG);
-                } else if (barcodeNo.getText().toString().equals("")) {
-                    FantacySellerApplication.showToast(CreateProduct.this, getString(R.string.reqd_barcode), Toast.LENGTH_LONG);
                 } else {
                     productDatas.put(Constants.TAG_ITEM_TITLE, productTitle.getText().toString());
                     productDatas.put(Constants.TAG_ITEM_DESCRIPTION, productDes.getText().toString());
+                    productDatas.put(Constants.TAG_DESCRIPTION, productMaterial.getText().toString());
+                    productDatas.put(Constants.TAG_DSIZE, productSizeDetail.getText().toString());
+                    productDatas.put(Constants.TAG_DDESIGN, productDesign.getText().toString());
+                    productDatas.put(Constants.TAG_DPACKAGING, productPackaging.getText().toString());
+                    productDatas.put(Constants.TAG_DCOLOR, productColorDetail.getText().toString());
+                    productDatas.put(Constants.TAG_DUSES, productUseDetail.getText().toString());
+                    productDatas.put(Constants.TAG_DOTHERS, productOtherDetail.getText().toString());
                     productDatas.put(Constants.TAG_VIDEO_URL, productVideoUrl.getText().toString());
                     productDatas.put(Constants.TAG_BARCODE, barcodeNo.getText().toString());
                     //checkValidBarCode(barcodeNo.getText().toString(), productDatas);

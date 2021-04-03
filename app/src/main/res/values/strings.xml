@@ -21,7 +21,7 @@
     <string name="signin_des2">বিক্রেতা হিসেবে রেজিস্টার্ড হতে যোগাযোগ করুন ০৯৬৭৮৮৪৪৪৮৫ নাম্বারে</string>
     <string name="signin_des3">নারীর অর্থনৈতিক মুক্তির প্রয়াসে সাথে আছে লালসবুজ</string>
     <string name="forgot_password">পাসওয়ার্ড ভুলে গেছেন</string>
-    <string name="reset">reset</string>
+    <string name="reset">রিসেট</string>
     <string name="please_type_mail">ইমেইল/ফোন নম্বর লিখুন</string>
     <string name="please_type_password">পাসওয়ার্ড লিখুন</string>
     <string name="email_error">আপনার ইমেইল চেক করুন</string>
@@ -103,7 +103,7 @@
     <string name="cash_on_delivery">ক্যাশ অন ডেলিভারি</string>
     <string name="fb_discount_option">নিয়মিত ছাড়</string>
     <string name="coupon_percentage_msg">Please update with your coupon percentage</string>
-    <string name="shipping_time_lbl">ডেলিভারির সময়সীমা</string>
+    <string name="shipping_time_lbl">শিপিং সময়সীমা </string>
     <string name="ships_to_lbl">ডেলিভারির খরচ</string>
     <string name="reset_btn_lbl">রিসেট</string>
     <string name="add_btn_lbl">যোগ করুণ</string>
@@ -200,12 +200,12 @@
     <string name="price_fields_reqd">পণ্যের মূল্য দিন</string>
     <string name="default_country_lbl">নিজ জেলা</string>
     <string name="default_lbl"></string>
-    <string name="default_country_price_reqd">Enter Default Country Price</string>
+    <string name="default_country_price_reqd">আপনার জেলা/অন্যান্য জেলার ডেলিভারি খরচ দিন</string>
     <string name="admin_error">আপনাকে ব্লক করা হয়েছে</string>
     <string name="admin_delete_error">আপনার একাউন্ট ডিলিট করা হয়ছে</string>
     <string name="admin_block">আপনাকে ব্লক করা হয়েছে!</string>
     <string name="admin_block_text">ব্লক খোলার জন্য যোগাযোগ করুন ০৯৬৭৮৮৪৪৪৮৫ নাম্বারে!</string>
-    <string name="to_login">Go to Login</string>
+    <string name="to_login">লগইন পেজ এ যান</string>
     <string name="enable_camera_and_storage_permissions">আপনার ক্যামেরা এবং মেমোরি পারমিশন দিন</string>
     <string-array name="languages">
         <item>English</item>

@@ -8,18 +8,25 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.futureskyltd.app.utils.Adapter.UnitAdapter;
 import com.futureskyltd.app.utils.Constants;
+import com.futureskyltd.app.utils.Unit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,12 +40,16 @@ public class AddSizeProperty extends AppCompatActivity implements View.OnClickLi
     ArrayList<HashMap<String, Object>> propertyList = new ArrayList<>();
     ImageView backBtn, appname;
     LinearLayoutManager linearLayoutManager;
-
+    private ArrayList<Unit> mUnitList;
+    private UnitAdapter mUnitAdapter;
+    private Spinner unitSpinner;
+    private String selectedMz = "unSelected";
+    private String unitName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_property);
-
+        inItUnitList();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         addProperty = (EditText) findViewById(R.id.addProperty);
         addUnits = (EditText) findViewById(R.id.addUnits);
@@ -51,6 +62,29 @@ public class AddSizeProperty extends AppCompatActivity implements View.OnClickLi
         appname = (ImageView) findViewById(R.id.appName);
         title = (TextView) findViewById(R.id.title);
         sellPercentagePrice = findViewById(R.id.sellPercentagePrice);
+
+        unitSpinner = findViewById(R.id.unitSpinner);
+        mUnitAdapter = new UnitAdapter(AddSizeProperty.this, mUnitList);
+        unitSpinner.setAdapter(mUnitAdapter);
+        unitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position<1){
+                    selectedMz = "unSelected";
+                }else{
+                    selectedMz = "selected";
+                    Unit clickedUnit = (Unit) parent.getItemAtPosition(position);
+
+                    unitName = clickedUnit.getUnit();
+                    //Toast.makeText(PostProduct.this, unitName + " is selected !", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         addProperty.setFilters(new InputFilter[]{FantacySellerApplication.EMOJI_FILTER});
         appname.setVisibility(View.INVISIBLE);
@@ -74,24 +108,46 @@ public class AddSizeProperty extends AppCompatActivity implements View.OnClickLi
         addBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
 
-        sellPercentagePrice.setOnClickListener(new View.OnClickListener() {
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
-            public void onClick(View v) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String pPrice = addPrice.getText().toString().trim();
                 if (pPrice.isEmpty()) {
-                    Toast.makeText(AddSizeProperty.this, "দয়াকরে পণ্যের বিক্রয় মূল্য দিন", Toast.LENGTH_SHORT).show();
+                    sellPercentagePrice.setText("৳ "+0.0);
                 }else {
                     double bPrice = Double.parseDouble(pPrice);
-                    double result = Math.floor(bPrice+((7.5*650)/100));
+                    double result = Math.floor(bPrice+((7.5*bPrice)/100));
                     if(result % 5 != 0){
-                        result= ((Math.floor(result/5)*5)+5);
-
+                        result= ((Math.floor(result/5))*5)+5;
                     }
                     String sellPrice = String.valueOf(result);
                     sellPercentagePrice.setText("৳ "+sellPrice);
                 }
             }
-        });
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+        addPrice.addTextChangedListener(textWatcher);
+    }
+
+    private void inItUnitList() {
+        mUnitList = new ArrayList<>();
+        mUnitList.add(new Unit("একক বাছাই করুন"));
+        mUnitList.add(new Unit("টি / পিছ"));
+        mUnitList.add(new Unit("কেজি"));
+        mUnitList.add(new Unit("গ্রাম"));
+        mUnitList.add(new Unit("লিটার"));
+        mUnitList.add(new Unit("মি.লি"));
+        mUnitList.add(new Unit("ইঞ্চি"));
+        mUnitList.add(new Unit("প্যাকেট / বাক্স"));
     }
 
     private void setAdapter(String size, String unit, String price) {
@@ -133,10 +189,9 @@ public class AddSizeProperty extends AppCompatActivity implements View.OnClickLi
             viewHolder.addPriceItem.setText("বিক্রয় মূল্য: ৳ "+sizeList.get(position).get(Constants.TAG_PRICE).toString());
             String buy_price = sizeList.get(position).get(Constants.TAG_PRICE).toString();
             double bPrice = Double.parseDouble(buy_price);
-            double result = Math.floor(bPrice+((7.5*650)/100));
+            double result = Math.floor(bPrice+((7.5*bPrice)/100));
             if(result % 5 != 0){
-                result= ((Math.floor(result/5)*5)+5);
-
+                result= ((Math.floor(result/5))*5)+5;
             }
             String sellPrice = String.valueOf(result);
             viewHolder.sellPrice.setText("কমিশন সহ বিক্রয় মূল্য: ৳ "+sellPrice);
@@ -175,6 +230,7 @@ public class AddSizeProperty extends AppCompatActivity implements View.OnClickLi
         if (!propertyList.isEmpty()) {
             getIntent().putExtra(Constants.IS_SIZE_ENABLE, "true");
             getIntent().putExtra(Constants.SIZE_LIST, propertyList);
+            getIntent().putExtra("unitName", unitName);
         } else {
             getIntent().putExtra(Constants.IS_SIZE_ENABLE, "false");
             getIntent().putExtra(Constants.SIZE_LIST, propertyList);
@@ -229,6 +285,8 @@ public class AddSizeProperty extends AppCompatActivity implements View.OnClickLi
                     FantacySellerApplication.showToast(getApplicationContext(), getString(R.string.unit_fields_reqd), Toast.LENGTH_SHORT);
                 } else if (addPrice.getText().toString().isEmpty() || addPrice.getText().toString().trim().equalsIgnoreCase("0")) {
                     FantacySellerApplication.showToast(getApplicationContext(), getString(R.string.price_fields_reqd), Toast.LENGTH_SHORT);
+                }else if(selectedMz.equals("unSelected")){
+                    FantacySellerApplication.showToast(AddSizeProperty.this, "একক বাছাই করুন", Toast.LENGTH_LONG);
                 } else {
                     FantacySellerApplication.hideSoftKeyboard(AddSizeProperty.this, v);
                     setAdapter(addProperty.getText().toString(), addUnits.getText().toString(), addPrice.getText().toString());
@@ -242,6 +300,8 @@ public class AddSizeProperty extends AppCompatActivity implements View.OnClickLi
                     if (addProperty.getText().toString().isEmpty() || addUnits.getText().toString().isEmpty() || addPrice.getText().toString().isEmpty()) {
                         FantacySellerApplication.hideSoftKeyboard(AddSizeProperty.this, addProperty);
                         Toast.makeText(getApplicationContext(), getString(R.string.no_available_variants), Toast.LENGTH_SHORT).show();
+                    }else if(selectedMz.equals("unSelected")){
+                        FantacySellerApplication.showToast(AddSizeProperty.this, "একক বাছাই করুন", Toast.LENGTH_LONG);
                     } else {
                         onBackPressed();
                     }

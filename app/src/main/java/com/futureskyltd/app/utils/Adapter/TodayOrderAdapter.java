@@ -52,7 +52,9 @@ public class TodayOrderAdapter extends RecyclerView.Adapter<TodayOrderAdapter.vi
         holder.orderId.setText("অর্ডার আইডি: #০০০০"+getENtoBN(orId));
         holder.totalCost.setText("মোট মূল্য: ৳ "+getENtoBN(totCost));
         holder.orderDate.setText("অর্ডারের তারিখ: "+getENtoBN(resultInfo.getOrderdate()));
-        holder.deliveryType.setText("ডেলিভারির ধরন: "+resultInfo.getDeliverytype());
+        if(resultInfo.getDeliverytype().equals("cod")){
+            holder.deliveryType.setText("শিপিং এর ধরন: "+"ক্যাশ অন ডেলিভারি");
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

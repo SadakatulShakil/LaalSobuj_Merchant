@@ -13,13 +13,25 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
 
+    <TextView
+        android:id="@+id/hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/red"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:text="বিঃদ্রঃ অর্ডার পাওয়ার কতদিনের মধ্যে কুরিয়ার করবেন"
+        android:layout_below="@+id/actionbar"/>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:clipToPadding="true"
+        android:layout_below="@+id/hint"
         android:groupIndicator="@null"
-        android:layout_marginTop="?attr/actionBarSize"
         android:padding="0dp"
         android:scrollbars="none" />
 

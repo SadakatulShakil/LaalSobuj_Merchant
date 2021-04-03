@@ -11,6 +11,9 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import com.android.volley.AuthFailureError;
+import com.futureskyltd.app.utils.ApiInterface;
+import com.futureskyltd.app.utils.Profile.Profile;
+import com.futureskyltd.app.utils.RetrofitClient;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -21,6 +24,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.TypefaceSpan;
@@ -82,6 +89,8 @@ public class FragmentMainActivity extends AppCompatActivity
     LinearLayout logoutLay;
     SwipeRefreshLayout dashBoardswipeRefresh;
     View header;
+    private Profile profile;
+    private String proImageUrl;
     AppBarLayout.LayoutParams params;
     NetworkReceiver networkReceiver;
     private RelativeLayout userLay;
@@ -93,6 +102,7 @@ public class FragmentMainActivity extends AppCompatActivity
         setContentView(R.layout.activity_fragment_main);
         networkReceiver = new NetworkReceiver();
         /*View Initialization*/
+        getUserProfile();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         listView = (ListView) findViewById(R.id.nav_menu_listview);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -293,6 +303,30 @@ public class FragmentMainActivity extends AppCompatActivity
         FantacySellerApplication.getInstance().setConnectivityListener(this);
     }
 
+    private void getUserProfile() {
+        Retrofit retrofit = RetrofitClient.getRetrofitClient();
+        ApiInterface api = retrofit.create(ApiInterface.class);
+
+        Call<Profile> profileCall = api.getByProfile("Bearer "+ GetSet.getToken(), GetSet.getUserId());
+
+        profileCall.enqueue(new Callback<Profile>() {
+            @Override
+            public void onResponse(Call<Profile> call, retrofit2.Response<Profile> response) {
+                Log.d(TAG, "onResponse: "+response.code());
+                if(response.code() == 200){
+                    profile = response.body();
+                    proImageUrl = profile.getProfileImage();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Profile> call, Throwable t) {
+
+            }
+        });
+    }
+
+
     public String getENtoBN(String string)
     {
         Character bangla_number[]={'০','১','২','৩','৪','৫','৬','৭','৮','৯'};
@@ -322,9 +356,10 @@ public class FragmentMainActivity extends AppCompatActivity
             ratingLayout.setVisibility(View.VISIBLE);
             storeRating.setText(GetSet.getRating());
         }
-        if (GetSet.getImageUrl() != null && !GetSet.getImageUrl().equals("")) {
+        /*if (GetSet.getImageUrl() != null && !GetSet.getImageUrl().equals("")) {
             Picasso.with(FragmentMainActivity.this).load(GetSet.getImageUrl()).into(userImage);
-        }
+        }*/
+        Picasso.with(FragmentMainActivity.this).load(proImageUrl).into(userImage);
     }
 
     public void getAdminDatas() {

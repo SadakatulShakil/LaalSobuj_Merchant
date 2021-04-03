@@ -81,7 +81,7 @@ public class InCompleteOrderAmountActivity extends AppCompatActivity implements 
                         progressBar.setVisibility(View.GONE);
                     }
 
-                    if(orderArrayList.size()==0 ){
+                    if(completeOrderArrayList.size() == 0 ){
                         completeOrderRevView.setVisibility(View.GONE);
                         nullLay.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);

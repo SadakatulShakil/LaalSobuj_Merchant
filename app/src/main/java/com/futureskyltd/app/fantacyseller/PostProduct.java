@@ -12,8 +12,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -78,8 +80,9 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
     private UnitAdapter mUnitAdapter;
     private Spinner unitSpinner;
     private TextView minimumUnit;
-    private String selectedMz = "";
+    private String selectedMz = "unSelected";
     private String unitName = "";
+    private String getUnitName = "";
     String item_image = "", color = "", shipsTo = "", sizes = "", colorNames, colorMethod = "auto", min_quantity;
     boolean iseElseAmount, isShipsToAmount;
     RelativeLayout sizeCompLay;
@@ -143,10 +146,11 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         addShippingMark = findViewById(R.id.addShippingMark);
         sellPercentagePrice = findViewById(R.id.sellPercentagePrice);
         minimumUnit = findViewById(R.id.minimumUnit);
-
+       // Log.d(TAG, "setUpUIIndex: "+ getIndex(unitSpinner, "টি / পিছ"));
         unitSpinner = findViewById(R.id.unitSpinner);
         mUnitAdapter = new UnitAdapter(PostProduct.this, mUnitList);
         unitSpinner.setAdapter(mUnitAdapter);
+        //unitSpinner.setSelection(3);
         unitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -158,7 +162,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
 
                 unitName = clickedUnit.getUnit();
                 minimumUnit.setText(unitName);
-                Toast.makeText(PostProduct.this, unitName + " is selected !", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(PostProduct.this, unitId + " is selected !", Toast.LENGTH_SHORT).show();
             }
             }
 
@@ -198,7 +202,6 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         if (imageNameList != null) {
             item_image = listToJSONObject(imageNameList, Constants.TAG_ALL_ITEM_IMAGES).toString();
         }
-
         processBtn.setVisibility(View.VISIBLE);
         appName.setVisibility(View.GONE);
         backBtn.setVisibility(View.VISIBLE);
@@ -214,24 +217,40 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         dailyDealDate.setOnClickListener(this);
         shipsToLay.setOnClickListener(this);
 
-        sellPercentagePrice.setOnClickListener(new View.OnClickListener() {
+
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
-            public void onClick(View v) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String pPrice = sizeOptPrice.getText().toString().trim();
                 if (pPrice.isEmpty()) {
-                    Toast.makeText(PostProduct.this, "দয়াকরে পণ্যের বিক্রয় মূল্য দিন", Toast.LENGTH_SHORT).show();
+                    sellPercentagePrice.setText("৳ "+0.0);
                 }else {
                     double bPrice = Double.parseDouble(pPrice);
-                    double result = Math.floor(bPrice+((7.5*650)/100));
+                    double result = Math.floor(bPrice+((7.5*bPrice)/100));
                     if(result % 5 != 0){
-                        result= ((Math.floor(result/5)*5)+5);
-
+                        result= ((Math.floor(result/5))*5)+5;
                     }
                     String sellPrice = String.valueOf(result);
                     sellPercentagePrice.setText("৳ "+sellPrice);
                 }
+
             }
-        });
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+
+        sizeOptPrice.addTextChangedListener(textWatcher);
+
+        //int setSpId = Integer.parseInt(productDatas.get(Constants.TAG_UNIT_ID));
+        //unitSpinner.setSelection(3);
     }
 
     private void inItUnitList() {
@@ -364,11 +383,19 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         sizeOptPrice.setText(productDatas.get(Constants.TAG_MAIN_PRICE));
         sizeOptQuantity.setText(productDatas.get(Constants.TAG_QUANTITY));
         minOrderQuantity.setText(productDatas.get(Constants.TAG_MIN_QUANTITY));
+        Log.d(TAG, "setUpUIName: "+ productDatas.get(Constants.TAG_UNIT_NAME));
+        Log.d(TAG, "setUpUIIndex: "+ getIndex(unitSpinner, productDatas.get(Constants.TAG_UNIT_NAME)));
+        //Log.d(TAG, "setUpUIIndex: "+ getIndex(unitSpinner);
+        unitSpinner.setSelection(getIndex(unitSpinner, productDatas.get(Constants.TAG_UNIT_NAME)));
+        minimumUnit.setText(productDatas.get(Constants.TAG_UNIT_NAME));
+
+
         controlSwitch(codSwitch, Boolean.valueOf(productDatas.get(Constants.TAG_COD)), "cod");
         controlSwitch(fbdiscountSwitch, Boolean.valueOf(productDatas.get(Constants.TAG_FB_DISC_ENABLE)), "fb");
         controlSwitch(sizeSwitch, Boolean.valueOf(productDatas.get(Constants.TAG_SIZE_AVAILABILTY)), "size");
         controlSwitch(dailyDealsSwitch, Boolean.valueOf(productDatas.get(Constants.TAG_DEAL_ENABLED)), "deals");
         minOrderQuantity.setText(productDatas.get(Constants.TAG_MIN_QUANTITY));
+       // unitSpinner.setSelection(setSpId);
         sizeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -378,13 +405,19 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                     productDatas.put(Constants.TAG_PRICE, sizeOptPrice.getText().toString());
                     productDatas.put(Constants.TAG_QUANTITY, sizeOptQuantity.getText().toString());
                     productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
+                    productDatas.put(Constants.TAG_UNIT_NAME, unitName);
                     productDatas.put(Constants.TAG_DISCOUNT_PERCENTAGE, dailyDealLayDiscPercent.getText().toString());
                     if (shippingTimeStamp != 0)
                         productDatas.put(Constants.TAG_DEAL_DATE, String.valueOf(shippingTimeStamp));
                     productDatas.put(Constants.TAG_FB_DISC_PERCENTAGE, fbdiscountPercentage.getText().toString());
                     Intent intent = new Intent(PostProduct.this, AddSizeProperty.class);
                     startActivityForResult(intent, ACTION_SIZE);
+                    minimumUnit.setText(getUnitName);
                 } else {
+                    getUnitName = "";
+                    unitSpinner.setSelection(getIndex(unitSpinner, productDatas.get(Constants.TAG_UNIT_NAME)));
+                    //minimumUnit.setText("");
+                    minimumUnit.setText(productDatas.get(Constants.TAG_UNIT_NAME));
                     productDatas.put(Constants.TAG_SIZE_AVAILABILTY, "false");
                     sizeOptionLay.setVisibility(View.VISIBLE);
                     productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
@@ -397,7 +430,12 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 sizeOptPrice.setText("");
                 sizeOptQuantity.setText("");
             }
+            minimumUnit.setText(getUnitName);
+
         } else {
+            getUnitName = "";
+            unitSpinner.setSelection(getIndex(unitSpinner, productDatas.get(Constants.TAG_UNIT_NAME)));
+            minimumUnit.setText(productDatas.get(Constants.TAG_UNIT_NAME));
             sizeOptionLay.setVisibility(View.VISIBLE);
         }
         if (dailyDealsSwitch.isChecked()) {
@@ -526,6 +564,20 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 }
             });
         }
+    }
+
+
+    //private method of your class
+    private int getIndex(Spinner spinner, String myString){
+        for (int i=0;i<spinner.getCount();i++){
+            if (mUnitList.get(i).toString().equalsIgnoreCase(myString)){
+                return i;
+
+            }
+            //Log.d(TAG, "getIndex: "+ mUnitList.get(i).toString());
+        }
+
+        return 0;
     }
 
     private String checkListisEmpty(String jsonString) {
@@ -694,6 +746,13 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 hashMap.put(Constants.TAG_ITEM_IMAGE, item_image);
                 hashMap.put(Constants.TAG_ITEM_TITLE, productDatas.get(Constants.TAG_ITEM_TITLE));
                 hashMap.put(Constants.TAG_ITEM_DESCRIPTION, productDatas.get(Constants.TAG_ITEM_DESCRIPTION));
+                hashMap.put(Constants.TAG_DESCRIPTION, productDatas.get(Constants.TAG_DESCRIPTION));
+                hashMap.put(Constants.TAG_DSIZE, productDatas.get(Constants.TAG_DSIZE));
+                hashMap.put(Constants.TAG_DDESIGN, productDatas.get(Constants.TAG_DDESIGN));
+                hashMap.put(Constants.TAG_DPACKAGING, productDatas.get(Constants.TAG_DPACKAGING));
+                hashMap.put(Constants.TAG_DCOLOR, productDatas.get(Constants.TAG_DCOLOR));
+                hashMap.put(Constants.TAG_DUSES, productDatas.get(Constants.TAG_DUSES));
+                hashMap.put(Constants.TAG_DOTHERS, productDatas.get(Constants.TAG_DOTHERS));
                 hashMap.put(Constants.TAG_VIDEO_URL, productDatas.get(Constants.TAG_VIDEO_URL));
                 hashMap.put(Constants.TAG_BARCODE, productDatas.get(Constants.TAG_BARCODE));
 
@@ -762,6 +821,8 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         } else if (requestCode == ACTION_SIZE) {
             productDatas.put(Constants.TAG_SIZE_AVAILABILTY, data.getStringExtra(Constants.IS_SIZE_ENABLE));
             sizeList = ((ArrayList<HashMap<String, Object>>) data.getSerializableExtra(Constants.SIZE_LIST));
+            getUnitName = (String) data.getSerializableExtra("unitName");
+
             Log.d(TAG, "sizelistvalues" + sizeList);
             if (sizeList.isEmpty()) {
                 controlSwitch(sizeSwitch, false, "size");
@@ -850,6 +911,8 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 productDatas.put(Constants.TAG_PRICE, sizeOptPrice.getText().toString());
                 productDatas.put(Constants.TAG_QUANTITY, sizeOptQuantity.getText().toString());
                 productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
+               // productDatas.put(Constants.TAG_UNIT_ID, String.valueOf(unitId));
+                productDatas.put(Constants.TAG_UNIT_NAME, unitName);
                 productDatas.put(Constants.TAG_DISCOUNT_PERCENTAGE, dailyDealLayDiscPercent.getText().toString());
                 if (shippingTimeStamp != 0)
                     productDatas.put(Constants.TAG_DEAL_DATE, String.valueOf(shippingTimeStamp));
@@ -867,6 +930,9 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 productDatas.put(Constants.TAG_PRICE, sizeOptPrice.getText().toString());
                 productDatas.put(Constants.TAG_QUANTITY, sizeOptQuantity.getText().toString());
                 productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
+                productDatas.put(Constants.TAG_UNIT_NAME, unitName);
+                Log.d(TAG, "onClickUnit: " + productDatas);
+                //productDatas.put(Constants.TAG_UNIT_ID, String.valueOf(unitId));
                 productDatas.put(Constants.TAG_DISCOUNT_PERCENTAGE, dailyDealLayDiscPercent.getText().toString());
                 if (shippingTimeStamp != 0)
                     productDatas.put(Constants.TAG_DEAL_DATE, String.valueOf(shippingTimeStamp));
@@ -882,6 +948,8 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 productDatas.put(Constants.TAG_PRICE, sizeOptPrice.getText().toString());
                 productDatas.put(Constants.TAG_QUANTITY, sizeOptQuantity.getText().toString());
                 productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
+                productDatas.put(Constants.TAG_UNIT_NAME, unitName);
+                //productDatas.put(Constants.TAG_UNIT_ID, String.valueOf(unitId));
                 productDatas.put(Constants.TAG_DISCOUNT_PERCENTAGE, dailyDealLayDiscPercent.getText().toString());
                 if (shippingTimeStamp != 0)
                     productDatas.put(Constants.TAG_DEAL_DATE, String.valueOf(shippingTimeStamp));
