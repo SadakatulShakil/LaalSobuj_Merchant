@@ -362,7 +362,7 @@ public class AllProduct extends AppCompatActivity implements SwipeRefreshLayout.
             if (viewHolder instanceof MyViewHolder) {
                 MyViewHolder holder = (MyViewHolder) viewHolder;
                 holder.productName.setText(prodLists.get(position).get(Constants.TAG_ITEM_NAME));
-                holder.productPrice.setText(prodLists.get(position).get(Constants.TAG_CURRENCY) + " " + prodLists.get(position).get(Constants.TAG_PRICE));
+                holder.productPrice.setText(getENtoBN(prodLists.get(position).get(Constants.TAG_CURRENCY) + " " + prodLists.get(position).get(Constants.TAG_PRICE)));
                 Picasso.with(context).load(prodLists.get(position).get(Constants.TAG_ITEM_IMAGE)).placeholder(R.drawable.app_name).into(holder.prodImage);
                 if (prodLists.get(position).get(Constants.TAG_PRODUCT_STATUS).equalsIgnoreCase("publish")) {
                     holder.prodStatus.setText(getString(R.string.publish_status));
@@ -384,6 +384,29 @@ public class AllProduct extends AppCompatActivity implements SwipeRefreshLayout.
         }
 
     }
+
+    public String getENtoBN(String string)
+    {
+        Character bangla_number[]={'০','১','২','৩','৪','৫','৬','৭','৮','৯'};
+        Character eng_number[]={'0','1','2','3','4','5','6','7','8','9'};
+        String values = "";
+        char[] character = string.toCharArray();
+        for (int i=0; i<character.length ; i++) {
+            Character c = ' ';
+            for (int j = 0; j < eng_number.length; j++) {
+                if(character[i]==eng_number[j])
+                {
+                    c=bangla_number[j];
+                    break;
+                }else {
+                    c=character[i];
+                }
+            }
+            values=values+c;
+        }
+        return values;
+    }
+
 
     private void deleteDialog(final String item_id) {
         Display display;

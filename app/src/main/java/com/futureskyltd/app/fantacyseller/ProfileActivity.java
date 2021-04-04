@@ -27,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     public static final String TAG = "profile";
     private ProgressBar progressBar;
     private Profile profile;
-    private TextView userName, userId, userContact1, userContact2, userEmail, userAddress, userZip, userShopName, districtName, upazilaName;
+    private TextView userName, userId, userContact1, userContact2, userEmail, userAddress, userZip, userShopName, districtName, upazilaName, userNid;
     private CircleImageView profileImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +65,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     userContact1.setText(profile.getPhoneNo());
                     userContact2.setText(profile.getPhoneOne());
                     userEmail.setText(profile.getEmail());
+                    userNid.setText(profile.getNid());
                     userZip.setText(profile.getZip());
                     userAddress.setText(profile.getUserAddress());
                     userShopName.setText(profile.getShopName());
@@ -98,6 +99,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         profileImage = findViewById(R.id.profileImage);
         districtName = findViewById(R.id.district);
         upazilaName = findViewById(R.id.upazila);
+        userNid = findViewById(R.id.userNid);
     }
 
     @Override

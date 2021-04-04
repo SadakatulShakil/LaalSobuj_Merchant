@@ -67,7 +67,7 @@ public class CompleteOrderAmountActivity extends AppCompatActivity implements Vi
                     if(myOrder.getOrders()!= null){
                         orderArrayList.addAll(myOrder.getOrders());
                         for(int i = 0; i<orderArrayList.size();i++){
-                            if(myOrder.getOrders().get(i).getStatus().equals("Processing")){
+                            if(myOrder.getOrders().get(i).getStatus().equals("Delivered")){
                                 completeOrderArrayList.add(myOrder.getOrders().get(i));
                             }
                         }

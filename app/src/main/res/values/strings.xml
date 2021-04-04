@@ -42,7 +42,7 @@
     <string name="new_orders_today">আজকের নতুন অর্ডার</string>
     <string name="add_product">পণ্য যোগ করুন</string>
     <string name="new_orders">অর্ডার সমূহ</string>
-    <string name="delivered_orders_today">আজকে ডেলিভারি হয়েছে</string>
+    <string name="delivered_orders_today">সকল ডেলিভারি তালিকা</string>
     <string name="total_revenue">সফল অর্ডারের মূল্য (কমিশন বাদে)</string>
     <string name="total_revenue_amount">মোট আয়ের পরিমান</string>
     <string name="completed_transactions">সফল লেনদেন </string>
@@ -59,7 +59,7 @@
     <string name="listed_merchandize_value">তালিকাভুক্ত সকল পণ্যের মূল্য</string>
     <string name="incomplete_order_amount">অসম্পূর্ন অর্ডারের মূল্য</string>
     <string name="cod_available">ক্যাশঅন ডেলিভারি আছে</string>
-    <string name="only_qty_available">Only %1$d available</string>
+    <string name="only_qty_available">আর মাত্র %1$d %1$s বাকি আছে</string>
     <string name="sold_out">বিক্রয় হয়েছে</string>
     <string name="buy_now">এখনই কিনুন</string>
 
@@ -173,8 +173,8 @@
     <string name="auto_detect">ছবির মতো</string>
     <string name="shipping">শিপিং</string>
     <string name="one_business_day">১ দিন</string>
-    <string name="one_two_business">১-২ দিন</string>
-    <string name="one_three_business">১-৩ দিন</string>
+    <string name="one_two_business">২ দিন</string>
+    <string name="one_three_business">৩ দিন</string>
     <string name="three_five_business">১-৪ দিন</string>
     <string name="one_two_week_business">১-২ সপ্তাহ</string>
     <string name="two_three_week_business">২-৩ সপ্তাহ</string>

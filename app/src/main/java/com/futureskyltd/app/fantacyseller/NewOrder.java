@@ -286,7 +286,7 @@ public class NewOrder extends AppCompatActivity implements View.OnClickListener 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, orderList.get(position).get(Constants.TAG_ORDER_ID)+"  Order clicked !", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, orderList.get(position).get(Constants.TAG_ORDER_ID)+"  Order clicked !", Toast.LENGTH_SHORT).show();
                     Intent detailsIntent = new Intent(NewOrder.this, OrderDetailsActivity.class);
                     detailsIntent.putExtra("orderId", orderList.get(position).get(Constants.TAG_ORDER_ID));
                     startActivity(detailsIntent);

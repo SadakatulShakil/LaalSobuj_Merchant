@@ -361,7 +361,7 @@ public class FragmentMainActivity extends AppCompatActivity
         storeName.setText(GetSet.getFullName());
         if (!GetSet.getRating().equals("")) {
             ratingLayout.setVisibility(View.VISIBLE);
-            storeRating.setText(GetSet.getRating());
+            storeRating.setText(getENtoBN(GetSet.getRating()));
         }
         /*if (GetSet.getImageUrl() != null && !GetSet.getImageUrl().equals("")) {
             Picasso.with(FragmentMainActivity.this).load(GetSet.getImageUrl()).into(userImage);

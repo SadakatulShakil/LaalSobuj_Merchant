@@ -316,7 +316,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                         startActivity(intent);
                         Toast.makeText(EditProfileActivity.this, "আপনার তথ্য অপডেট হয়েছে !", Toast.LENGTH_SHORT).show();
                     }else {
-                        //Toast.makeText(EditProfileActivity.this, editMerchant.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditProfileActivity.this, editMerchant.getMessage(), Toast.LENGTH_LONG).show();
 
                         if(editMerchant.getErrors().getEmail()!= null){
                             email.setError(editMerchant.getErrors().getEmail().getUnique());

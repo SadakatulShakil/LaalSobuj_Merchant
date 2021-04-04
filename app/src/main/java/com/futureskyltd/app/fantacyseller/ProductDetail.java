@@ -232,6 +232,7 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
                         productMap.put(Constants.TAG_MIN_QUANTITY, DefensiveClass.optString(temp, Constants.TAG_MIN_QUANTITY));
                         productMap.put(Constants.TAG_COD, DefensiveClass.optString(temp, Constants.TAG_COD));
                         productMap.put(Constants.TAG_SHIPPING_TIME, DefensiveClass.optString(temp, Constants.TAG_SHIPPING_TIME));
+                        productMap.put(Constants.TAG_UNIT_NAME, DefensiveClass.optString(temp, Constants.TAG_UNIT_NAME));
                         productMap.put(Constants.TAG_PRODUCT_URL, DefensiveClass.optString(temp, Constants.TAG_PRODUCT_URL));
                         productMap.put(Constants.TAG_VIDEO_URL, DefensiveClass.optString(temp, Constants.TAG_VIDEO_URL));
 
@@ -330,10 +331,10 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
             case "১ দিন":
                 shippingTime = getString(R.string.one_business_day);
                 break;
-            case "১-২ দিন":
+            case "২ দিন":
                 shippingTime = getString(R.string.one_two_business);
                 break;
-            case "১-৩ দিন":
+            case "৩ দিন":
                 shippingTime = getString(R.string.one_three_business);
                 break;
             case "১-৪ দিন":
@@ -380,13 +381,13 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
                     * ((Float.parseFloat(productMap.get(Constants.TAG_DISCOUNT_PERCENTAGE))) / 100.0f));
             DecimalFormat df = new DecimalFormat();
             df.setMaximumFractionDigits(2);
-            itemPrice.setText(productMap.get(Constants.TAG_CURRENCY) + " " + df.format(priceValue));
-            discountPrice.setText(productMap.get(Constants.TAG_CURRENCY) + " " + productMap.get(Constants.TAG_MAIN_PRICE));
-            discountPercent.setText(productMap.get(Constants.TAG_DISCOUNT_PERCENTAGE) + "% off");
+            itemPrice.setText(getENtoBN(productMap.get(Constants.TAG_CURRENCY) + " " + df.format(priceValue)));
+            discountPrice.setText(getENtoBN(productMap.get(Constants.TAG_CURRENCY) + " " + productMap.get(Constants.TAG_MAIN_PRICE)));
+            discountPercent.setText(getENtoBN(productMap.get(Constants.TAG_DISCOUNT_PERCENTAGE) + "% off"));
         } else {
             discountPrice.setVisibility(View.GONE);
             discountPercent.setVisibility(View.GONE);
-            itemPrice.setText(productMap.get(Constants.TAG_CURRENCY) + " " + productMap.get(Constants.TAG_MAIN_PRICE));
+            itemPrice.setText(getENtoBN(productMap.get(Constants.TAG_CURRENCY) + " " + productMap.get(Constants.TAG_MAIN_PRICE)));
         }
         likedBtn.setImageResource(R.drawable.liked);
         setLikeCount(productMap.get(Constants.TAG_LIKE_COUNT), likeCount);
@@ -479,7 +480,8 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
         }
         try {
             availableQuantity.setVisibility(View.VISIBLE);
-            availableQuantity.setText(getString(R.string.only_qty_available, Integer.parseInt(productMap.get(Constants.TAG_QUANTITY))));
+            availableQuantity.setText("আর মাত্র "+Integer.parseInt(productMap.get(Constants.TAG_QUANTITY))+ " "+productMap.get(Constants.TAG_UNIT_NAME)+" বাকি আছে");
+            /*availableQuantity.setText(getString(R.string.only_qty_available, Integer.parseInt(productMap.get(Constants.TAG_QUANTITY))));*/
         } catch (NumberFormatException e) {
             e.printStackTrace();
             availableQuantity.setVisibility(View.GONE);
@@ -616,14 +618,14 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
                     float priceValue = Float.parseFloat(sizes.get(position).get(Constants.TAG_MAIN_PRICE)) - (Float.parseFloat(sizes.get(position).get(Constants.TAG_MAIN_PRICE))
                             * ((Float.parseFloat(itemMap.get(Constants.TAG_DISCOUNT_PERCENTAGE))) / 100.0f));
 
-                    itemPrice.setText(itemMap.get(Constants.TAG_CURRENCY) + " " + FantacySellerApplication.decimal.format(priceValue));
-                    discountPrice.setText(itemMap.get(Constants.TAG_CURRENCY) + " " + sizes.get(position).get(Constants.TAG_MAIN_PRICE));
-                    discountPercent.setText(itemMap.get(Constants.TAG_DISCOUNT_PERCENTAGE) + "% off");
+                    itemPrice.setText(getENtoBN(itemMap.get(Constants.TAG_CURRENCY) + " " + FantacySellerApplication.decimal.format(priceValue)));
+                    discountPrice.setText(getENtoBN(itemMap.get(Constants.TAG_CURRENCY) + " " + sizes.get(position).get(Constants.TAG_MAIN_PRICE)));
+                    discountPercent.setText(getENtoBN(itemMap.get(Constants.TAG_DISCOUNT_PERCENTAGE) + "% off"));
                 } else {
                     discountPrice.setVisibility(View.GONE);
                     discountPercent.setVisibility(View.GONE);
 
-                    itemPrice.setText(itemMap.get(Constants.TAG_CURRENCY) + " " + sizes.get(position).get(Constants.TAG_MAIN_PRICE));
+                    itemPrice.setText(getENtoBN(itemMap.get(Constants.TAG_CURRENCY) + " " + sizes.get(position).get(Constants.TAG_MAIN_PRICE)));
                 }
 
             } else {
@@ -666,6 +668,28 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.product_menu, menu);
         return true;
+    }
+
+    public String getENtoBN(String string)
+    {
+        Character bangla_number[]={'০','১','২','৩','৪','৫','৬','৭','৮','৯'};
+        Character eng_number[]={'0','1','2','3','4','5','6','7','8','9'};
+        String values = "";
+        char[] character = string.toCharArray();
+        for (int i=0; i<character.length ; i++) {
+            Character c = ' ';
+            for (int j = 0; j < eng_number.length; j++) {
+                if(character[i]==eng_number[j])
+                {
+                    c=bangla_number[j];
+                    break;
+                }else {
+                    c=character[i];
+                }
+            }
+            values=values+c;
+        }
+        return values;
     }
 
     @Override
