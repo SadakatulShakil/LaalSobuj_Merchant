@@ -71,7 +71,7 @@ public class CompleteOrderAmountActivity extends AppCompatActivity implements Vi
                                 completeOrderArrayList.add(myOrder.getOrders().get(i));
                             }
                         }
-                        Log.d(TAG, "onRList: "+orderArrayList.size());
+                        Log.d(TAG, "onRList: "+completeOrderArrayList.size());
                         myOrderAdapter = new MyOrderAdapter(CompleteOrderAmountActivity.this, completeOrderArrayList);
                         completeOrderRevView.setLayoutManager(new LinearLayoutManager(CompleteOrderAmountActivity.this));
                         completeOrderRevView.setAdapter(myOrderAdapter);
@@ -80,7 +80,7 @@ public class CompleteOrderAmountActivity extends AppCompatActivity implements Vi
 
                     progressBar.setVisibility(View.GONE);
 
-                    if(orderArrayList.size()==0){
+                    if(completeOrderArrayList.size()==0){
                         completeOrderRevView.setVisibility(View.GONE);
                         nullLay.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);

@@ -56,7 +56,9 @@ public interface ApiInterface {
             @Part("user_address") RequestBody user_address,
             @Part("profile_image\"; filename=\"myProfile.jpg\" ") RequestBody profile_image,
             @Part("latitude") RequestBody latitude,
-            @Part("longitude") RequestBody longitude
+            @Part("longitude") RequestBody longitude,
+            @Part("district") RequestBody district,
+            @Part("upazila") RequestBody upazila
     );
     @Headers("accept: application/json, content-type: application/json")
     @FormUrlEncoded

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SellerApp(LaalSobuj)</string>
+    <string name="app_name">Seller LaalSobuj</string>
     <string name="layout_direction">0</string>
     <string name="rta_dialog_title">Rate this app</string>
     <string name="rta_dialog_message">If you enjoy using this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thank you for your support!</string>
@@ -139,7 +139,7 @@
     <string name="varients_price">সাইজ সমুহ এবং তাদের মূল্য</string>
     <string name="add">যোগ করুন</string>
     <string name="add_property">সাইজ যোগ করুন</string>
-    <string name="ok">Ok</string>
+    <string name="ok">ঠিক আছে</string>
     <string name="search_country">জেলা খুজুন</string>
     <string name="everywhere_else_lbl">অন্যান্য জেলা</string>
     <string name="shipping_cost_hint">ডেলিভারি খরচ লিখুন(৳)</string>
@@ -171,7 +171,7 @@
     <string name="no_orders_found">কোন অর্ডার নাই</string>
     <string name="prod_delete_success_msg">আপনার পণ্যটি সফলভাবে মুছে ফেলা হয়েছে</string>
     <string name="auto_detect">ছবির মতো</string>
-    <string name="shipping">Shipping</string>
+    <string name="shipping">শিপিং</string>
     <string name="one_business_day">১ দিন</string>
     <string name="one_two_business">১-২ দিন</string>
     <string name="one_three_business">১-৩ দিন</string>

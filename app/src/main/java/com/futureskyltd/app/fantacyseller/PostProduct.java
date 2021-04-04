@@ -918,6 +918,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                     productDatas.put(Constants.TAG_DEAL_DATE, String.valueOf(shippingTimeStamp));
                 productDatas.put(Constants.TAG_FB_DISC_PERCENTAGE, fbdiscountPercentage.getText().toString());
                 Intent intent = new Intent(PostProduct.this, ChooseProdOptions.class);
+                intent.putExtra("check", "shipping");
                 intent.putExtra(Constants.FROM, "shippingTime");
                 intent.putExtra(Constants.TAG_COLOR_MODE, "nocolor");
                 intent.putExtra(Constants.SELECTED_TIME_DURATION, productDatas.get(Constants.TAG_SHIPPING_TIME));
@@ -955,6 +956,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                     productDatas.put(Constants.TAG_DEAL_DATE, String.valueOf(shippingTimeStamp));
                 productDatas.put(Constants.TAG_FB_DISC_PERCENTAGE, fbdiscountPercentage.getText().toString());
                 Intent intent2 = new Intent(PostProduct.this, ChooseProdOptions.class);
+                intent2.putExtra("check", "color");
                 intent2.putExtra(Constants.FROM, "colors");
                 intent2.putExtra(Constants.TAG_COLOR_MODE, colorSelect.getText().toString());
                 intent2.putExtra(Constants.COLOR_LIST, selectedColorLists);

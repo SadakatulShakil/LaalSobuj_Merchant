@@ -9,7 +9,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitClient {
     public static final String BASE_URL = "https://www.laalsobuj.com/Merchantapi/";////field manager registration, login and location
-    public static final String BASE_URL1 = "https://www.bebsha.com/api/";
+    public static final String BASE_URL1 = "https://www.laalsobuj.com/api/";
     public static Retrofit retrofit;
     public static Retrofit retrofit1;
 

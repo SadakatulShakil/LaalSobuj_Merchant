@@ -17,20 +17,29 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.futureskyltd.app.utils.Adapter.DistrictAdapter;
+import com.futureskyltd.app.utils.Adapter.UpazilaAdapter;
 import com.futureskyltd.app.utils.ApiInterface;
+import com.futureskyltd.app.utils.District.District;
+import com.futureskyltd.app.utils.District.DistrictList;
 import com.futureskyltd.app.utils.EditMerchant.EditMerchant;
 import com.futureskyltd.app.utils.GetSet;
 import com.futureskyltd.app.utils.Profile.Profile;
 import com.futureskyltd.app.utils.RetrofitClient;
+import com.futureskyltd.app.utils.Upazila.Upazila;
+import com.futureskyltd.app.utils.Upazila.UpazilatList;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener{
     ImageView back, appName;
@@ -44,6 +53,14 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     private Uri proImageUri;
     private RequestBody requestBody;
     private String result = null, latitude = "23.8360019", longitude = "90.3711972";
+    private Spinner districtSpinner, upazilaSpinner;
+    private String districtName, upazilaName;
+    private ArrayList<District> mDistrictList = new ArrayList<>();
+    private ArrayList<Upazila> mUpazilaList = new ArrayList<>();
+    private DistrictAdapter mDistrictAdapter;
+    private UpazilaAdapter mUpazilaAdapter;
+    private int district_id, upazila_id;
+    private int desiredUp=0;
     public static final String TAG ="Edit";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +84,51 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         address.setText(profileInfo.getUserAddress());
         userNId.setText((profileInfo.getNid()));
         Picasso.with(getApplicationContext()).load(profileInfo.getProfileImage()).into(profileImage);
+        //////Get District List/////////
+        Retrofit retrofit = RetrofitClient.getRetrofitClient1();
+        ApiInterface api = retrofit.create(ApiInterface.class);
+
+        Call<DistrictList> districtCall = api.getByDistrict();
+
+        districtCall.enqueue(new Callback<DistrictList>() {
+            @Override
+            public void onResponse(Call<DistrictList> call, Response<DistrictList> response) {
+                Log.d(TAG, "onResponse: " + response.code());
+                DistrictList districtList = response.body();
+                mDistrictList = (ArrayList<District>) districtList.getDistricts();
+                Log.d(TAG, "onResponse: " + districtList.toString());
+                Log.d(TAG, "onResponse: "+mDistrictList.size());
+                mDistrictAdapter = new DistrictAdapter(EditProfileActivity.this, mDistrictList);
+                districtSpinner.setAdapter(mDistrictAdapter);
+                int districtId = Integer.parseInt(profileInfo.getDistrict());
+                districtSpinner.setSelection(districtId-1);
+
+                districtSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        District clickedDistrict = (District) parent.getItemAtPosition(position);
+
+                        districtName = clickedDistrict.getDistrict();
+                        district_id = clickedDistrict.getId();
+
+                        getUpazilaList(district_id);
+
+                        //Toast.makeText(EditProfileActivity.this, districtName +" is selected !"+" id: "+ district_id, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onFailure(Call<DistrictList> call, Throwable t) {
+                Log.d(TAG, "onGetDistrictFailure: " + t.getMessage());
+            }
+        });
         //Log.d(TAG, "onCreate: " +profileInfo.getNid());
         password.setText("");
         conPassword.setText("");
@@ -120,7 +182,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
                 if(uPassword != null){
                     if (uPassword.equals(uConPassword)) {
-                        UpdateUserData(uShopName, uFullName, uPhone1, uPhone2, uEmail, uAddress, uPassword, uUserNid, latitude, longitude);
+                        UpdateUserData(uShopName, uFullName, uPhone1, uPhone2, uEmail, uAddress, uPassword, uUserNid, latitude, longitude, district_id, upazila_id);
                     }else {
                         Toast.makeText(EditProfileActivity.this, "পাসওয়ার্ড মিলে নাই !", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
@@ -131,15 +193,76 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                         conPassword.requestFocus();
                     }
                 }else{
-                    UpdateUserData(uShopName, uFullName, uPhone1, uPhone2, uEmail, uAddress, uPassword, uUserNid, latitude, longitude);
+                    UpdateUserData(uShopName, uFullName, uPhone1, uPhone2, uEmail, uAddress, uPassword, uUserNid, latitude, longitude, district_id, upazila_id);
                 }
             }
         });
     }
 
-    private void UpdateUserData(final String uShopName, final String uFullName, final String uPhone1, final String uPhone2, final String uEmail,
-                                final String uAddress, final String uPassword, final String uUserNid, final String latitude, final String longitude) {
+    private void getUpazilaList(int district_id) {
+        Retrofit retrofit = RetrofitClient.getRetrofitClient1();
+        ApiInterface api = retrofit.create(ApiInterface.class);
 
+        Call<UpazilatList> upazilaCall = api.postByUpazila(district_id);
+
+        upazilaCall.enqueue(new Callback<UpazilatList>() {
+            @Override
+            public void onResponse(Call<UpazilatList> call, Response<UpazilatList> response) {
+                Log.d(TAG, "onResponse: " + response.code());
+                UpazilatList upazilatList = response.body();
+                mUpazilaList = (ArrayList<Upazila>) upazilatList.getUpazila();
+                Log.d(TAG, "onResponse: " + upazilatList.toString());
+                mUpazilaAdapter = new UpazilaAdapter(EditProfileActivity.this, mUpazilaList);
+                upazilaSpinner.setAdapter(mUpazilaAdapter);
+                Log.d(TAG, "onResponse: "+ upazilatList.toString());
+                for(int i =0; i<mUpazilaList.size(); i++){
+                    //String getUp = String.valueOf(upazilatList.getUpazila().get(i).getId());
+                    //Log.d(TAG, "onRequestUp: "+ getUp);
+                    int profileUp = Integer.parseInt(profileInfo.getUpazila());
+                    Log.d(TAG, "onProfileUp: "+profileUp);
+                    if(upazilatList.getUpazila().get(i).getId() == profileUp){
+                        Log.d(TAG, "onResList: "+upazilatList.getUpazila().get(i).getId());
+                        Log.d(TAG, "onResProList: " + profileUp);
+                        desiredUp = i;
+                    }
+
+                    /*if(getUp.equals(profileInfo.getUpazila())){
+                        upazilaSpinner.setSelection(upazilatList.getUpazila().get(i).getId());
+                    }*/
+                }
+
+                upazilaSpinner.setSelection(desiredUp);
+                upazilaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        Upazila clickedUpazila = (Upazila) parent.getItemAtPosition(position);
+
+                        upazilaName = clickedUpazila.getUpazila();
+                        upazila_id = clickedUpazila.getId();
+
+                        //Toast.makeText(EditProfileActivity.this, upazilaName +" is selected !"+" id: "+ upazila_id, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<UpazilatList> call, Throwable t) {
+                Log.d(TAG, "onGetUpazilaFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    private void UpdateUserData(final String uShopName, final String uFullName, final String uPhone1, final String uPhone2, final String uEmail,
+                                final String uAddress, final String uPassword, final String uUserNid, final String latitude, final String longitude,
+                                final int district_id, final int upazila_id) {
+
+        String dId = String.valueOf(district_id);
+        String uId = String.valueOf(upazila_id);
         RequestBody shopRequest = RequestBody.create(MediaType.parse("text/plain"), uShopName);
         RequestBody userIdRequest = RequestBody.create(MediaType.parse("text/plain"), GetSet.getUserId());
         RequestBody fullNameRequest = RequestBody.create(MediaType.parse("text/plain"), uFullName);
@@ -151,6 +274,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         RequestBody latitudeRequest = RequestBody.create(MediaType.parse("text/plain"), latitude);
         RequestBody longitudeRequest = RequestBody.create(MediaType.parse("text/plain"), longitude);
         RequestBody nIdRequest = RequestBody.create(MediaType.parse("text/plain"), uUserNid);
+        RequestBody districtRequest = RequestBody.create(MediaType.parse("text/plain"), dId);
+        RequestBody upazilaRequest = RequestBody.create(MediaType.parse("text/plain"), uId);
 
         if(proImageUri != null){
             Log.d(TAG, "UpdateUserData: " +"file error");
@@ -164,7 +289,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         ApiInterface api = retrofit.create(ApiInterface.class);
 
         Call<EditMerchant> editMerchantCall = api.postByEditMerchant("Bearer "+ GetSet.getToken(), userIdRequest, fullNameRequest, phone1Request, phone2Request, nIdRequest, emailRequest,
-                passwordRequest, shopRequest, addressRequest, requestBody, latitudeRequest, longitudeRequest);
+                passwordRequest, shopRequest, addressRequest, requestBody, latitudeRequest, longitudeRequest, districtRequest, upazilaRequest);
         Log.d(TAG, "UpdateUserData: " + GetSet.getUserId());
         editMerchantCall.enqueue(new Callback<EditMerchant>() {
             @Override
@@ -191,7 +316,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                         startActivity(intent);
                         Toast.makeText(EditProfileActivity.this, "আপনার তথ্য অপডেট হয়েছে !", Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(EditProfileActivity.this, editMerchant.getMessage(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(EditProfileActivity.this, editMerchant.getMessage(), Toast.LENGTH_LONG).show();
 
                         if(editMerchant.getErrors().getEmail()!= null){
                             email.setError(editMerchant.getErrors().getEmail().getUnique());
@@ -213,7 +338,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             public void onFailure(Call<EditMerchant> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 Log.d(TAG, "onFailure: "+t.getMessage());
-                Toast.makeText(EditProfileActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(EditProfileActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -268,6 +393,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         profileImage = findViewById(R.id.profileImage);
         userNId = findViewById(R.id.userNID);
         updateProfileBtn = findViewById(R.id.updateMerchantBt);
+        districtSpinner = findViewById(R.id.userDistrictSpinner);
+        upazilaSpinner = findViewById(R.id.userUpazilaSpinner);
     }
 
     @Override

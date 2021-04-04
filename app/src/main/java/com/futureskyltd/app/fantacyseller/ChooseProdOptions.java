@@ -1,6 +1,7 @@
 package com.futureskyltd.app.fantacyseller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,7 +45,7 @@ public class ChooseProdOptions extends AppCompatActivity {
     String from = "";
     RelativeLayout progressLay, nullLay;
     ImageView nullImage, backBtn, appName;
-    TextView nullText, addBtn, resetBtn, screenTitle;
+    TextView nullText, addBtn, resetBtn, screenTitle, hintText;
     ArrayList<HashMap<String, String>> shippingTimeAry = new ArrayList<HashMap<String, String>>();
     LinearLayout addLay;
     ArrayList<String> colorsList = new ArrayList<>();
@@ -55,6 +56,7 @@ public class ChooseProdOptions extends AppCompatActivity {
     String colorMethod = "auto";
     String selectedTimeDuration = "";
     private String color_mode = "";
+    private String check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,8 @@ public class ChooseProdOptions extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent intent = getIntent();
+        check = intent.getStringExtra("check");
 
         listView = (ListView) findViewById(R.id.listView);
         nullLay = (RelativeLayout) findViewById(R.id.nullLay);
@@ -75,6 +79,7 @@ public class ChooseProdOptions extends AppCompatActivity {
         backBtn = (ImageView) findViewById(R.id.backBtn);
         addBtn = (TextView) findViewById(R.id.addProduct);
         resetBtn = (TextView) findViewById(R.id.resetProduct);
+        hintText = findViewById(R.id.hint);
 
         screenTitle.setText(getString(R.string.add_product));
         appName.setVisibility(View.GONE);
@@ -94,6 +99,7 @@ public class ChooseProdOptions extends AppCompatActivity {
         from = getIntent().getStringExtra(Constants.FROM);
 
         if (from.equals("shippingTime")) {
+            hintText.setVisibility(View.VISIBLE);
             selectedTimeDuration = getIntent().getStringExtra(Constants.SELECTED_TIME_DURATION);
             listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
             screenTitle.setText(getString(R.string.shipping_time_lbl));
@@ -101,6 +107,7 @@ public class ChooseProdOptions extends AppCompatActivity {
             addLay.setVisibility(GONE);
 
         } else if (from.equals("colors")) {
+            hintText.setVisibility(GONE);
             if ((ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra(Constants.COLOR_LIST) != null)
                /* engSelectedColorLists = (ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra(Constants.COLOR_LIST);*/
                 selectedColorLists = (ArrayList<HashMap<String, Object>>) getIntent().getSerializableExtra(Constants.COLOR_LIST);

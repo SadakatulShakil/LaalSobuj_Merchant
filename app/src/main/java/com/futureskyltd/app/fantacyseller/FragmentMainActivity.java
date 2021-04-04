@@ -202,6 +202,13 @@ public class FragmentMainActivity extends AppCompatActivity
                 startActivity(allProductIntent);
             }
         });
+        todayDeliveredOrderCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent allProductIntent = new Intent(FragmentMainActivity.this, TodayDeliveredOrderActivity.class);
+                startActivity(allProductIntent);
+            }
+        });
 
         /*View Usage*/
         appName.setVisibility(View.VISIBLE);
