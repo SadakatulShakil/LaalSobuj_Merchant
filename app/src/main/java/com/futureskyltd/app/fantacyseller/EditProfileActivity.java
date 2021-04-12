@@ -237,6 +237,31 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     return;
                 }
 
+                if (uUserNid.isEmpty()) {
+                    userNId.setError("এই তথ্যটি দিতে হবে");
+                    userNId.requestFocus();
+                    return;
+                }
+
+                if (uAccountUserName.isEmpty()) {
+                    gAccountUserName.setError("এই তথ্যটি দিতে হবে");
+                    gAccountUserName.requestFocus();
+                    return;
+                }
+
+                if (uBankNameOrMAccountNumber.isEmpty()) {
+                    gBankNameOrMAccountNumber.setError("এই তথ্যটি দিতে হবে");
+                    gBankNameOrMAccountNumber.requestFocus();
+                    return;
+                }
+
+                if (uAccountNumberOrUserPhone.isEmpty()) {
+                    gAccountNumberOrUserPhone.setError("এই তথ্যটি দিতে হবে");
+                    gAccountNumberOrUserPhone.requestFocus();
+                    return;
+                }
+
+
                 if(uPassword != null){
                     if (uPassword.equals(uConPassword)) {
                         UpdateUserData(uShopName, uFullName, uPhone1, uPhone2, uEmail, uAddress, uPassword,

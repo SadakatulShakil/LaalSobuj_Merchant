@@ -98,7 +98,7 @@ public class Constants {
     public static final String TAG_UNIT_NAME = "unit_type";
     public static final String TAG_UNIT_ID = "unit_id";
     public static final String TAG_MAIN_PRICE = "mainprice";
-    public static final String TAG_ORIGINAL_PRICE = "original_price";
+    public static final String TAG_ORIGINAL_PRICE = "buying_price";
     public static final String TAG_PRODUCT_URL = "product_url";
     public static final String TAG_ORDERS = "orders";
     public static final String TAG_ORDER_ID = "order_id";

@@ -380,7 +380,8 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         }
         fbdiscountPercentage.setText(productDatas.get(Constants.TAG_FB_DISC_PERCENTAGE));
         dailyDealLayDiscPercent.setText(productDatas.get(Constants.TAG_DISCOUNT_PERCENTAGE));
-        sizeOptPrice.setText(productDatas.get(Constants.TAG_MAIN_PRICE));
+        //sizeOptPrice.setText(productDatas.get(Constants.TAG_MAIN_PRICE));
+        sizeOptPrice.setText(productDatas.get(Constants.TAG_ORIGINAL_PRICE));
         sizeOptQuantity.setText(productDatas.get(Constants.TAG_QUANTITY));
         minOrderQuantity.setText(productDatas.get(Constants.TAG_MIN_QUANTITY));
         Log.d(TAG, "setUpUIName: "+ productDatas.get(Constants.TAG_UNIT_NAME));
@@ -830,7 +831,8 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         } else if (requestCode == ACTION_POST_PRODUCT) {
             //    setUpUI();
         }
-        sizeOptPrice.setText(productDatas.get(Constants.TAG_MAIN_PRICE));
+        //sizeOptPrice.setText(productDatas.get(Constants.TAG_MAIN_PRICE));
+        sizeOptPrice.setText(productDatas.get(Constants.TAG_ORIGINAL_PRICE));
         sizeOptQuantity.setText(productDatas.get(Constants.TAG_QUANTITY));
         minOrderQuantity.setText(productDatas.get(Constants.TAG_MIN_QUANTITY));
     }
