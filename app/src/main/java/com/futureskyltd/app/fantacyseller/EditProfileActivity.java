@@ -18,9 +18,12 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +48,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     ImageView back, appName;
     TextView title, updateProfileBtn;
     private Profile profileInfo;
-    private EditText shopName, fullName, contact1, contact2, email, address, password, conPassword, userNId;
+    private EditText shopName, fullName, contact1, contact2, email, address, password, conPassword, userNId, userZip;
     private ProgressBar progressBar;
     private ImageView profileImage;
     private Intent pickIntent, chooseIntent;
@@ -61,6 +64,11 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     private UpazilaAdapter mUpazilaAdapter;
     private int district_id, upazila_id;
     private int desiredUp=0;
+    private RadioButton rbGeneralBank, rbMobileBank;
+    private String bankText = "bank";
+    private EditText gAccountUserName, gBankNameOrMAccountNumber, gAccountNumberOrUserPhone;
+    private LinearLayout generalBankingField;
+    private TextView demo1, demo2, demo3;
     public static final String TAG ="Edit";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +84,27 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
         back.setOnClickListener(this);
         /////set merchant Data///
+        if(profileInfo.getPaymentMethod().equals("bank")){
+            rbGeneralBank.setChecked(true);
+            rbMobileBank.setChecked(false);
+        }else if(profileInfo.getPaymentMethod().equals("mobilebank")){
+            rbMobileBank.setChecked(true);
+            rbGeneralBank.setChecked(false);
+        }
         shopName.setText(profileInfo.getShopName());
         fullName.setText(profileInfo.getFirstName());
         contact1.setText(profileInfo.getPhoneNo());
         contact2.setText(profileInfo.getPhoneOne());
         email.setText(profileInfo.getEmail());
         address.setText(profileInfo.getUserAddress());
-        userNId.setText((profileInfo.getNid()));
+        userNId.setText(profileInfo.getNid());
+        userZip.setText(profileInfo.getZip());
+        gAccountUserName.setText(profileInfo.getAccountName());
+        gBankNameOrMAccountNumber.setText(profileInfo.getBankName());
+        gAccountNumberOrUserPhone.setText(profileInfo.getAccountNumber());
         Picasso.with(getApplicationContext()).load(profileInfo.getProfileImage()).into(profileImage);
+
+
         //////Get District List/////////
         Retrofit retrofit = RetrofitClient.getRetrofitClient1();
         ApiInterface api = retrofit.create(ApiInterface.class);
@@ -132,8 +153,40 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         //Log.d(TAG, "onCreate: " +profileInfo.getNid());
         password.setText("");
         conPassword.setText("");
-        ///Set merchant Data
+        ///Set banking Data
 
+        rbGeneralBank.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    bankText = "bank";
+                    demo1.setText("এ্যকাউন্ট ধারীর নাম (বাধ্যতামূলক)");
+                    gAccountUserName.setHint("বএ্যকাউন্ট ধারীর নাম (বাধ্যতামূলক)");
+                    demo2.setText("ব্যাংকের নাম (বাধ্যতামূলক)");
+                    gBankNameOrMAccountNumber.setHint("ব্যাংকের নাম (বাধ্যতামূলক)");
+                    demo3.setText("এ্যকাউন্ট নম্বর (বাধ্যতামূলক)");
+                    gAccountNumberOrUserPhone.setHint("এ্যকাউন্ট নম্বর (বাধ্যতামূলক)");
+                    rbMobileBank.setChecked(false);
+                }
+            }
+        });
+
+        rbMobileBank.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    bankText = "mobilebank";
+                    demo1.setText("মোবাইল ব্যাংকিং এর নাম");
+                    gAccountUserName.setHint("মোবাইল ব্যাংকিং এর নাম");
+                    demo2.setText("বিকাশ / রকেট / নগদ নম্বর লিখুন (বাধ্যতামূলক)");
+                    gBankNameOrMAccountNumber.setHint("বিকাশ / রকেট / নগদ নম্বর লিখুন (বাধ্যতামূলক)");
+                    demo3.setText("ফোন নম্বর লিখুন (বাধ্যতামূলক)");
+                    gAccountNumberOrUserPhone.setHint("ফোন নম্বর লিখুন (বাধ্যতামূলক)");
+                    rbGeneralBank.setChecked(false);
+
+                }
+            }
+        });
         ///Image picker////
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +207,10 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 String uConPassword = conPassword.getText().toString().trim();
                 String uShopName = shopName.getText().toString().trim();
                 String uAddress = address.getText().toString().trim();
+                String uZip = userZip.getText().toString().trim();
+                String uAccountUserName = gAccountUserName.getText().toString().trim();
+                String uBankNameOrMAccountNumber = gBankNameOrMAccountNumber.getText().toString().trim();
+                String uAccountNumberOrUserPhone = gAccountNumberOrUserPhone.getText().toString().trim();
 
 
                 if (uPhone1.isEmpty()) {
@@ -182,7 +239,9 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
                 if(uPassword != null){
                     if (uPassword.equals(uConPassword)) {
-                        UpdateUserData(uShopName, uFullName, uPhone1, uPhone2, uEmail, uAddress, uPassword, uUserNid, latitude, longitude, district_id, upazila_id);
+                        UpdateUserData(uShopName, uFullName, uPhone1, uPhone2, uEmail, uAddress, uPassword,
+                                uUserNid, latitude, longitude, district_id, upazila_id, uZip, bankText, uAccountUserName,
+                                uBankNameOrMAccountNumber, uAccountNumberOrUserPhone);
                     }else {
                         Toast.makeText(EditProfileActivity.this, "পাসওয়ার্ড মিলে নাই !", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
@@ -193,7 +252,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                         conPassword.requestFocus();
                     }
                 }else{
-                    UpdateUserData(uShopName, uFullName, uPhone1, uPhone2, uEmail, uAddress, uPassword, uUserNid, latitude, longitude, district_id, upazila_id);
+                    UpdateUserData(uShopName, uFullName, uPhone1, uPhone2, uEmail, uAddress, uPassword, uUserNid,
+                            latitude, longitude, district_id, upazila_id, uZip, bankText, uAccountUserName, uBankNameOrMAccountNumber, uAccountNumberOrUserPhone);
                 }
             }
         });
@@ -256,10 +316,10 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             }
         });
     }
-
     private void UpdateUserData(final String uShopName, final String uFullName, final String uPhone1, final String uPhone2, final String uEmail,
                                 final String uAddress, final String uPassword, final String uUserNid, final String latitude, final String longitude,
-                                final int district_id, final int upazila_id) {
+                                final int district_id, final int upazila_id,
+                                final String uZip, final String bankText, final String uAccountUserName, final String uBankNameOrMAccountNumber, final String uAccountNumberOrUserPhone) {
 
         String dId = String.valueOf(district_id);
         String uId = String.valueOf(upazila_id);
@@ -276,6 +336,11 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         RequestBody nIdRequest = RequestBody.create(MediaType.parse("text/plain"), uUserNid);
         RequestBody districtRequest = RequestBody.create(MediaType.parse("text/plain"), dId);
         RequestBody upazilaRequest = RequestBody.create(MediaType.parse("text/plain"), uId);
+        RequestBody zipRequest = RequestBody.create(MediaType.parse("text/plain"), uZip);
+        RequestBody bankTextRequest = RequestBody.create(MediaType.parse("text/plain"), bankText);
+        RequestBody uAccountUserNameRequest = RequestBody.create(MediaType.parse("text/plain"), uAccountUserName);
+        RequestBody uBankNameOrMAccountNumberRequest = RequestBody.create(MediaType.parse("text/plain"), uBankNameOrMAccountNumber);
+        RequestBody uAccountNumberOrUserPhoneRequest = RequestBody.create(MediaType.parse("text/plain"), uAccountNumberOrUserPhone);
 
         if(proImageUri != null){
             Log.d(TAG, "UpdateUserData: " +"file error");
@@ -289,8 +354,9 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         ApiInterface api = retrofit.create(ApiInterface.class);
 
         Call<EditMerchant> editMerchantCall = api.postByEditMerchant("Bearer "+ GetSet.getToken(), userIdRequest, fullNameRequest, phone1Request, phone2Request, nIdRequest, emailRequest,
-                passwordRequest, shopRequest, addressRequest, requestBody, latitudeRequest, longitudeRequest, districtRequest, upazilaRequest);
-        Log.d(TAG, "UpdateUserData: " + GetSet.getUserId());
+                passwordRequest, shopRequest, addressRequest, requestBody, latitudeRequest,
+                longitudeRequest, districtRequest, upazilaRequest, zipRequest, bankTextRequest, uAccountUserNameRequest, uBankNameOrMAccountNumberRequest, uAccountNumberOrUserPhoneRequest);
+        Log.d(TAG, "UpdateUserData: " + GetSet.getUserId()+ bankText + uAccountUserName + uBankNameOrMAccountNumber + uAccountNumberOrUserPhone);
         editMerchantCall.enqueue(new Callback<EditMerchant>() {
             @Override
             public void onResponse(Call<EditMerchant> call, Response<EditMerchant> response) {
@@ -395,6 +461,16 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         updateProfileBtn = findViewById(R.id.updateMerchantBt);
         districtSpinner = findViewById(R.id.userDistrictSpinner);
         upazilaSpinner = findViewById(R.id.userUpazilaSpinner);
+        userZip = findViewById(R.id.userZip);
+        generalBankingField = findViewById(R.id.generalBankingField);
+        rbGeneralBank = findViewById(R.id.generalBankingRb);
+        rbMobileBank = findViewById(R.id.mobileBankingRb);
+        gAccountUserName = findViewById(R.id.gAccountUserName);
+        gBankNameOrMAccountNumber = findViewById(R.id.gBankNameOrMAccountNumber);
+        gAccountNumberOrUserPhone = findViewById(R.id.gAccountNumberOrUserPhone);
+        demo1 = findViewById(R.id.demo1);
+        demo2 = findViewById(R.id.demo2);
+        demo3 = findViewById(R.id.demo3);
     }
 
     @Override

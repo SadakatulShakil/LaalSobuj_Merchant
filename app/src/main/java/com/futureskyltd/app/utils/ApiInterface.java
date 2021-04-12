@@ -58,7 +58,12 @@ public interface ApiInterface {
             @Part("latitude") RequestBody latitude,
             @Part("longitude") RequestBody longitude,
             @Part("district") RequestBody district,
-            @Part("upazila") RequestBody upazila
+            @Part("upazila") RequestBody upazila,
+            @Part("zip") RequestBody zip,
+            @Part("payment_method") RequestBody payment_method,
+            @Part("account_name") RequestBody account_name,
+            @Part("bank_name") RequestBody bank_name,
+            @Part("account_number") RequestBody account_number
     );
     @Headers("accept: application/json, content-type: application/json")
     @FormUrlEncoded

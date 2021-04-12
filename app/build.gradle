@@ -7,7 +7,7 @@ android {
         applicationId "com.futureskyltd.app.fantacyseller"
         minSdkVersion 17
         targetSdkVersion 29
-        versionCode 3
+        versionCode 1
         versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -16,6 +16,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        checkReleaseBuilds false
     }
 }
 

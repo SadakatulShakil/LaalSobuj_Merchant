@@ -197,7 +197,12 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
                     JSONObject json = new JSONObject(res);
                     if (DefensiveClass.optString(json, Constants.TAG_STATUS).equalsIgnoreCase("true")) {
                         JSONObject temp = json.optJSONObject(Constants.TAG_RESULT);
-
+                       /* double productPrice = Double.parseDouble(DefensiveClass.optString(temp, Constants.TAG_MAIN_PRICE));
+                        double result = Math.floor(productPrice-((7.5*productPrice)/100));
+                        if(result % 5 != 0){
+                            result= ((Math.floor(result/5))*5)+5;
+                        }
+                        String Price = String.valueOf(result);*/
                         productDatas.put(Constants.TAG_ID, DefensiveClass.optString(temp, Constants.TAG_ID));
                         productDatas.put(Constants.TAG_ITEM_ID, DefensiveClass.optString(temp, Constants.TAG_ID));
                         productDatas.put(Constants.TAG_ITEM_TITLE, DefensiveClass.optString(temp, Constants.TAG_ITEM_TITLE));
@@ -211,6 +216,7 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
                         productDatas.put(Constants.TAG_DOTHERS, DefensiveClass.optString(temp, Constants.TAG_DOTHERS));
                         productDatas.put(Constants.TAG_CURRENCY, DefensiveClass.optString(temp, Constants.TAG_CURRENCY));
                         productDatas.put(Constants.TAG_MAIN_PRICE, DefensiveClass.optString(temp, Constants.TAG_MAIN_PRICE));
+                        productDatas.put(Constants.TAG_ORIGINAL_PRICE, DefensiveClass.optString(temp, Constants.TAG_ORIGINAL_PRICE));
                         productDatas.put(Constants.TAG_PRICE, DefensiveClass.optString(temp, Constants.TAG_PRICE));
                         productDatas.put(Constants.TAG_LIKE_COUNT, DefensiveClass.optString(temp, Constants.TAG_LIKE_COUNT));
                         productDatas.put(Constants.TAG_DEAL_ENABLED, DefensiveClass.optString(temp, Constants.TAG_DEAL_ENABLED));

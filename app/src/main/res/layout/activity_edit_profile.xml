@@ -43,7 +43,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="বিক্রেতার ছবি বা ব্যবসার লোগো আপলোড করুন\nসর্বউচ্চ সাইজ ১ MB ; টাইপ : jpg, jpeg, png"
+                    android:text="বিক্রেতার ছবি বা ব্যবসার লোগো আপলোড করুন\nসর্বোচ্চ সাইজ ১ MB ; টাইপ : jpg, jpeg, png"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_gravity="center"
@@ -201,14 +201,29 @@
                 android:layout_marginRight="5dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/black" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="এনআইডি নং"
-                android:layout_marginLeft="8dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/black" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="এনআইডি নং"
+        android:layout_marginLeft="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*"
+        android:layout_marginLeft="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/red" />
+
+</LinearLayout>
+
 
             <EditText
                 android:id="@+id/userNID"
@@ -328,6 +343,194 @@
                 android:spinnerMode="dropdown"
                 tools:ignore="HardcodedText"
                 tools:targetApi="LOLLIPOP" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="জিপ কোড"
+                android:layout_marginLeft="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/userZip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="বিক্রেতার জিপ কোড দিন"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="বিক্রেতার পেমেন্ট মাধ্যম"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:layout_marginLeft="8dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/red" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bankingOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+
+
+                    <RadioButton
+                        android:id="@+id/generalBankingRb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:layout_marginLeft="8dp"
+                        android:text="ব্যাংক এ্যকাউন্ট" />
+
+                    <RadioButton
+                        android:id="@+id/mobileBankingRb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="বিকাশ / রকেট / নগদ"
+                        android:layout_weight="1"
+                        android:layout_marginRight="8dp"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/generalBankingField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/demo1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:text="এ্যকাউন্ট ধারীর নাম (বাধ্যতামূলক)"/>
+
+                    <com.futureskyltd.app.external.CustomEditText
+                        android:id="@+id/gAccountUserName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="এ্যকাউন্ট ধারীর নাম (বাধ্যতামূলক)"
+                        android:inputType="text"
+                        android:background="@drawable/edit_text_border"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="3dp"
+                        android:padding="@dimen/common_padding"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_bold.ttf" />
+
+                    <TextView
+                        android:id="@+id/demo2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:text="ব্যাংকের নাম (বাধ্যতামূলক)"/>
+
+                    <com.futureskyltd.app.external.CustomEditText
+                        android:id="@+id/gBankNameOrMAccountNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ব্যাংকের নাম (বাধ্যতামূলক)"
+                        android:inputType="text"
+                        android:background="@drawable/edit_text_border"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="3dp"
+                        android:padding="@dimen/common_padding"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_bold.ttf" />
+
+                    <TextView
+                        android:id="@+id/demo3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:text="এ্যকাউন্ট নম্বর (বাধ্যতামূলক)"/>
+
+                    <com.futureskyltd.app.external.CustomEditText
+                        android:id="@+id/gAccountNumberOrUserPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="এ্যকাউন্ট নম্বর (বাধ্যতামূলক)"
+                        android:inputType="number"
+                        android:background="@drawable/edit_text_border"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="3dp"
+                        android:padding="@dimen/common_padding"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_bold.ttf" />
+                </LinearLayout>
+                <!--<LinearLayout
+                    android:id="@+id/mobileBankingField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <com.futureskyltd.app.external.CustomEditText
+                        android:id="@+id/mAccountUserName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="এ্যকাউন্ট ধারীর নাম (বাধ্যতামূলক)"
+                        android:inputType="text"
+                        android:background="@drawable/edit_text_border"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="3dp"
+                        android:padding="@dimen/common_padding"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_bold.ttf" />
+
+                    <com.futureskyltd.app.external.CustomEditText
+                        android:id="@+id/mAccountNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="এ্যকাউন্ট নম্বর (বাধ্যতামূলক)"
+                        android:inputType="number"
+                        android:background="@drawable/edit_text_border"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="3dp"
+                        android:padding="@dimen/common_padding"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_bold.ttf" />
+
+                </LinearLayout>-->
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"

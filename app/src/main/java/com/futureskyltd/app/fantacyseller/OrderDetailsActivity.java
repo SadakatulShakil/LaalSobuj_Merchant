@@ -73,7 +73,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         actionBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] values = new String[]{"কনফার্ম", "শিপড"};
+                String[] values = new String[]{"কনফার্ম", "শিপড", "ইনভয়েস তৈরী করুন"};
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(OrderDetailsActivity.this,
                         R.layout.option_row_item, android.R.id.text1, values);
                 LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -104,11 +104,19 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                                 status = "Shipped";
                                 callStatusChange(status);
                                 break;
+                            case 2:
+                                status = "Invoice";
+                                generateInvoice(status);
+                                break;
                         }
                     }
                 });
             }
         });
+    }
+
+    private void generateInvoice(String status) {
+        ///Do code for download invoice///
     }
 
     private void callStatusChange(String status) {

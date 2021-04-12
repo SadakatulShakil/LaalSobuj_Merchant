@@ -29,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private Profile profile;
     private TextView userName, userId, userContact1, userContact2, userEmail, userAddress, userZip, userShopName, districtName, upazilaName, userNid;
     private CircleImageView profileImage;
+    private TextView paymentMethod, accountUserName, bankName, accountNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +72,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     userShopName.setText(profile.getShopName());
                     districtName.setText(profile.getDistrictName());
                     upazilaName.setText(profile.getUpazilaName());
+                    paymentMethod.setText(profile.getPaymentMethod());
+                    accountUserName.setText(profile.getAccountName());
+                    bankName.setText(profile.getBankName());
+                    accountNumber.setText(profile.getAccountNumber());
                     Picasso.with(getApplicationContext()).load(profile.getProfileImage()).into(profileImage);
                 }
             }
@@ -100,6 +105,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         districtName = findViewById(R.id.district);
         upazilaName = findViewById(R.id.upazila);
         userNid = findViewById(R.id.userNid);
+        paymentMethod = findViewById(R.id.paymentMethod);
+        accountUserName = findViewById(R.id.accountUserName);
+        bankName = findViewById(R.id.bankName);
+        accountNumber = findViewById(R.id.accountNumber);
     }
 
     @Override

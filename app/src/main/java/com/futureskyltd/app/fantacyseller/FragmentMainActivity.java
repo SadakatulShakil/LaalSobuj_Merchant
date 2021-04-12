@@ -1,13 +1,19 @@
 package com.futureskyltd.app.fantacyseller;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.android.volley.AuthFailureError;
@@ -62,7 +68,9 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -89,6 +97,8 @@ public class FragmentMainActivity extends AppCompatActivity
     LinearLayout logoutLay;
     SwipeRefreshLayout dashBoardswipeRefresh;
     View header;
+    private float cVersion, lVersion;
+    private String sLatestVersion, sCurrentVersion;
     private Profile profile;
     private String proImageUrl;
     AppBarLayout.LayoutParams params;
@@ -102,6 +112,7 @@ public class FragmentMainActivity extends AppCompatActivity
         setContentView(R.layout.activity_fragment_main);
         networkReceiver = new NetworkReceiver();
         /*View Initialization*/
+        new GetLatestVersion().execute();
         getUserProfile();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         listView = (ListView) findViewById(R.id.nav_menu_listview);
@@ -323,6 +334,7 @@ public class FragmentMainActivity extends AppCompatActivity
                 if(response.code() == 200){
                     profile = response.body();
                     proImageUrl = profile.getProfileImage();
+                    restrictionDialog(profile.getNid(), profile.getPaymentMethod());
                 }
             }
 
@@ -331,6 +343,27 @@ public class FragmentMainActivity extends AppCompatActivity
 
             }
         });
+    }
+
+    private void restrictionDialog(String nid, String paymentMethod) {
+        if(nid.equals("") || paymentMethod.equals("")){
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(FragmentMainActivity.this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle("বাধ্যতামুলক তথ্য !");
+            alertDialog.setMessage("জাতীয় পরিচয় পত্রের নম্বর ও পেমেন্ট মাধ্যম তথ্য ব্যতিত আপনি কোন পণ্য যোগ করতে পারবেন না");
+            alertDialog.setIcon(R.drawable.ic_lock);
+            alertDialog.setPositiveButton("তথ্য দিন", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent editInfoIntent = new Intent(FragmentMainActivity.this, EditProfileActivity.class);
+                    editInfoIntent.putExtra("profileInfo", profile);
+                    startActivity(editInfoIntent);
+                }
+            });
+
+            alertDialog.create();
+            alertDialog.show();
+        }
     }
 
 
@@ -589,22 +622,53 @@ public class FragmentMainActivity extends AppCompatActivity
                 break;
             case R.id.rateApp_menu:
                 item.setCheckable(false);
-
-                Toast.makeText(this, "Not Yet Publish !", Toast.LENGTH_LONG).show();
-                /*Uri uri = Uri.parse("market://details?id=" + getPackageName());
-                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                // To count with Play market backstack, After pressing back button,
-                // to taken back to our application, we need to add following flags to intent.
-                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
-                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                try {
-                    startActivity(goToMarket);
-                } catch (ActivityNotFoundException e) {
+                if(lVersion > cVersion){
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
-                }*/
+                            Uri.parse("market://details?id=com.futureskyltd.app.fantacyseller")));
+                }
+                else{
+                    Toast.makeText(FragmentMainActivity.this, "আপনার অ্যাপটি আপডেট করা আছে!", Toast.LENGTH_LONG).show();
+                }
+               // Toast.makeText(this, "Not Yet Publish !", Toast.LENGTH_LONG).show();
                 break;
+        }
+    }
+
+    /////Get Latest version////
+    private class GetLatestVersion extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                sLatestVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=" + getPackageName() + "&hl=en")
+                        .timeout(10000)
+                        .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+                        .referrer("http://www.google.com")
+                        .get()
+                        .select("div.hAyfc:nth-child(4) > span:nth-child(2) > div:nth-child(1) > span:nth-child(1)")
+                        .first()
+                        .ownText();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return sLatestVersion;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            ////Get Current version////
+            try {
+                PackageInfo pInfo = FragmentMainActivity.this.getPackageManager().getPackageInfo(FragmentMainActivity.this.getPackageName(), 0);
+                sCurrentVersion = pInfo.versionName;
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+            Log.d(TAG, "onPostExecute: " +"LatestVersion: "+sLatestVersion+"......"+"CurrentVersion: "+sCurrentVersion);
+            if(sLatestVersion != null){
+                cVersion = Float.parseFloat(sCurrentVersion);
+                lVersion = Float.parseFloat(sLatestVersion);
+
+            }
+
         }
     }
 

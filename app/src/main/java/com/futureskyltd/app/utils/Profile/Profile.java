@@ -29,6 +29,18 @@ public class Profile implements Serializable {
     @SerializedName("nid")
     @Expose
     private String nid;
+    @SerializedName("payment_method")
+    @Expose
+    private String paymentMethod;
+    @SerializedName("account_name")
+    @Expose
+    private String accountName;
+    @SerializedName("bank_name")
+    @Expose
+    private String bankName;
+    @SerializedName("account_number")
+    @Expose
+    private String accountNumber;
     @SerializedName("district")
     @Expose
     private String district;
@@ -106,6 +118,46 @@ public class Profile implements Serializable {
 
     public void setPhoneOne(String phoneOne) {
         this.phoneOne = phoneOne;
+    }
+
+    public String getNid() {
+        return nid;
+    }
+
+    public void setNid(String nid) {
+        this.nid = nid;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     public String getDistrict() {
@@ -188,14 +240,6 @@ public class Profile implements Serializable {
         this.profileImage = profileImage;
     }
 
-    public String getNid() {
-        return nid;
-    }
-
-    public void setNid(String nid) {
-        this.nid = nid;
-    }
-
     @Override
     public String toString() {
         return "Profile{" +
@@ -206,6 +250,10 @@ public class Profile implements Serializable {
                 ", phoneNo='" + phoneNo + '\'' +
                 ", phoneOne='" + phoneOne + '\'' +
                 ", nid='" + nid + '\'' +
+                ", paymentMethod='" + paymentMethod + '\'' +
+                ", accountName='" + accountName + '\'' +
+                ", bankName='" + bankName + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
                 ", district='" + district + '\'' +
                 ", districtName='" + districtName + '\'' +
                 ", upazila='" + upazila + '\'' +
