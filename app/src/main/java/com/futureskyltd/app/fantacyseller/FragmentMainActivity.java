@@ -349,8 +349,8 @@ public class FragmentMainActivity extends AppCompatActivity
         if(nid.equals("") || paymentMethod.equals("")){
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(FragmentMainActivity.this);
             alertDialog.setCancelable(false);
-            alertDialog.setTitle("বাধ্যতামুলক তথ্য !");
-            alertDialog.setMessage("জাতীয় পরিচয় পত্রের নম্বর ও পেমেন্ট মাধ্যম তথ্য ব্যতিত আপনি কোন পণ্য যোগ করতে পারবেন না");
+            alertDialog.setTitle("বাধ্যতামূলক তথ্য !");
+            alertDialog.setMessage("জাতীয় পরিচয় পত্রের নম্বর ও পেমেন্ট মাধ্যমের তথ্য ব্যতিত আপনি কোন পণ্য যোগ করতে পারবেন না");
             alertDialog.setIcon(R.drawable.ic_lock);
             alertDialog.setPositiveButton("তথ্য দিন", new DialogInterface.OnClickListener() {
                 @Override

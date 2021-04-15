@@ -7,6 +7,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,6 +78,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     accountUserName.setText(profile.getAccountName());
                     bankName.setText(profile.getBankName());
                     accountNumber.setText(profile.getAccountNumber());
+                    restrictionDialog(userNid.getText().toString(), paymentMethod.getText().toString());
                     Picasso.with(getApplicationContext()).load(profile.getProfileImage()).into(profileImage);
                 }
             }
@@ -109,6 +112,27 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         accountUserName = findViewById(R.id.accountUserName);
         bankName = findViewById(R.id.bankName);
         accountNumber = findViewById(R.id.accountNumber);
+    }
+
+    private void restrictionDialog(String nid, String paymentMethod) {
+        if(nid.equals("") || paymentMethod.equals("")){
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle("বাধ্যতামূলক তথ্য !");
+            alertDialog.setMessage("জাতীয় পরিচয় পত্রের নম্বর ও পেমেন্ট মাধ্যমের তথ্য ব্যতিত আপনি কোন পণ্য যোগ করতে পারবেন না");
+            alertDialog.setIcon(R.drawable.ic_lock);
+            alertDialog.setPositiveButton("তথ্য দিন", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent editInfoIntent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+                    editInfoIntent.putExtra("profileInfo", profile);
+                    startActivity(editInfoIntent);
+                }
+            });
+
+            alertDialog.create();
+            alertDialog.show();
+        }
     }
 
     @Override

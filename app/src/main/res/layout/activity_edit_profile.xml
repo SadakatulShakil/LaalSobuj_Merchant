@@ -404,13 +404,13 @@
                         android:layout_weight="1"
                         android:checked="true"
                         android:layout_marginLeft="8dp"
-                        android:text="ব্যাংক এ্যকাউন্ট" />
+                        android:text="ব্যাংক অ্যাকাউন্ট" />
 
                     <RadioButton
                         android:id="@+id/mobileBankingRb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="বিকাশ / রকেট / নগদ"
+                        android:text="মোবাইল ব্যাংকিং"
                         android:layout_weight="1"
                         android:layout_marginRight="8dp"
                         app:layout_constraintEnd_toEndOf="parent" />
@@ -429,13 +429,13 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
-                        android:text="এ্যকাউন্ট ধারীর নাম (বাধ্যতামূলক)"/>
+                        android:text="অ্যাকাউন্ট ধারীর নাম (বাধ্যতামূলক)"/>
 
                     <com.futureskyltd.app.external.CustomEditText
                         android:id="@+id/gAccountUserName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="এ্যকাউন্ট ধারীর নাম (বাধ্যতামূলক)"
+                        android:hint="অ্যাকাউন্ট ধারীর নাম (বাধ্যতামূলক)"
                         android:inputType="text"
                         android:background="@drawable/edit_text_border"
                         android:layout_marginLeft="8dp"
@@ -469,6 +469,19 @@
                         android:textSize="@dimen/text_size_medium"
                         app:typeface="font_bold.ttf" />
 
+                    <Spinner
+                        android:id="@+id/mBankNameSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/demoUp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="15dp"
+                        android:overlapAnchor="false"
+                        android:spinnerMode="dropdown"
+                        android:visibility="gone"
+                        tools:ignore="HardcodedText"
+                        tools:targetApi="LOLLIPOP" />
+
                     <TextView
                         android:id="@+id/demo3"
                         android:layout_width="wrap_content"
@@ -481,7 +494,7 @@
                         android:id="@+id/gAccountNumberOrUserPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="এ্যকাউন্ট নম্বর (বাধ্যতামূলক)"
+                        android:hint="অ্যাকাউন্ট নম্বর (বাধ্যতামূলক)"
                         android:inputType="number"
                         android:background="@drawable/edit_text_border"
                         android:layout_marginLeft="8dp"

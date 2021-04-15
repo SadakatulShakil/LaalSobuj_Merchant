@@ -9,7 +9,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import android.app.AlertDialog;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -29,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.futureskyltd.app.utils.Adapter.DistrictAdapter;
+import com.futureskyltd.app.utils.Adapter.UnitAdapter;
 import com.futureskyltd.app.utils.Adapter.UpazilaAdapter;
 import com.futureskyltd.app.utils.ApiInterface;
 import com.futureskyltd.app.utils.District.District;
@@ -37,6 +40,7 @@ import com.futureskyltd.app.utils.EditMerchant.EditMerchant;
 import com.futureskyltd.app.utils.GetSet;
 import com.futureskyltd.app.utils.Profile.Profile;
 import com.futureskyltd.app.utils.RetrofitClient;
+import com.futureskyltd.app.utils.Unit;
 import com.futureskyltd.app.utils.Upazila.Upazila;
 import com.futureskyltd.app.utils.Upazila.UpazilatList;
 import com.squareup.picasso.Picasso;
@@ -56,7 +60,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     private Uri proImageUri;
     private RequestBody requestBody;
     private String result = null, latitude = "23.8360019", longitude = "90.3711972";
-    private Spinner districtSpinner, upazilaSpinner;
+    private Spinner districtSpinner, upazilaSpinner, mBankingSpinner;
     private String districtName, upazilaName;
     private ArrayList<District> mDistrictList = new ArrayList<>();
     private ArrayList<Upazila> mUpazilaList = new ArrayList<>();
@@ -69,11 +73,19 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     private EditText gAccountUserName, gBankNameOrMAccountNumber, gAccountNumberOrUserPhone;
     private LinearLayout generalBankingField;
     private TextView demo1, demo2, demo3;
+    private ArrayList<Unit> mUnitList;
+    private UnitAdapter mUnitAdapter;
+    private String mBankName = "";
+    private String getmBankName = "";
+    String selectedMz = "unSelected";
+    private int selectedPos;
+    private String uBankNameOrMAccountNumber = "";
     public static final String TAG ="Edit";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        inItMList();
         inItView();
         Intent intent = getIntent();
         profileInfo = (Profile) intent.getSerializableExtra("profileInfo");
@@ -87,8 +99,13 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         if(profileInfo.getPaymentMethod().equals("bank")){
             rbGeneralBank.setChecked(true);
             rbMobileBank.setChecked(false);
+            gBankNameOrMAccountNumber.setVisibility(View.VISIBLE);
+            mBankingSpinner.setVisibility(View.GONE);
         }else if(profileInfo.getPaymentMethod().equals("mobilebank")){
             rbMobileBank.setChecked(true);
+            gBankNameOrMAccountNumber.setVisibility(View.GONE);
+            mBankingSpinner.setVisibility(View.VISIBLE);
+            mBankingSpinner.setSelection(getIndex(mBankingSpinner, profileInfo.getBankName()));
             rbGeneralBank.setChecked(false);
         }
         shopName.setText(profileInfo.getShopName());
@@ -160,13 +177,16 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     bankText = "bank";
-                    demo1.setText("এ্যকাউন্ট ধারীর নাম (বাধ্যতামূলক)");
-                    gAccountUserName.setHint("বএ্যকাউন্ট ধারীর নাম (বাধ্যতামূলক)");
+                    demo1.setText("অ্যাকাউন্ট ধারীর নাম (বাধ্যতামূলক)");
+                    gAccountUserName.setHint("অ্যাকাউন্ট ধারীর নাম (বাধ্যতামূলক)");
                     demo2.setText("ব্যাংকের নাম (বাধ্যতামূলক)");
                     gBankNameOrMAccountNumber.setHint("ব্যাংকের নাম (বাধ্যতামূলক)");
-                    demo3.setText("এ্যকাউন্ট নম্বর (বাধ্যতামূলক)");
-                    gAccountNumberOrUserPhone.setHint("এ্যকাউন্ট নম্বর (বাধ্যতামূলক)");
+                    demo3.setText("অ্যাকাউন্ট নম্বর (বাধ্যতামূলক)");
+                    gAccountNumberOrUserPhone.setHint("অ্যাকাউন্ট নম্বর (বাধ্যতামূলক)");
                     rbMobileBank.setChecked(false);
+                    gBankNameOrMAccountNumber.setVisibility(View.VISIBLE);
+                    mBankingSpinner.setVisibility(View.GONE);
+                    uBankNameOrMAccountNumber = gBankNameOrMAccountNumber.getText().toString().trim();
                 }
             }
         });
@@ -176,12 +196,15 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     bankText = "mobilebank";
-                    demo1.setText("মোবাইল ব্যাংকিং এর নাম");
-                    gAccountUserName.setHint("মোবাইল ব্যাংকিং এর নাম");
-                    demo2.setText("বিকাশ / রকেট / নগদ নম্বর লিখুন (বাধ্যতামূলক)");
-                    gBankNameOrMAccountNumber.setHint("বিকাশ / রকেট / নগদ নম্বর লিখুন (বাধ্যতামূলক)");
-                    demo3.setText("ফোন নম্বর লিখুন (বাধ্যতামূলক)");
-                    gAccountNumberOrUserPhone.setHint("ফোন নম্বর লিখুন (বাধ্যতামূলক)");
+                    demo1.setText("অ্যাকাউন্ট ধারীর নাম (বাধ্যতামূলক)");
+                    gAccountUserName.setHint("অ্যাকাউন্ট ধারীর নাম (বাধ্যতামূলক)");
+                    demo2.setText("মোবাইল ব্যংকিং প্রতিষ্ঠান বাছাই করুন (বাধ্যতামূলক)");
+                    //gBankNameOrMAccountNumber.setHint("বিকাশ / রকেট / নগদ নম্বর লিখুন (বাধ্যতামূলক)");
+
+                    gBankNameOrMAccountNumber.setVisibility(View.GONE);
+                    mBankingSpinner.setVisibility(View.VISIBLE);
+                    demo3.setText("অ্যাকাউন্ট নম্বর (বাধ্যতামূলক)");
+                    gAccountNumberOrUserPhone.setHint("অ্যাকাউন্ট নম্বর লিখুন (বাধ্যতামূলক)");
                     rbGeneralBank.setChecked(false);
 
                 }
@@ -209,9 +232,14 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 String uAddress = address.getText().toString().trim();
                 String uZip = userZip.getText().toString().trim();
                 String uAccountUserName = gAccountUserName.getText().toString().trim();
-                String uBankNameOrMAccountNumber = gBankNameOrMAccountNumber.getText().toString().trim();
                 String uAccountNumberOrUserPhone = gAccountNumberOrUserPhone.getText().toString().trim();
 
+                if(rbGeneralBank.isChecked()){
+                    bankText = "bank";
+                }
+                if(rbMobileBank.isChecked()){
+                    bankText = "mobilebank";
+                }
 
                 if (uPhone1.isEmpty()) {
                     contact1.setError("আপনার ফোন নম্বরটি দিতে হবে ");
@@ -260,6 +288,9 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     gAccountNumberOrUserPhone.requestFocus();
                     return;
                 }
+                if(selectedMz.equals("unSelected")){
+                    Toast.makeText(EditProfileActivity.this, "বিকাশ / রকেট / নগদ এর তথ্য দিতে হবে", Toast.LENGTH_SHORT).show();
+                }
 
 
                 if(uPassword != null){
@@ -282,6 +313,15 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 }
             }
         });
+    }
+
+    private void inItMList() {
+        mUnitList = new ArrayList<>();
+        mUnitList.add(new Unit("বাছাই করুন"));
+        mUnitList.add(new Unit("বিকাশ"));
+        mUnitList.add(new Unit("রকেট"));
+        mUnitList.add(new Unit("নগদ"));
+
     }
 
     private void getUpazilaList(int district_id) {
@@ -468,6 +508,18 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         return result;
     }
 
+    private int getIndex(Spinner spinner, String myString){
+        for (int i=0;i<spinner.getCount();i++){
+            if (mUnitList.get(i).toString().equalsIgnoreCase(myString)){
+                return i;
+
+            }
+            //Log.d(TAG, "getIndex: "+ mUnitList.get(i).toString());
+        }
+
+        return 0;
+    }
+
     private void inItView() {
         back = (ImageView) findViewById(R.id.backBtn);
         appName = (ImageView) findViewById(R.id.appName);
@@ -496,12 +548,46 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         demo1 = findViewById(R.id.demo1);
         demo2 = findViewById(R.id.demo2);
         demo3 = findViewById(R.id.demo3);
+        mBankingSpinner = findViewById(R.id.mBankNameSpinner);
+        mUnitAdapter = new UnitAdapter(EditProfileActivity.this, mUnitList);
+        mBankingSpinner.setAdapter(mUnitAdapter);
+        //unitSpinner.setSelection(3);
+        mBankingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position<1){
+                    selectedMz = "unSelected";
+                }else{
+                    selectedMz = "selected";
+                    Unit clickedUnit = (Unit) parent.getItemAtPosition(position);
+
+                    mBankName = clickedUnit.getUnit();
+                    uBankNameOrMAccountNumber = mBankName;
+                    //minimumUnit.setText(unitName);
+                    //Toast.makeText(PostProduct.this, unitId + " is selected !", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(EditProfileActivity.this, ProfileActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.backBtn:
+                Intent i = new Intent(EditProfileActivity.this, ProfileActivity.class);
+                startActivity(i);
                 finish();
                 break;
         }

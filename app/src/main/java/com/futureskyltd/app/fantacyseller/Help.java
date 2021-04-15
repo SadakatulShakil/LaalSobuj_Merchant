@@ -41,6 +41,7 @@ public class Help extends AppCompatActivity implements View.OnClickListener {
     ArrayList<HashMap<String, String>> helpAry = new ArrayList<HashMap<String, String>>();
     RelativeLayout progress, nullLay;
     ImageView back, appName;
+    private String pageName;
     TextView title;
 
     @Override
@@ -96,6 +97,7 @@ public class Help extends AppCompatActivity implements View.OnClickListener {
                             map.put(Constants.TAG_PAGE_NAME, DefensiveClass.optString(temp, Constants.TAG_PAGE_NAME));
                             map.put(Constants.TAG_MAIN_CONTENT, DefensiveClass.optString(temp, Constants.TAG_MAIN_CONTENT));
                             map.put(Constants.TAG_SUB_CONTENT, DefensiveClass.optString(temp, Constants.TAG_SUB_CONTENT));
+                            Log.d(TAG, "onResponse: " + DefensiveClass.optString(temp, Constants.TAG_PAGE_NAME));
                             helpAry.add(map);
                         }
                         recyclerViewAdapter.notifyDataSetChanged();
@@ -165,7 +167,31 @@ public class Help extends AppCompatActivity implements View.OnClickListener {
 
         @Override
         public void onBindViewHolder(final RecyclerViewAdapter.MyViewHolder holder, int position) {
-            holder.name.setText(helpList.get(position).get(Constants.TAG_PAGE_NAME));
+            if(helpList.get(position).get(Constants.TAG_PAGE_NAME).equals("FAQ")){
+                pageName= "প্রশ্ন-উত্তর";
+                helpList.get(position).put(Constants.TAG_PAGE_NAME,pageName);
+                holder.name.setText(pageName);
+            }else if(helpList.get(position).get(Constants.TAG_PAGE_NAME).equals("Terms of sale")){
+                pageName= "শর্তাবলি এবং পরিষেবা";
+                helpList.get(position).put(Constants.TAG_PAGE_NAME,pageName);
+                holder.name.setText(pageName);
+            }else if(helpList.get(position).get(Constants.TAG_PAGE_NAME).equals("Terms & service")){
+                pageName= "সেবার শর্তাবলি (বিক্রেতা)";
+                helpList.get(position).put(Constants.TAG_PAGE_NAME,pageName);
+                holder.name.setText(pageName);
+            }else if(helpList.get(position).get(Constants.TAG_PAGE_NAME).equals("Privacy Policy")){
+                pageName= "প্রাইভেসি নীতিমালা";
+                helpList.get(position).put(Constants.TAG_PAGE_NAME,pageName);
+                holder.name.setText(pageName);
+            }else if(helpList.get(position).get(Constants.TAG_PAGE_NAME).equals("Terms and Condition")){
+                pageName= "সেবার শর্তাবলি (ক্রেতা)";
+                helpList.get(position).put(Constants.TAG_PAGE_NAME,pageName);
+                holder.name.setText(pageName);
+            }else if(helpList.get(position).get(Constants.TAG_PAGE_NAME).equals("Copyright Policy")){
+                pageName= "কপিরাইট নীতিমালা";
+                helpList.get(position).put(Constants.TAG_PAGE_NAME,pageName);
+                holder.name.setText(pageName);
+            }
             if (helpList.get(position).get(Constants.TAG_PAGE_NAME).equalsIgnoreCase("About")) {
                 holder.bgView.setVisibility(View.VISIBLE);
             } else {

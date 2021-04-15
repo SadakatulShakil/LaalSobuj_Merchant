@@ -213,7 +213,7 @@
                 android:id="@+id/demoAccountUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="এ্যাকাউন্ট ধারীর নাম / মোবাইল ব্যাংকিং এর নাম"
+                android:text="এ্যাকাউন্ট ধারীর নাম"
                 android:layout_margin="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/userNid" />
@@ -233,7 +233,7 @@
                 android:id="@+id/demoBankName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ব্যাংকের নাম / বিকাশ / রকেট / নগদ নম্বর "
+                android:text="ব্যাংকের নাম / মোবাইল ব্যংকিং প্রতিষ্ঠানের নাম"
                 android:layout_margin="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/userNid" />
@@ -253,7 +253,7 @@
                 android:id="@+id/demoAccountNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="এ্যকাউন্ট নম্বর / ফোন নম্বর"
+                android:text="অ্যাকাউন্ট নম্বর"
                 android:layout_margin="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/userNid" />
