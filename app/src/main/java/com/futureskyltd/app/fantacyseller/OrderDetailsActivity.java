@@ -8,11 +8,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -73,7 +77,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         actionBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] values = new String[]{"কনফার্ম", "শিপড", "ইনভয়েস তৈরী করুন"};
+                String[] values = new String[]{"কনফার্ম", "শিপড", "ইনভয়েস ডাউনলোড করুন"};
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(OrderDetailsActivity.this,
                         R.layout.option_row_item, android.R.id.text1, values);
                 LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -81,7 +85,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                 final PopupWindow popup = new PopupWindow(OrderDetailsActivity.this);
                 popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 popup.setContentView(layout);
-                popup.setWidth(display.getWidth() * 48 / 100);
+                popup.setWidth(display.getWidth() * 50 / 100);
                 popup.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
                 popup.setFocusable(true);
 
@@ -106,7 +110,11 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
                                 break;
                             case 2:
                                 status = "Invoice";
-                                generateInvoice(status);
+                               /* Intent url5 = new Intent(Intent.ACTION_VIEW);
+                                url5.setData(Uri.parse("https://laalsobuj.com/api/downloadinvoice/"+orderId));
+                                startActivity(url5);*/
+                                downloadInvoice(orderId);
+                                Toast.makeText(OrderDetailsActivity.this, "ইনভয়েস ডাউনলোড হচ্ছে", Toast.LENGTH_SHORT).show();
                                 break;
                         }
                     }
@@ -115,8 +123,22 @@ public class OrderDetailsActivity extends AppCompatActivity implements View.OnCl
         });
     }
 
-    private void generateInvoice(String status) {
+    private void downloadInvoice(String orderId) {
         ///Do code for download invoice///
+        Log.d(TAG, "downloadInvoice: "+ orderId);
+        String url = "https://laalsobuj.com/pdf/download.php?order_id="+orderId;
+        DownloadManager.Request request=new DownloadManager.Request(Uri.parse(url));
+        request.setTitle("Download Pdf");
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.HONEYCOMB){
+            request.allowScanningByMediaScanner();
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        }
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"Invoice"+".pdf");
+        DownloadManager downloadManager=(DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+        request.setMimeType("application/pdf");
+        request.allowScanningByMediaScanner();
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+        downloadManager.enqueue(request);
     }
 
     private void callStatusChange(String status) {

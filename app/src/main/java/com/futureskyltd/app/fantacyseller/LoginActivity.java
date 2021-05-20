@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements NetworkReceiver.
     CirclePageIndicator pagerIndicator;
     SharedPreferences pref;
     EditText email, password;
-    TextView signin, forgetpassword;
+    TextView signin, forgetpassword, linkText;
     private ImageView image1, image2, image3, image5;
 
     @Override
@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity implements NetworkReceiver.
         email = (EditText) findViewById((R.id.email));
         password = (EditText) findViewById((R.id.password));
         signin = (TextView) findViewById((R.id.signin));
+        linkText = (TextView) findViewById((R.id.linkText));
         forgetpassword = (TextView) findViewById((R.id.forgetpassword));
         image1 = findViewById(R.id.image1);
         image2 = findViewById(R.id.image2);
@@ -126,6 +127,15 @@ public class LoginActivity extends AppCompatActivity implements NetworkReceiver.
                 Intent url5 = new Intent(Intent.ACTION_VIEW);
                 url5.setData(Uri.parse("https://www.futureskyltd.com/"));
                 startActivity(url5);
+            }
+        });
+
+        linkText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent url6 = new Intent(Intent.ACTION_VIEW);
+                url6.setData(Uri.parse("https://www.mowca.gov.bd/"));
+                startActivity(url6);
             }
         });
     }

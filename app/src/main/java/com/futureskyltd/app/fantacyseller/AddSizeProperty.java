@@ -231,6 +231,7 @@ public class AddSizeProperty extends AppCompatActivity implements View.OnClickLi
             getIntent().putExtra(Constants.IS_SIZE_ENABLE, "true");
             getIntent().putExtra(Constants.SIZE_LIST, propertyList);
             getIntent().putExtra("unitName", unitName);
+            getIntent().putExtra("unitIsSelect", selectedMz);
         } else {
             getIntent().putExtra(Constants.IS_SIZE_ENABLE, "false");
             getIntent().putExtra(Constants.SIZE_LIST, propertyList);

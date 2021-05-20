@@ -7,8 +7,8 @@ android {
         applicationId "com.futureskyltd.app.fantacyseller"
         minSdkVersion 17
         targetSdkVersion 29
-        versionCode 2
-        versionName "1.2"
+        versionCode 10
+        versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -49,4 +49,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
     implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.github.barteksc:android-pdf-viewer:2.0.3'
 }

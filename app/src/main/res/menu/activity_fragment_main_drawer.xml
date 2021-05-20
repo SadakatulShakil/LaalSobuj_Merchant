@@ -39,6 +39,12 @@
             android:id="@+id/help_menu"
             android:icon="@drawable/help"
             android:title="@string/help" />
+
+        <item
+            android:id="@+id/user_manual"
+            android:icon="@drawable/help"
+            android:title="অ্যাপ ব্যবহারের নির্দেশিকা" />
+
         <item
             android:id="@+id/rateApp_menu"
             android:icon="@drawable/playstore"

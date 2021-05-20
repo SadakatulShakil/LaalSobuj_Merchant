@@ -1,8 +1,10 @@
 package com.futureskyltd.app.fantacyseller;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -18,6 +20,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.Display;
@@ -39,9 +45,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.futureskyltd.app.external.ImagePicker;
 import com.futureskyltd.app.helper.ImageCompression;
 import com.futureskyltd.app.helper.ImageStorage;
+import com.futureskyltd.app.utils.ApiInterface;
 import com.futureskyltd.app.utils.Constants;
 import com.futureskyltd.app.utils.DefensiveClass;
 import com.futureskyltd.app.utils.GetSet;
+import com.futureskyltd.app.utils.Profile.Profile;
+import com.futureskyltd.app.utils.RetrofitClient;
 import com.squareup.picasso.Picasso;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -84,13 +93,14 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
     HashMap<String, String> productDatas = new HashMap<>();
     ArrayList<HashMap<String, Object>> colorList, sizeList, shipsToList = new ArrayList<>();
     Toolbar toolbar;
+    private Profile profile;
     private EditText productMaterial, productSizeDetail, productDesign, productPackaging, productColorDetail, productUseDetail, productOtherDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-
+        getUserProfile();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -147,6 +157,58 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
 
         categoryName = getString(R.string.select_category);
         categorySelect.setText(categoryName);
+    }
+
+    private void getUserProfile() {
+
+        Retrofit retrofit = RetrofitClient.getRetrofitClient();
+        ApiInterface api = retrofit.create(ApiInterface.class);
+
+        Call<Profile> profileCall = api.getByProfile("Bearer "+ GetSet.getToken(), GetSet.getUserId());
+
+        profileCall.enqueue(new Callback<Profile>() {
+            @Override
+            public void onResponse(Call<Profile> call, retrofit2.Response<Profile> response) {
+                Log.d(TAG, "onResponse: "+response.code());
+                if(response.code() == 200){
+                    profile = response.body();
+                    restrictionDialog(profile.getNid(), profile.getPaymentMethod());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Profile> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void restrictionDialog(String nid, String paymentMethod) {
+        if(nid.equals("") || paymentMethod.equals("")){
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateProduct.this);
+            alertDialog.setCancelable(false);
+            alertDialog.setTitle("বাধ্যতামূলক তথ্য !");
+            alertDialog.setMessage("জাতীয় পরিচয় পত্রের নম্বর ও পেমেন্ট মাধ্যমের তথ্য ব্যতিত আপনি কোন পণ্য যোগ করতে পারবেন না");
+            alertDialog.setIcon(R.drawable.ic_lock);
+            alertDialog.setPositiveButton("তথ্য দিন", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent editInfoIntent = new Intent(CreateProduct.this, EditProfileActivity.class);
+                    editInfoIntent.putExtra("profileInfo", profile);
+                    startActivity(editInfoIntent);
+                }
+            });
+            alertDialog.setNegativeButton("পরে দিতে চান", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent homeIntent = new Intent(CreateProduct.this, FragmentMainActivity.class);
+                    startActivity(homeIntent);
+                }
+            });
+
+            alertDialog.create();
+            alertDialog.show();
+        }
     }
 
     private void getDataFromIntent() {

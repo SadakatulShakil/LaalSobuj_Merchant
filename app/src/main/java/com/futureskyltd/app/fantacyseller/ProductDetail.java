@@ -601,7 +601,7 @@ public class ProductDetail extends AppCompatActivity implements View.OnClickList
             if (selectedSizePosition == position) {
                 try {
                     availableQuantity.setVisibility(View.VISIBLE);
-                    availableQuantity.setText(getString(R.string.only_qty_available, Integer.parseInt(sizes.get(position).get(Constants.TAG_UNIT))));
+                    availableQuantity.setText("আর মাত্র "+Integer.parseInt(sizes.get(position).get(Constants.TAG_UNIT))+ " "+productMap.get(Constants.TAG_UNIT_NAME)+" বাকি আছে");
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                     availableQuantity.setVisibility(View.GONE);

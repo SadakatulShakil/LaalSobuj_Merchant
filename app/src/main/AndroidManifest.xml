@@ -5,7 +5,7 @@
 
     <application
         android:name=".FantacySellerApplication"
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:configChanges="layoutDirection|locale"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/appicon"
@@ -16,18 +16,27 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="q">
-        <activity android:name=".CompleteTransectionActivity"
+        <activity android:name=".InvoiceActivity"></activity>
+        <activity
+            android:name=".UserManualActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".InCompleteOrderAmountActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CompleteTransectionActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".CompleteOrderAmountActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".InCompleteOrderAmountActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".TodayDeliveredOrderActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CompleteOrderAmountActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TodayDeliveredOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TodayNewOrderActivity"
             android:screenOrientation="portrait"
@@ -166,7 +175,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
 </manifest>

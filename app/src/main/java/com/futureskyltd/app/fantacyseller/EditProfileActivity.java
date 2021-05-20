@@ -68,6 +68,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     private UpazilaAdapter mUpazilaAdapter;
     private int district_id, upazila_id;
     private int desiredUp=0;
+    private String bankName = "";
     private RadioButton rbGeneralBank, rbMobileBank;
     private String bankText = "bank";
     private EditText gAccountUserName, gBankNameOrMAccountNumber, gAccountNumberOrUserPhone;
@@ -186,7 +187,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     rbMobileBank.setChecked(false);
                     gBankNameOrMAccountNumber.setVisibility(View.VISIBLE);
                     mBankingSpinner.setVisibility(View.GONE);
-                    uBankNameOrMAccountNumber = gBankNameOrMAccountNumber.getText().toString().trim();
+                    //uBankNameOrMAccountNumber = gBankNameOrMAccountNumber.getText().toString().trim();
                 }
             }
         });
@@ -239,6 +240,13 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 }
                 if(rbMobileBank.isChecked()){
                     bankText = "mobilebank";
+                }
+
+                if(bankText.equals("bank")){
+                    bankName = uBankNameOrMAccountNumber = gBankNameOrMAccountNumber.getText().toString().trim();
+                }
+                else if (bankText.equals("mobilebank")){
+                    bankName = mBankName;
                 }
 
                 if (uPhone1.isEmpty()) {
@@ -562,7 +570,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     Unit clickedUnit = (Unit) parent.getItemAtPosition(position);
 
                     mBankName = clickedUnit.getUnit();
-                    uBankNameOrMAccountNumber = mBankName;
+                    //uBankNameOrMAccountNumber = mBankName;
                     //minimumUnit.setText(unitName);
                     //Toast.makeText(PostProduct.this, unitId + " is selected !", Toast.LENGTH_SHORT).show();
                 }

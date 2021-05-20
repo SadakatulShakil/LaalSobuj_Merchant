@@ -5,6 +5,7 @@ import com.futureskyltd.app.utils.EditMerchant.EditMerchant;
 import com.futureskyltd.app.utils.MyOrder.MyOrder;
 import com.futureskyltd.app.utils.OrderDetails.OrderDetails;
 import com.futureskyltd.app.utils.Profile.Profile;
+import com.futureskyltd.app.utils.SaveContact.SaveContact;
 import com.futureskyltd.app.utils.Status.ChangeStatus;
 import com.futureskyltd.app.utils.TodayNewOrder.TodayNewOrder;
 import com.futureskyltd.app.utils.Upazila.UpazilatList;
@@ -19,6 +20,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface ApiInterface {
 
@@ -97,6 +99,17 @@ public interface ApiInterface {
     Call<MyOrder> getMyOrder(
             @Header("Authorization") String token,
             @Field("user_id") String user_id
+    );
+
+
+    @Headers("accept: application/json, content-type: multipart/form-data")
+    @FormUrlEncoded
+    @POST("save-contacts")
+    Call<SaveContact> postByContactList(
+            @Field("user_id") String user_id,
+            @Field("district") String district,
+            @Field("upazila") String upazila,
+            @Field("contacts") String contacts
     );
 }
 

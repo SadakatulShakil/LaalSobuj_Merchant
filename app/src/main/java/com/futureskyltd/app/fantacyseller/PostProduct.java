@@ -823,6 +823,8 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
             productDatas.put(Constants.TAG_SIZE_AVAILABILTY, data.getStringExtra(Constants.IS_SIZE_ENABLE));
             sizeList = ((ArrayList<HashMap<String, Object>>) data.getSerializableExtra(Constants.SIZE_LIST));
             getUnitName = (String) data.getSerializableExtra("unitName");
+            unitName = getUnitName;
+            selectedMz = (String) data.getSerializableExtra("unitIsSelect");
 
             Log.d(TAG, "sizelistvalues" + sizeList);
             if (sizeList.isEmpty()) {
@@ -910,6 +912,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.shippingTimeLayout:
                 productDatas.put(Constants.TAG_MAIN_PRICE, sizeOptPrice.getText().toString());
+                productDatas.put(Constants.TAG_ORIGINAL_PRICE, sizeOptPrice.getText().toString());
                 productDatas.put(Constants.TAG_PRICE, sizeOptPrice.getText().toString());
                 productDatas.put(Constants.TAG_QUANTITY, sizeOptQuantity.getText().toString());
                 productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
@@ -930,6 +933,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 ////////////////////Need to vanish That button and add extra 2 default field//////////////
             case R.id.shipsToLay:
                 productDatas.put(Constants.TAG_MAIN_PRICE, sizeOptPrice.getText().toString());
+                productDatas.put(Constants.TAG_ORIGINAL_PRICE, sizeOptPrice.getText().toString());
                 productDatas.put(Constants.TAG_PRICE, sizeOptPrice.getText().toString());
                 productDatas.put(Constants.TAG_QUANTITY, sizeOptQuantity.getText().toString());
                 productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
