@@ -3,11 +3,14 @@ package com.futureskyltd.app.utils;
 import com.futureskyltd.app.utils.District.DistrictList;
 import com.futureskyltd.app.utils.EditMerchant.EditMerchant;
 import com.futureskyltd.app.utils.MyOrder.MyOrder;
+import com.futureskyltd.app.utils.OrderCancel.OrderCancel;
 import com.futureskyltd.app.utils.OrderDetails.OrderDetails;
+import com.futureskyltd.app.utils.OrderPlace.OrderPlace;
 import com.futureskyltd.app.utils.Profile.Profile;
 import com.futureskyltd.app.utils.SaveContact.SaveContact;
 import com.futureskyltd.app.utils.Status.ChangeStatus;
 import com.futureskyltd.app.utils.TodayNewOrder.TodayNewOrder;
+import com.futureskyltd.app.utils.TrackingMethod.TrackingMethod;
 import com.futureskyltd.app.utils.Upazila.UpazilatList;
 
 import okhttp3.RequestBody;
@@ -20,7 +23,6 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 
 public interface ApiInterface {
 
@@ -111,6 +113,36 @@ public interface ApiInterface {
             @Field("upazila") String upazila,
             @Field("contacts") String contacts
     );
+
+    @Headers("accept: application/json, content-type: application/json")
+    @FormUrlEncoded
+    @POST("trackingdetails")
+    Call<TrackingMethod> postByTrackingMethod(
+            @Header("Authorization") String token,
+            @Field("user_id") String user_id,
+            @Field("orderid") String orderid
+    );
+
+ @Headers("accept: application/json, content-type: application/json")
+ @FormUrlEncoded
+ @POST("cancelorder")
+ Call<OrderCancel> postByCancelOrder(
+         @Header("Authorization") String token,
+         @Field("orderid") String orderid,
+         @Field("message") String message
+ );
+
+ @Headers("accept: application/json, content-type: application/json")
+ @FormUrlEncoded
+ @POST("placeOrderForShipping")
+ Call<OrderPlace> postByOrderPlace(
+         @Header("Authorization") String token,
+         @Field("userid") String userid,
+         @Field("orderid") String orderid,
+         @Field("courier") String courier,
+         @Field("shippingdate") String shippingdate,
+         @Field("notes") String notes
+ );
 }
 
 

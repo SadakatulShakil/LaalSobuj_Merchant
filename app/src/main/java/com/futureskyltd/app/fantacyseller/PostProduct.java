@@ -71,7 +71,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
     LinearLayout sizeOptionLay, dailyDealsOptionLay, fbOptionLay;
     RelativeLayout shippingTimeLayout, shipsToLay, colorSelectLay;
     private ImageView addShippingMark;
-    EditText fbdiscountPercentage, dailyDealLayDiscPercent, sizeOptQuantity, sizeOptPrice, dailyDealDate, minOrderQuantity;
+    EditText fbdiscountPercentage, dailyDealLayDiscPercent, sizeOptQuantity, sizeOptPrice, dailyDealDate, minOrderQuantity, expectedArea;
     Toolbar toolbar;
     String sdate, item_id = "";
     long shippingTimeStamp = 1616241081;
@@ -136,6 +136,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         sizeOptPrice = (EditText) findViewById(R.id.sizeOptPrice);
         sizeOptQuantity = (EditText) findViewById(R.id.sizeOptQuantity);
         minOrderQuantity = (EditText) findViewById(R.id.minOrderQuantity);
+        expectedArea = (EditText) findViewById(R.id.expectedArea);
         shippingTime = (TextView) findViewById(R.id.shippingTime);
         colorSelect = (TextView) findViewById(R.id.colorSelect);
         districtSpinner = findViewById(R.id.userDistrictSpinner);
@@ -384,6 +385,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         sizeOptPrice.setText(productDatas.get(Constants.TAG_ORIGINAL_PRICE));
         sizeOptQuantity.setText(productDatas.get(Constants.TAG_QUANTITY));
         minOrderQuantity.setText(productDatas.get(Constants.TAG_MIN_QUANTITY));
+        expectedArea.setText(productDatas.get(Constants.TAG_AREA));
         Log.d(TAG, "setUpUIName: "+ productDatas.get(Constants.TAG_UNIT_NAME));
         Log.d(TAG, "setUpUIIndex: "+ getIndex(unitSpinner, productDatas.get(Constants.TAG_UNIT_NAME)));
         //Log.d(TAG, "setUpUIIndex: "+ getIndex(unitSpinner);
@@ -396,6 +398,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         controlSwitch(sizeSwitch, Boolean.valueOf(productDatas.get(Constants.TAG_SIZE_AVAILABILTY)), "size");
         controlSwitch(dailyDealsSwitch, Boolean.valueOf(productDatas.get(Constants.TAG_DEAL_ENABLED)), "deals");
         minOrderQuantity.setText(productDatas.get(Constants.TAG_MIN_QUANTITY));
+        expectedArea.setText(productDatas.get(Constants.TAG_AREA));
        // unitSpinner.setSelection(setSpId);
         sizeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -406,6 +409,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                     productDatas.put(Constants.TAG_PRICE, sizeOptPrice.getText().toString());
                     productDatas.put(Constants.TAG_QUANTITY, sizeOptQuantity.getText().toString());
                     productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
+                    productDatas.put(Constants.TAG_AREA, expectedArea.getText().toString());
                     productDatas.put(Constants.TAG_UNIT_NAME, unitName);
                     productDatas.put(Constants.TAG_DISCOUNT_PERCENTAGE, dailyDealLayDiscPercent.getText().toString());
                     if (shippingTimeStamp != 0)
@@ -422,6 +426,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                     productDatas.put(Constants.TAG_SIZE_AVAILABILTY, "false");
                     sizeOptionLay.setVisibility(View.VISIBLE);
                     productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
+                    productDatas.put(Constants.TAG_AREA, expectedArea.getText().toString());
                 }
             }
         });
@@ -462,6 +467,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
             fbOptionLay.setVisibility(View.GONE);
         }
         productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
+        productDatas.put(Constants.TAG_AREA, expectedArea.getText().toString());
         dailyDealsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -555,6 +561,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                     productDatas.put(Constants.TAG_PRICE, sizeOptPrice.getText().toString());
                     productDatas.put(Constants.TAG_QUANTITY, sizeOptQuantity.getText().toString());
                     productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
+                    productDatas.put(Constants.TAG_AREA, expectedArea.getText().toString());
                     productDatas.put(Constants.TAG_DISCOUNT_PERCENTAGE, dailyDealLayDiscPercent.getText().toString());
                     if (shippingTimeStamp != 0)
                         productDatas.put(Constants.TAG_DEAL_DATE, String.valueOf(shippingTimeStamp));
@@ -746,14 +753,23 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
 
                 hashMap.put(Constants.TAG_ITEM_IMAGE, item_image);
                 hashMap.put(Constants.TAG_ITEM_TITLE, productDatas.get(Constants.TAG_ITEM_TITLE));
+                hashMap.put(Constants.TAG_ITEM_TITLE_EN, productDatas.get(Constants.TAG_ITEM_TITLE_EN));
                 hashMap.put(Constants.TAG_ITEM_DESCRIPTION, productDatas.get(Constants.TAG_ITEM_DESCRIPTION));
                 hashMap.put(Constants.TAG_DESCRIPTION, productDatas.get(Constants.TAG_DESCRIPTION));
+                hashMap.put(Constants.TAG_DESCRIPTION_EN, productDatas.get(Constants.TAG_DESCRIPTION_EN));
                 hashMap.put(Constants.TAG_DSIZE, productDatas.get(Constants.TAG_DSIZE));
+                hashMap.put(Constants.TAG_DSIZE_EN, productDatas.get(Constants.TAG_DSIZE_EN));
                 hashMap.put(Constants.TAG_DDESIGN, productDatas.get(Constants.TAG_DDESIGN));
+                hashMap.put(Constants.TAG_DDESIGN_EN, productDatas.get(Constants.TAG_DDESIGN_EN));
                 hashMap.put(Constants.TAG_DPACKAGING, productDatas.get(Constants.TAG_DPACKAGING));
+                hashMap.put(Constants.TAG_DPACKAGING_EN, productDatas.get(Constants.TAG_DPACKAGING_EN));
+                hashMap.put(Constants.TAG_KEYWORDS, productDatas.get(Constants.TAG_KEYWORDS));
                 hashMap.put(Constants.TAG_DCOLOR, productDatas.get(Constants.TAG_DCOLOR));
+                hashMap.put(Constants.TAG_DCOLOR_EN, productDatas.get(Constants.TAG_DCOLOR_EN));
                 hashMap.put(Constants.TAG_DUSES, productDatas.get(Constants.TAG_DUSES));
+                hashMap.put(Constants.TAG_DUSES_EN, productDatas.get(Constants.TAG_DUSES_EN));
                 hashMap.put(Constants.TAG_DOTHERS, productDatas.get(Constants.TAG_DOTHERS));
+                hashMap.put(Constants.TAG_DOTHERS_EN, productDatas.get(Constants.TAG_DOTHERS_EN));
                 hashMap.put(Constants.TAG_VIDEO_URL, productDatas.get(Constants.TAG_VIDEO_URL));
                 hashMap.put(Constants.TAG_BARCODE, productDatas.get(Constants.TAG_BARCODE));
 
@@ -782,6 +798,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 hashMap.put(Constants.TAG_QUANTITY, productDatas.get(Constants.TAG_QUANTITY));
                 hashMap.put(Constants.TAG_MIN_QUANTITY, productDatas.get(Constants.TAG_MIN_QUANTITY));
                 hashMap.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString().trim());
+                hashMap.put(Constants.TAG_AREA, expectedArea.getText().toString().trim());
                 hashMap.put(Constants.TAG_DEAL_TYPE, pro_discount);
                 hashMap.put(Constants.TAG_DISTRICT, String.valueOf(district_id));
                 hashMap.put(Constants.TAG_UPAZILA, String.valueOf(upazila_id));
@@ -837,6 +854,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         sizeOptPrice.setText(productDatas.get(Constants.TAG_ORIGINAL_PRICE));
         sizeOptQuantity.setText(productDatas.get(Constants.TAG_QUANTITY));
         minOrderQuantity.setText(productDatas.get(Constants.TAG_MIN_QUANTITY));
+        expectedArea.setText(productDatas.get(Constants.TAG_AREA));
     }
 
     @Override
@@ -844,6 +862,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         productDatas.put(Constants.TAG_PRICE, sizeOptPrice.getText().toString());
         productDatas.put(Constants.TAG_QUANTITY, sizeOptQuantity.getText().toString());
         productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
+        productDatas.put(Constants.TAG_AREA, expectedArea.getText().toString());
         productDatas.put(Constants.TAG_DISCOUNT_PERCENTAGE, dailyDealLayDiscPercent.getText().toString());
         productDatas.put(Constants.TAG_DEAL_DATE, String.valueOf(shippingTimeStamp));
         productDatas.put(Constants.TAG_FB_DISC_PERCENTAGE, fbdiscountPercentage.getText().toString());
@@ -878,6 +897,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 productDatas.put(Constants.TAG_PRICE, sizeOptPrice.getText().toString());
                 productDatas.put(Constants.TAG_QUANTITY, sizeOptQuantity.getText().toString());
                 productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString().trim());
+                productDatas.put(Constants.TAG_AREA, expectedArea.getText().toString().trim());
                 productDatas.put(Constants.TAG_UNIT_NAME, unitName);
                 productDatas.put(Constants.TAG_COD, String.valueOf(checkSwitchEnable("cod", codSwitch)));
                 productDatas.put(Constants.TAG_DEAL_ENABLED, String.valueOf(checkSwitchEnable("deals", dailyDealsSwitch)));
@@ -901,7 +921,10 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                     FantacySellerApplication.showToast(PostProduct.this, getString(R.string.reqd_ships_to), Toast.LENGTH_LONG);
                 else if (minOrderQuantity.getText().toString().equals("")){
                     FantacySellerApplication.showToast(PostProduct.this, "ন্যূনতম অর্ডার পরিমান দিতে হবে", Toast.LENGTH_LONG);
-                }else if(selectedMz.equals("unSelected")){
+                }else if (expectedArea.getText().toString().equals("")){
+                    FantacySellerApplication.showToast(PostProduct.this, "কোন অঞ্চল এর পণ্য? দিতে হবে", Toast.LENGTH_LONG);
+                }
+                else if(selectedMz.equals("unSelected")){
                     FantacySellerApplication.showToast(PostProduct.this, "একক বাছাই করুন", Toast.LENGTH_LONG);
                 }
                 else
@@ -916,6 +939,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 productDatas.put(Constants.TAG_PRICE, sizeOptPrice.getText().toString());
                 productDatas.put(Constants.TAG_QUANTITY, sizeOptQuantity.getText().toString());
                 productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
+                productDatas.put(Constants.TAG_AREA, expectedArea.getText().toString());
                // productDatas.put(Constants.TAG_UNIT_ID, String.valueOf(unitId));
                 productDatas.put(Constants.TAG_UNIT_NAME, unitName);
                 productDatas.put(Constants.TAG_DISCOUNT_PERCENTAGE, dailyDealLayDiscPercent.getText().toString());
@@ -937,6 +961,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 productDatas.put(Constants.TAG_PRICE, sizeOptPrice.getText().toString());
                 productDatas.put(Constants.TAG_QUANTITY, sizeOptQuantity.getText().toString());
                 productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
+                productDatas.put(Constants.TAG_AREA, expectedArea.getText().toString());
                 productDatas.put(Constants.TAG_UNIT_NAME, unitName);
                 Log.d(TAG, "onClickUnit: " + productDatas);
                 //productDatas.put(Constants.TAG_UNIT_ID, String.valueOf(unitId));
@@ -955,6 +980,7 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                 productDatas.put(Constants.TAG_PRICE, sizeOptPrice.getText().toString());
                 productDatas.put(Constants.TAG_QUANTITY, sizeOptQuantity.getText().toString());
                 productDatas.put(Constants.TAG_MIN_QUANTITY, minOrderQuantity.getText().toString());
+                productDatas.put(Constants.TAG_AREA, expectedArea.getText().toString());
                 productDatas.put(Constants.TAG_UNIT_NAME, unitName);
                 //productDatas.put(Constants.TAG_UNIT_ID, String.valueOf(unitId));
                 productDatas.put(Constants.TAG_DISCOUNT_PERCENTAGE, dailyDealLayDiscPercent.getText().toString());

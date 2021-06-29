@@ -16,7 +16,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="q">
-        <activity android:name=".InvoiceActivity"></activity>
+        <activity android:name=".ShippingDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".InvoiceActivity" />
         <activity
             android:name=".UserManualActivity"
             android:screenOrientation="portrait"

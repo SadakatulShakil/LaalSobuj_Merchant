@@ -430,6 +430,45 @@
                 android:background="@color/bg" />
 
             <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/demoArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingTop="@dimen/common_padding"
+                    android:paddingBottom="@dimen/common_padding"
+                    android:paddingStart="@dimen/common_padding"
+                    android:paddingEnd="14dp"
+                    android:singleLine="true"
+                    android:text="পণ্যটি কোন অঞ্চল এর ?"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/expectedArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="8dp"
+                    android:hint="অঞ্চল এর নাম লিখুন"
+                    android:inputType="text"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/common_padding"
+                    android:paddingRight="@dimen/common_padding"
+                    android:paddingTop="@dimen/common_padding"
+                    android:textSize="@dimen/text_size_small"
+                    android:theme="@style/CusEditTextTheme" />
+
+        </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/codEnableLay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

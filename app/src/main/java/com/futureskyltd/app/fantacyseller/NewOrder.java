@@ -256,7 +256,7 @@ public class NewOrder extends AppCompatActivity implements View.OnClickListener 
                     case "Delivered":
                         ((ViewHolder) holder).orderStatus.setText(getString(R.string.delivered_status));
                         break;
-                    case "Cancelled":
+                    case "Canceled":
                         ((ViewHolder) holder).orderStatus.setText(getString(R.string.cancelled_status));
                         break;
                     case "Shipped":

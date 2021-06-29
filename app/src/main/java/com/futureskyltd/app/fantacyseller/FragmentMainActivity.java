@@ -167,6 +167,8 @@ public class FragmentMainActivity extends AppCompatActivity
         completeOrderAmountCard = findViewById(R.id.completeOrderAmountCard);
         incompleteOrderAmountCard = findViewById(R.id.incompleteOrderAmountCard);
 
+        Log.d(TAG, "onCreate: " + FragmentMainActivity.this.getPackageName());
+
         userLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -734,7 +736,7 @@ public class FragmentMainActivity extends AppCompatActivity
                 Log.d(TAG, "clickByUpdate: " + lVersion+"....."+cVersion);
                 if(lVersion > cVersion){
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=com.futureskyltd.app.fantacyseller")));
+                            Uri.parse("market://details?id="+FragmentMainActivity.this.getPackageName())));
                 }
                 else{
                     Toast.makeText(FragmentMainActivity.this, "আপনার অ্যাপটি আপডেট করা আছে!", Toast.LENGTH_LONG).show();
@@ -794,7 +796,7 @@ public class FragmentMainActivity extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 startActivity(new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=com.futureskyltd.app.fantacyseller")));
+                        Uri.parse("market://details?id="+FragmentMainActivity.this.getPackageName())));
             }
         });
 

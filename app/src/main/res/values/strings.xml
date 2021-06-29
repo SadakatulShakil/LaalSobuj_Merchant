@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Seller LaalSobuj</string>
     <string name="layout_direction">0</string>
     <string name="rta_dialog_title">Rate this app</string>
@@ -133,6 +133,7 @@
     <string name="send">পাঠান</string>
     <string name="select_product_date">ছাড় দেয়ার তারিখ বাছাই করুন</string>
     <string name="type_product_title">আপনার পণ্যের শিরোনাম লিখুন</string>
+    <string name="product_title_en" tools:ignore="MissingTranslation">আপনার পণ্যের শিরোনাম লিখুন(ইংরেজিতে)</string>
     <string name="save_btn_lbl">সেভ করুন</string>
     <string name="property">সাইজ</string>
     <string name="unit">পণ্যের মজুদ পরিমান</string>

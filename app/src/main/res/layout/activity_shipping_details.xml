@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShippingDetailsActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/actionbar_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/buttonLay">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/demoLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/orderId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Order ID: #00035"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="টিপস"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/background_card"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/orderDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/demoLay"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/black"
+                tools:text="Date: 27-03-2021" />
+
+
+            <TextView
+                android:id="@+id/paymentMethod"
+                android:layout_below="@+id/orderDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Payment status: Pending"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:layout_marginLeft="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <TextView
+                android:id="@+id/buyerName"
+                android:layout_below="@+id/paymentMethod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Buyer Name: Chan mia"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+
+            <TextView
+                android:id="@+id/buyerPhone"
+                android:layout_below="@+id/buyerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Buyer phone: 01751330394"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <TextView
+                android:id="@+id/grandTotal"
+                android:layout_below="@+id/buyerPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Grand Total: 0194"
+                android:textColor="@color/colorPrimary"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/bg"
+                android:layout_margin="8dp"
+                android:layout_below="@+id/buyerAddress"/>
+
+            <TextView
+                android:id="@+id/buyerAddress"
+                android:layout_below="@+id/grandTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Buyer Address: House: 439, avinue: 6, road: 6, dhaka"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <TextView
+                android:id="@+id/note"
+                android:layout_below="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="বিঃদ্রঃ সব গুলো ঘর পূরন করতে হবে(বাধ্যতামূলক)"
+                android:textColor="@color/red"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <TextView
+                android:id="@+id/dateLay"
+                android:layout_below="@+id/note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="শিপিং এর তারিখ দিন"
+                android:textColor="@color/black"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <TextView
+                android:id="@+id/dateField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="শিপিং এর তারিখ"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:letterSpacing=".1"
+                android:textColor="@color/black"
+                android:background="@drawable/edit_text_border"
+                android:layout_below="@+id/dateLay"
+                android:layout_margin="8dp"
+                android:padding="14dp"
+                android:drawableEnd="@drawable/calendar"/>
+
+            <TextView
+                android:id="@+id/methodLay"
+                android:layout_below="@+id/dateField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="শিপিং মেথড"
+                android:textColor="@color/black"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <Spinner
+                android:id="@+id/methodSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
+                android:padding="12dp"
+                android:layout_below="@+id/methodLay"
+                android:background="@drawable/edit_text_border"/>
+
+
+            <TextView
+                android:id="@+id/noteLay"
+                android:layout_below="@+id/methodSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="নোট"
+                android:textColor="@color/black"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            <EditText
+                android:id="@+id/write_notes"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
+                android:hint="নোট লিখুন"
+                android:padding="8dp"
+                android:gravity="top"
+                android:background="@drawable/edit_text_border"
+                android:layout_below="@+id/noteLay"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/buttonLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/sendBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="পাঠান"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/cancelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="বাতিল"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:gravity="center"
+            android:background="@color/red"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

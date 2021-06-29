@@ -31,8 +31,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +53,9 @@ import com.futureskyltd.app.utils.DefensiveClass;
 import com.futureskyltd.app.utils.GetSet;
 import com.futureskyltd.app.utils.Profile.Profile;
 import com.futureskyltd.app.utils.RetrofitClient;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.google.android.material.chip.ChipGroup;
 import com.squareup.picasso.Picasso;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -81,7 +86,7 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
 
     public final String TAG = this.getClass().getSimpleName();
     static final int ACTION_CATEGORY = 500, ACTION_POST_PRODUCT = 600;
-    TextView addBtn, resetBtn, processBtn, categorySelect, screenTitle;
+    TextView addBtn, resetBtn, processBtn, categorySelect, screenTitle, banglaVersion, englishVersion;
     ImageView backBtn, appName, categoryMark, addCategoryMark;
     RecyclerView prodImgList;
     String categoryId = "", subcategoryId = "", supercategoryId = "", selectedCategory = "", itemId = "", imageName = "", categoryName = "";
@@ -94,7 +99,15 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
     ArrayList<HashMap<String, Object>> colorList, sizeList, shipsToList = new ArrayList<>();
     Toolbar toolbar;
     private Profile profile;
-    private EditText productMaterial, productSizeDetail, productDesign, productPackaging, productColorDetail, productUseDetail, productOtherDetail;
+    private EditText productMaterial, productSizeDetail, productDesign, productPackaging, productColorDetail, productUseDetail, productOtherDetail, productTitleEn,
+            productMaterialEn, productSizeDetailEn, productDesignEn, productPackagingEn, productColorDetailEn, productUseDetailEn, productOtherDetailEn;
+    private LinearLayout banglaVersionLay, englishVersionLay;
+    private EditText productKeyWordTxt;
+    private TextView addKeyWord;
+    private ChipGroup chipGroup;
+    private ArrayList<String> tagList = new ArrayList<>();
+    private String tagItem;
+    String keywords = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +131,7 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
         addCategoryMark = (ImageView) findViewById(R.id.addCategoryMark);
         productVideoUrl = (EditText) findViewById(R.id.productVideoUrl);
         barcodeNo = (EditText) findViewById(R.id.barcodeNo);
+
         productMaterial = findViewById(R.id.productMaterial);
         productSizeDetail = findViewById(R.id.productSizeDetail);
         productDesign = findViewById(R.id.productDesign);
@@ -125,6 +139,69 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
         productColorDetail = findViewById(R.id.productColorDetail);
         productUseDetail = findViewById(R.id.productUseDetail);
         productOtherDetail = findViewById(R.id.productOtherDetail);
+
+        productTitleEn = findViewById(R.id.productTitleEn);
+        productMaterialEn = findViewById(R.id.productMaterialEn);
+        productSizeDetailEn = findViewById(R.id.productSizeDetailEn);
+        productDesignEn = findViewById(R.id.productDesignEn);
+        productPackagingEn = findViewById(R.id.productPackagingEn);
+        productColorDetailEn = findViewById(R.id.productColorDetailEn);
+        productUseDetailEn = findViewById(R.id.productUseDetailEn);
+        productOtherDetailEn = findViewById(R.id.productOtherDetailEn);
+
+        banglaVersion = findViewById(R.id.banglaVersion);
+        banglaVersionLay = findViewById(R.id.banglaVersionLay);
+        englishVersion = findViewById(R.id.englishVersion);
+        englishVersionLay = findViewById(R.id.englishVersionLay);
+
+        productKeyWordTxt = findViewById(R.id.productKeyWordTxt);
+        addKeyWord = findViewById(R.id.addKeyWord);
+
+        banglaVersion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                productTitle.setVisibility(View.VISIBLE);
+                productTitleEn.setVisibility(GONE);
+                banglaVersionLay.setVisibility(View.VISIBLE);
+                englishVersionLay.setVisibility(View.GONE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    banglaVersion.setBackground(getResources().getDrawable(R.drawable.background_card));
+                    banglaVersion.setTextColor(getResources().getColor(R.color.white));
+
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    englishVersion.setBackground(getResources().getDrawable(R.drawable.background_card_black));
+                    englishVersion.setTextColor(getResources().getColor(R.color.black));
+                }
+
+            }
+        });
+
+        englishVersion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                productTitle.setVisibility(GONE);
+                productTitleEn.setVisibility(View.VISIBLE);
+                banglaVersionLay.setVisibility(View.GONE);
+                englishVersionLay.setVisibility(View.VISIBLE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    banglaVersion.setBackground(getResources().getDrawable(R.drawable.background_card_black));
+                    banglaVersion.setTextColor(getResources().getColor(R.color.black));
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    englishVersion.setBackground(getResources().getDrawable(R.drawable.background_card));
+                    englishVersion.setTextColor(getResources().getColor(R.color.white));
+                }
+
+            }
+        });
+
+        addKeyWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         productTitle.setFilters(new InputFilter[]{FantacySellerApplication.EMOJI_FILTER});
         if (!AllProduct.isEditMode) {
@@ -158,6 +235,29 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
         categoryName = getString(R.string.select_category);
         categorySelect.setText(categoryName);
     }
+
+   /* private void setTag() {
+
+ *//*       final Chip chip = new Chip(CreateProduct.this);
+        ChipDrawable chipDrawable = ChipDrawable.createFromAttributes(CreateProduct.this, null, 0, R.style.Widget_MaterialComponents_Chip_Entry);
+        chip.setChipDrawable(chipDrawable);
+
+        chip.setCheckable(true);
+        chip.setClickable(true);
+
+        chip.setPadding(60,10,60,10);
+        chip.setText(productKeyWordTxt.getText().toString().trim());
+        chip.setOnCloseIconClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chipGroup.removeView(chip);
+            }
+        });
+        chipGroup.addView(chip);*//*
+
+        productKeyWordTxt.setText("");
+
+    }*/
 
     private void getUserProfile() {
 
@@ -268,14 +368,23 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
                         productDatas.put(Constants.TAG_ID, DefensiveClass.optString(temp, Constants.TAG_ID));
                         productDatas.put(Constants.TAG_ITEM_ID, DefensiveClass.optString(temp, Constants.TAG_ID));
                         productDatas.put(Constants.TAG_ITEM_TITLE, DefensiveClass.optString(temp, Constants.TAG_ITEM_TITLE));
+                        productDatas.put(Constants.TAG_ITEM_TITLE_EN, DefensiveClass.optString(temp, Constants.TAG_ITEM_TITLE_EN));
                         productDatas.put(Constants.TAG_ITEM_DESCRIPTION, DefensiveClass.optString(temp, Constants.TAG_ITEM_DESCRIPTION));
                         productDatas.put(Constants.TAG_DESCRIPTION, DefensiveClass.optString(temp, Constants.TAG_DESCRIPTION));
+                        productDatas.put(Constants.TAG_DESCRIPTION_EN, DefensiveClass.optString(temp, Constants.TAG_DESCRIPTION_EN));
                         productDatas.put(Constants.TAG_DSIZE, DefensiveClass.optString(temp, Constants.TAG_DSIZE));
+                        productDatas.put(Constants.TAG_DSIZE_EN, DefensiveClass.optString(temp, Constants.TAG_DSIZE_EN));
                         productDatas.put(Constants.TAG_DDESIGN, DefensiveClass.optString(temp, Constants.TAG_DDESIGN));
+                        productDatas.put(Constants.TAG_DDESIGN_EN, DefensiveClass.optString(temp, Constants.TAG_DDESIGN_EN));
                         productDatas.put(Constants.TAG_DPACKAGING, DefensiveClass.optString(temp, Constants.TAG_DPACKAGING));
+                        productDatas.put(Constants.TAG_DPACKAGING_EN, DefensiveClass.optString(temp, Constants.TAG_DPACKAGING_EN));
                         productDatas.put(Constants.TAG_DCOLOR, DefensiveClass.optString(temp, Constants.TAG_DCOLOR));
+                        productDatas.put(Constants.TAG_DCOLOR_EN, DefensiveClass.optString(temp, Constants.TAG_DCOLOR_EN));
                         productDatas.put(Constants.TAG_DUSES, DefensiveClass.optString(temp, Constants.TAG_DUSES));
+                        productDatas.put(Constants.TAG_DUSES_EN, DefensiveClass.optString(temp, Constants.TAG_DUSES_EN));
                         productDatas.put(Constants.TAG_DOTHERS, DefensiveClass.optString(temp, Constants.TAG_DOTHERS));
+                        productDatas.put(Constants.TAG_DOTHERS_EN, DefensiveClass.optString(temp, Constants.TAG_DOTHERS_EN));
+                        productDatas.put(Constants.TAG_KEYWORDS, DefensiveClass.optString(temp, Constants.TAG_KEYWORDS));
                         productDatas.put(Constants.TAG_CURRENCY, DefensiveClass.optString(temp, Constants.TAG_CURRENCY));
                         productDatas.put(Constants.TAG_MAIN_PRICE, DefensiveClass.optString(temp, Constants.TAG_MAIN_PRICE));
                         productDatas.put(Constants.TAG_ORIGINAL_PRICE, DefensiveClass.optString(temp, Constants.TAG_ORIGINAL_PRICE));
@@ -286,6 +395,7 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
                         productDatas.put(Constants.TAG_DEAL_DATE, DefensiveClass.optString(temp, Constants.TAG_DEAL_DATE));
                         productDatas.put(Constants.TAG_QUANTITY, DefensiveClass.optString(temp, Constants.TAG_QUANTITY));
                         productDatas.put(Constants.TAG_MIN_QUANTITY, DefensiveClass.optString(temp, Constants.TAG_MIN_QUANTITY));
+                        productDatas.put(Constants.TAG_AREA, DefensiveClass.optString(temp, Constants.TAG_AREA));
                         productDatas.put(Constants.TAG_UNIT_NAME, DefensiveClass.optString(temp, Constants.TAG_UNIT_NAME));
                         productDatas.put(Constants.TAG_COD, DefensiveClass.optString(temp, Constants.TAG_COD));
                         productDatas.put(Constants.TAG_SHIPPING_TIME, DefensiveClass.optString(temp, Constants.TAG_SHIPPING_TIME));
@@ -408,22 +518,52 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
             categorySelect.setText(productsList.get(Constants.TAG_SELECTED_CATEGORY));
         if (!productsList.get(Constants.TAG_ITEM_TITLE).equals(""))
             productTitle.setText(productsList.get(Constants.TAG_ITEM_TITLE));
+        if (!productsList.get(Constants.TAG_ITEM_TITLE_EN).equals(""))
+            productTitleEn.setText(productsList.get(Constants.TAG_ITEM_TITLE_EN));
         if (!productsList.get(Constants.TAG_ITEM_DESCRIPTION).equals(""))
             productDes.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_ITEM_DESCRIPTION)));
         if (!productsList.get(Constants.TAG_DESCRIPTION).equals(""))
             productMaterial.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DESCRIPTION)));
+        if (!productsList.get(Constants.TAG_DESCRIPTION_EN).equals(""))
+            productMaterialEn.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DESCRIPTION_EN)));
         if (!productsList.get(Constants.TAG_DSIZE).equals(""))
             productSizeDetail.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DSIZE)));
+
+        if (!productsList.get(Constants.TAG_DSIZE_EN).equals(""))
+            productSizeDetailEn.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DSIZE_EN)));
+
         if (!productsList.get(Constants.TAG_DDESIGN).equals(""))
             productDesign.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DDESIGN)));
+
+        if (!productsList.get(Constants.TAG_DDESIGN_EN).equals(""))
+            productDesignEn.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DDESIGN_EN)));
+
         if (!productsList.get(Constants.TAG_DPACKAGING).equals(""))
             productPackaging.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DPACKAGING)));
+        if (!productsList.get(Constants.TAG_DPACKAGING_EN).equals(""))
+            productPackagingEn.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DPACKAGING_EN)));
+
         if (!productsList.get(Constants.TAG_DUSES).equals(""))
             productUseDetail.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DUSES)));
+
+        if (!productsList.get(Constants.TAG_DUSES_EN).equals(""))
+            productUseDetailEn.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DUSES_EN)));
+
         if (!productsList.get(Constants.TAG_DCOLOR).equals(""))
             productColorDetail.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DCOLOR)));
+
+        if (!productsList.get(Constants.TAG_DCOLOR_EN).equals(""))
+            productColorDetailEn.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DCOLOR_EN)));
+
         if (!productsList.get(Constants.TAG_DOTHERS).equals(""))
             productOtherDetail.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DOTHERS)));
+
+        if (!productsList.get(Constants.TAG_DOTHERS_EN).equals(""))
+            productOtherDetailEn.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_DOTHERS_EN)));
+
+        if (!productsList.get(Constants.TAG_KEYWORDS).equals(""))
+            productKeyWordTxt.setText(FantacySellerApplication.stripHtml(productsList.get(Constants.TAG_KEYWORDS)));
+
         if (!productsList.get(Constants.TAG_BARCODE).equals(""))
             barcodeNo.setText(productsList.get(Constants.TAG_BARCODE));
         if (productsList.get(Constants.TAG_VIDEO_URL) != "")
@@ -999,14 +1139,23 @@ public class CreateProduct extends AppCompatActivity implements View.OnClickList
                     FantacySellerApplication.showToast(CreateProduct.this, getString(R.string.enter_valid_video_url), Toast.LENGTH_LONG);
                 } else {
                     productDatas.put(Constants.TAG_ITEM_TITLE, productTitle.getText().toString());
+                    productDatas.put(Constants.TAG_ITEM_TITLE_EN, productTitleEn.getText().toString());
                     productDatas.put(Constants.TAG_ITEM_DESCRIPTION, productDes.getText().toString());
                     productDatas.put(Constants.TAG_DESCRIPTION, productMaterial.getText().toString());
+                    productDatas.put(Constants.TAG_DESCRIPTION_EN, productMaterialEn.getText().toString());
                     productDatas.put(Constants.TAG_DSIZE, productSizeDetail.getText().toString());
+                    productDatas.put(Constants.TAG_DSIZE_EN, productSizeDetailEn.getText().toString());
                     productDatas.put(Constants.TAG_DDESIGN, productDesign.getText().toString());
+                    productDatas.put(Constants.TAG_DDESIGN_EN, productDesignEn.getText().toString());
                     productDatas.put(Constants.TAG_DPACKAGING, productPackaging.getText().toString());
+                    productDatas.put(Constants.TAG_DPACKAGING_EN, productPackagingEn.getText().toString());
                     productDatas.put(Constants.TAG_DCOLOR, productColorDetail.getText().toString());
+                    productDatas.put(Constants.TAG_DCOLOR_EN, productColorDetailEn.getText().toString());
+                    productDatas.put(Constants.TAG_DUSES_EN, productUseDetailEn.getText().toString());
                     productDatas.put(Constants.TAG_DUSES, productUseDetail.getText().toString());
                     productDatas.put(Constants.TAG_DOTHERS, productOtherDetail.getText().toString());
+                    productDatas.put(Constants.TAG_DOTHERS_EN, productOtherDetailEn.getText().toString());
+                    productDatas.put(Constants.TAG_KEYWORDS, productKeyWordTxt.getText().toString());
                     productDatas.put(Constants.TAG_VIDEO_URL, productVideoUrl.getText().toString());
                     productDatas.put(Constants.TAG_BARCODE, barcodeNo.getText().toString());
                     //checkValidBarCode(barcodeNo.getText().toString(), productDatas);

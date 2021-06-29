@@ -222,6 +222,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         updateProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "onClick: " + "clicked");
                 String uEmail = email.getText().toString().trim();
                 String uPhone1 = contact1.getText().toString().trim();
                 String uFullName = fullName.getText().toString().trim();
@@ -243,7 +244,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 }
 
                 if(bankText.equals("bank")){
-                    bankName = uBankNameOrMAccountNumber = gBankNameOrMAccountNumber.getText().toString().trim();
+                    bankName = gBankNameOrMAccountNumber.getText().toString().trim();
                 }
                 else if (bankText.equals("mobilebank")){
                     bankName = mBankName;
@@ -285,11 +286,11 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     return;
                 }
 
-                if (uBankNameOrMAccountNumber.isEmpty()) {
+                /*if (uBankNameOrMAccountNumber.isEmpty()) {
                     gBankNameOrMAccountNumber.setError("এই তথ্যটি দিতে হবে");
                     gBankNameOrMAccountNumber.requestFocus();
                     return;
-                }
+                }*/
 
                 if (uAccountNumberOrUserPhone.isEmpty()) {
                     gAccountNumberOrUserPhone.setError("এই তথ্যটি দিতে হবে");
@@ -305,7 +306,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     if (uPassword.equals(uConPassword)) {
                         UpdateUserData(uShopName, uFullName, uPhone1, uPhone2, uEmail, uAddress, uPassword,
                                 uUserNid, latitude, longitude, district_id, upazila_id, uZip, bankText, uAccountUserName,
-                                uBankNameOrMAccountNumber, uAccountNumberOrUserPhone);
+                                bankName, uAccountNumberOrUserPhone);
                     }else {
                         Toast.makeText(EditProfileActivity.this, "পাসওয়ার্ড মিলে নাই !", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
@@ -317,7 +318,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                     }
                 }else{
                     UpdateUserData(uShopName, uFullName, uPhone1, uPhone2, uEmail, uAddress, uPassword, uUserNid,
-                            latitude, longitude, district_id, upazila_id, uZip, bankText, uAccountUserName, uBankNameOrMAccountNumber, uAccountNumberOrUserPhone);
+                            latitude, longitude, district_id, upazila_id, uZip, bankText, uAccountUserName, bankName, uAccountNumberOrUserPhone);
                 }
             }
         });
