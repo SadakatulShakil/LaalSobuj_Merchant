@@ -259,7 +259,6 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
         mUnitList.add(new Unit("একক বাছাই করুন"));
         mUnitList.add(new Unit("টি / পিছ"));
         mUnitList.add(new Unit("কেজি"));
-        mUnitList.add(new Unit("গ্রাম"));
         mUnitList.add(new Unit("লিটার"));
         mUnitList.add(new Unit("মি.লি"));
         mUnitList.add(new Unit("ইঞ্চি"));
@@ -917,8 +916,8 @@ public class PostProduct extends AppCompatActivity implements View.OnClickListen
                     FantacySellerApplication.showToast(PostProduct.this, getString(R.string.reqd_fbdiscount_percentage), Toast.LENGTH_LONG);
                 else if (TextUtils.isEmpty(productDatas.get(Constants.TAG_SHIPPING_TIME)))
                     FantacySellerApplication.showToast(PostProduct.this, getString(R.string.reqd_shipping_time), Toast.LENGTH_LONG);
-                else if (isShipsToAmount)
-                    FantacySellerApplication.showToast(PostProduct.this, getString(R.string.reqd_ships_to), Toast.LENGTH_LONG);
+               /* else if (isShipsToAmount)
+                    FantacySellerApplication.showToast(PostProduct.this, getString(R.string.reqd_ships_to), Toast.LENGTH_LONG);*/
                 else if (minOrderQuantity.getText().toString().equals("")){
                     FantacySellerApplication.showToast(PostProduct.this, "ন্যূনতম অর্ডার পরিমান দিতে হবে", Toast.LENGTH_LONG);
                 }else if (expectedArea.getText().toString().equals("")){

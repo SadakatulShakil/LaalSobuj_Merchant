@@ -7,8 +7,8 @@ android {
         applicationId "com.futureskyltd.app.fantacyseller"
         minSdkVersion 17
         targetSdkVersion 29
-        versionCode 14
-        versionName "2.4"
+        versionCode 18
+        versionName "2.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

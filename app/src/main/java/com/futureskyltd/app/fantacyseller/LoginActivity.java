@@ -267,11 +267,11 @@ public class LoginActivity extends AppCompatActivity implements NetworkReceiver.
             public void onClick(View view) {
                 FantacySellerApplication.hideSoftKeyboard(LoginActivity.this, reset);
                 if (email.getText().toString().trim().length() == 0) {
-//                    FantacySellerApplication.showToast(LoginActivity.this, getString(R.string.please_type_mail), Toast.LENGTH_SHORT);
+                    //FantacySellerApplication.showToast(LoginActivity.this, getString(R.string.please_type_mail), Toast.LENGTH_SHORT);
                     email.setError(getString(R.string.please_type_mail));
                     email.requestFocus();
-                } /*else if (!email.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
-//                    FantacySellerApplication.showToast(LoginActivity.this, getString(R.string.email_error), Toast.LENGTH_SHORT);
+                }/*else if (!email.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
+                    FantacySellerApplication.showToast(LoginActivity.this, getString(R.string.email_error), Toast.LENGTH_SHORT);
                     email.setError(getString(R.string.email_error));
                     email.requestFocus();
                 }*/ else {
@@ -303,7 +303,7 @@ public class LoginActivity extends AppCompatActivity implements NetworkReceiver.
                     if (DefensiveClass.optString(json, Constants.TAG_STATUS).equalsIgnoreCase("true")) {
                         FantacySellerApplication.showStatusDialog(LoginActivity.this, true, getString(R.string.reset_success_message), LoginActivity.class);
                     } else if (DefensiveClass.optString(json, Constants.TAG_STATUS).equalsIgnoreCase("false")) {
-                        if (DefensiveClass.optString(json, Constants.TAG_MESSAGE).equals("User not found")) {
+                        if (DefensiveClass.optString(json, Constants.TAG_MESSAGE).equals("কোন ব্যবহারকারি নাই")) {
                             FantacySellerApplication.showToast(LoginActivity.this, getString(R.string.user_not_found), Toast.LENGTH_LONG);
                         } else if (DefensiveClass.optString(json, Constants.TAG_MESSAGE).equals("Enter the correct user Email id"))
                             FantacySellerApplication.showToast(LoginActivity.this, getString(R.string.merchant_not_valid), Toast.LENGTH_LONG);
@@ -438,8 +438,8 @@ public class LoginActivity extends AppCompatActivity implements NetworkReceiver.
 
                 break;
             case R.id.forgetpassword:
-                //forgotDialog();
-                popUpDialog();
+                forgotDialog();
+                //popUpDialog();
                 break;
         }
     }

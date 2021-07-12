@@ -122,7 +122,7 @@ public class ShippingDetailsActivity extends AppCompatActivity implements View.O
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ShippingDetailsActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ShippingDetailsActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
                 String uNotes = write_notes.getText().toString().trim();
                 if(uNotes.isEmpty()){
                     write_notes.setError("মতামত জানাতে হবে ");
@@ -155,7 +155,7 @@ public class ShippingDetailsActivity extends AppCompatActivity implements View.O
                 if(response.code() == 200){
                     OrderPlace orderPlace = response.body();
                     if(orderPlace.getStatus().equals("true")){
-                        Toast.makeText(ShippingDetailsActivity.this, orderPlace.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShippingDetailsActivity.this,"অর্ডারটি সফল ভাবে পাঠানো হয়েছে", Toast.LENGTH_SHORT).show();
                         callStatusChange(status);
                     }
                 }
@@ -163,7 +163,7 @@ public class ShippingDetailsActivity extends AppCompatActivity implements View.O
 
             @Override
             public void onFailure(Call<OrderPlace> call, Throwable t) {
-
+                Toast.makeText(ShippingDetailsActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

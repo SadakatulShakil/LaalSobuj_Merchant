@@ -664,6 +664,7 @@
                 <RelativeLayout
                     android:id="@+id/shipsToLay"
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_height="wrap_content">
 
                     <com.futureskyltd.app.external.CustomTextView
